@@ -1,0 +1,241 @@
+2026-10-31 10:33:14,785 [INFO] [PIPELINE] Started: reorder 200 ms, resample 1.00 s, periodic sync 1.00 s, stale 3.0 s, storage on
+2026-10-31 10:33:14,788 [INFO] [MQTT] Connected to localhost:1883 as DigitalTwin_Pipeline_187da8 (session present: False)
+2026-10-31 10:33:14,833 [INFO] [STORE] New digital twin instance: printer_01
+2026-10-31 10:33:14,834 [WARNING] [TWIN printer_01 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:33:14,835 [INFO] [STORE] New digital twin instance: printer_02
+2026-10-31 10:33:14,837 [WARNING] [TWIN printer_02 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:33:15,835 [INFO] [METRICS] in    1 msg/s | processed    0 msg/s | e2e mean    0.0 ms  p95    0.0  max     0.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 0/2/2
+2026-10-31 10:33:15,992 [INFO] [TWIN printer_02 v3 EVENT] connectivity: OFFLINE -> ONLINE (status topic: ONLINE)
+2026-10-31 10:33:16,003 [INFO] [STORE] New digital twin instance: printer_03
+2026-10-31 10:33:16,003 [INFO] [TWIN printer_03 v1 EVENT] connectivity: UNKNOWN -> ONLINE (telemetry received)
+2026-10-31 10:33:16,013 [INFO] [STORE] New digital twin instance: printer_04
+2026-10-31 10:33:16,014 [INFO] [TWIN printer_04 v1 EVENT] connectivity: UNKNOWN -> ONLINE (status topic: ONLINE)
+2026-10-31 10:33:16,035 [INFO] [TWIN printer_01 v3 EVENT] connectivity: OFFLINE -> ONLINE (status topic: ONLINE)
+2026-10-31 10:33:16,193 [INFO] [TWIN printer_02 v6 EVENT] operating_mode: UNKNOWN -> PRINTING (feed rate 52.8 mm/s)
+2026-10-31 10:33:16,195 [INFO] [TWIN printer_02 v7 EVENT] motor_load: UNKNOWN -> NORMAL (X current RMS 1.187 A)
+2026-10-31 10:33:16,203 [INFO] [TWIN printer_03 v3 EVENT] operating_mode: UNKNOWN -> PRINTING (feed rate 50.1 mm/s)
+2026-10-31 10:33:16,206 [INFO] [TWIN printer_03 v4 EVENT] motor_load: UNKNOWN -> NORMAL (X current RMS 1.225 A)
+2026-10-31 10:33:16,214 [INFO] [TWIN printer_04 v3 EVENT] operating_mode: UNKNOWN -> PRINTING (feed rate 50.0 mm/s)
+2026-10-31 10:33:16,215 [INFO] [TWIN printer_04 v4 EVENT] motor_load: UNKNOWN -> NORMAL (X current RMS 1.209 A)
+2026-10-31 10:33:16,236 [INFO] [TWIN printer_01 v6 EVENT] operating_mode: UNKNOWN -> PRINTING (feed rate 51.5 mm/s)
+2026-10-31 10:33:16,236 [INFO] [TWIN printer_01 v7 EVENT] motor_load: UNKNOWN -> NORMAL (X current RMS 1.229 A)
+2026-10-31 10:33:16,868 [INFO] [METRICS] in   73 msg/s | processed   54 msg/s | e2e mean  202.1 ms  p95  203.6  max   203.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 2/12/6
+2026-10-31 10:33:17,094 [INFO] [TWIN printer_02 v10 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.6 C (setpoint 210))
+2026-10-31 10:33:17,104 [INFO] [TWIN printer_03 v9 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.2 C (setpoint 210))
+2026-10-31 10:33:17,115 [INFO] [TWIN printer_04 v6 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.4 C (setpoint 210))
+2026-10-31 10:33:17,137 [INFO] [TWIN printer_01 v10 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.9 C (setpoint 210))
+2026-10-31 10:33:17,869 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  202.4 ms  p95  204.8  max   205.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/18
+2026-10-31 10:33:18,890 [INFO] [METRICS] in   94 msg/s | processed   94 msg/s | e2e mean  205.6 ms  p95  231.5  max   250.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/10
+2026-10-31 10:33:19,937 [INFO] [METRICS] in  108 msg/s | processed   99 msg/s | e2e mean  205.5 ms  p95  224.0  max   249.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/14
+2026-10-31 10:33:20,939 [INFO] [METRICS] in   96 msg/s | processed   95 msg/s | e2e mean  203.9 ms  p95  213.5  max   228.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/7
+2026-10-31 10:33:21,304 [INFO] [TWIN printer_03 v32 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 92.3 mm/s)
+2026-10-31 10:33:21,314 [INFO] [TWIN printer_04 v22 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 91.3 mm/s)
+2026-10-31 10:33:21,363 [INFO] [TWIN printer_01 v28 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 91.6 mm/s)
+2026-10-31 10:33:21,393 [INFO] [TWIN printer_02 v28 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 105.5 mm/s)
+2026-10-31 10:33:21,971 [INFO] [METRICS] in   97 msg/s | processed   92 msg/s | e2e mean  207.4 ms  p95  240.6  max   250.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/15
+2026-10-31 10:33:23,026 [INFO] [METRICS] in   93 msg/s | processed   96 msg/s | e2e mean  204.7 ms  p95  216.0  max   249.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/13
+2026-10-31 10:33:24,059 [INFO] [METRICS] in   92 msg/s | processed   94 msg/s | e2e mean  210.2 ms  p95  249.1  max   260.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/13
+2026-10-31 10:33:25,063 [INFO] [METRICS] in   99 msg/s | processed   95 msg/s | e2e mean  204.1 ms  p95  219.5  max   250.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/11
+2026-10-31 10:33:26,114 [INFO] [METRICS] in   95 msg/s | processed  101 msg/s | e2e mean  206.7 ms  p95  231.9  max   245.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/13
+2026-10-31 10:33:26,194 [INFO] [TWIN printer_02 v43 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 71.8 mm/s)
+2026-10-31 10:33:26,205 [INFO] [TWIN printer_03 v48 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 80.9 mm/s)
+2026-10-31 10:33:26,214 [INFO] [TWIN printer_04 v47 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 71.7 mm/s)
+2026-10-31 10:33:26,237 [INFO] [TWIN printer_01 v53 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 71.9 mm/s)
+2026-10-31 10:33:26,493 [INFO] [TWIN printer_02 v46 EVENT] operating_mode: PRINTING -> IDLE (feed rate -0.0 mm/s)
+2026-10-31 10:33:26,604 [INFO] [TWIN printer_03 v52 EVENT] operating_mode: PRINTING -> IDLE (feed rate -0.0 mm/s)
+2026-10-31 10:33:26,614 [INFO] [TWIN printer_04 v50 EVENT] operating_mode: PRINTING -> IDLE (feed rate -0.0 mm/s)
+2026-10-31 10:33:26,646 [INFO] [TWIN printer_01 v55 EVENT] operating_mode: PRINTING -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:33:27,152 [INFO] [METRICS] in   95 msg/s | processed   99 msg/s | e2e mean  206.4 ms  p95  230.9  max   282.2 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/8/13
+2026-10-31 10:33:28,152 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  205.3 ms  p95  229.8  max   249.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/9
+2026-10-31 10:33:29,205 [INFO] [METRICS] in   95 msg/s | processed   99 msg/s | e2e mean  205.8 ms  p95  229.5  max   248.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/15
+2026-10-31 10:33:30,247 [INFO] [METRICS] in   97 msg/s | processed   96 msg/s | e2e mean  202.4 ms  p95  204.1  max   205.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/5
+2026-10-31 10:33:31,093 [INFO] [TWIN printer_02 v58 EVENT] operating_mode: IDLE -> PRINTING (feed rate 11.9 mm/s)
+2026-10-31 10:33:31,103 [INFO] [TWIN printer_03 v68 EVENT] operating_mode: IDLE -> PRINTING (feed rate 10.1 mm/s)
+2026-10-31 10:33:31,117 [INFO] [TWIN printer_04 v67 EVENT] operating_mode: IDLE -> PRINTING (feed rate 12.2 mm/s)
+2026-10-31 10:33:31,136 [INFO] [TWIN printer_01 v68 EVENT] operating_mode: IDLE -> PRINTING (feed rate 12.0 mm/s)
+2026-10-31 10:33:31,249 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  202.2 ms  p95  203.8  max   205.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/8
+2026-10-31 10:33:32,305 [INFO] [METRICS] in   93 msg/s | processed   93 msg/s | e2e mean  205.4 ms  p95  240.5  max   260.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/12
+2026-10-31 10:33:33,357 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  202.5 ms  p95  204.3  max   206.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/8
+2026-10-31 10:33:34,404 [INFO] [METRICS] in   92 msg/s | processed   92 msg/s | e2e mean  206.9 ms  p95  230.4  max   251.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/14
+2026-10-31 10:33:35,448 [INFO] [METRICS] in   93 msg/s | processed   98 msg/s | e2e mean  213.4 ms  p95  251.1  max   259.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/15
+2026-10-31 10:33:36,491 [INFO] [METRICS] in   96 msg/s | processed   92 msg/s | e2e mean  206.7 ms  p95  250.7  max   251.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/20
+2026-10-31 10:33:37,536 [INFO] [METRICS] in   98 msg/s | processed   98 msg/s | e2e mean  208.2 ms  p95  230.9  max   251.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/16
+2026-10-31 10:33:38,579 [INFO] [METRICS] in   93 msg/s | processed   93 msg/s | e2e mean  203.1 ms  p95  206.8  max   239.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/8
+2026-10-31 10:33:39,636 [INFO] [METRICS] in   94 msg/s | processed   97 msg/s | e2e mean  203.0 ms  p95  212.0  max   226.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/10
+2026-10-31 10:33:40,636 [INFO] [METRICS] in   98 msg/s | processed   95 msg/s | e2e mean  205.7 ms  p95  224.8  max   241.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/8
+2026-10-31 10:33:41,293 [INFO] [TWIN printer_02 v106 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 92.0 mm/s)
+2026-10-31 10:33:41,303 [INFO] [TWIN printer_03 v114 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 91.7 mm/s)
+2026-10-31 10:33:41,417 [INFO] [TWIN printer_04 v97 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 96.8 mm/s)
+2026-10-31 10:33:41,436 [INFO] [TWIN printer_01 v112 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 96.9 mm/s)
+2026-10-31 10:33:41,637 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  203.5 ms  p95  212.2  max   213.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/11
+2026-10-31 10:33:42,692 [INFO] [METRICS] in   91 msg/s | processed   91 msg/s | e2e mean  203.5 ms  p95  213.0  max   216.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/10
+2026-10-31 10:33:43,736 [INFO] [METRICS] in   99 msg/s | processed   99 msg/s | e2e mean  204.3 ms  p95  211.6  max   229.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/17
+2026-10-31 10:33:44,796 [INFO] [METRICS] in   91 msg/s | processed   91 msg/s | e2e mean  203.2 ms  p95  212.4  max   216.2 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 7/0/16
+2026-10-31 10:33:45,848 [INFO] [METRICS] in   97 msg/s | processed   97 msg/s | e2e mean  206.5 ms  p95  240.7  max   251.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/16
+2026-10-31 10:33:46,196 [INFO] [TWIN printer_02 v130 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 79.7 mm/s)
+2026-10-31 10:33:46,206 [INFO] [TWIN printer_03 v139 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 80.4 mm/s)
+2026-10-31 10:33:46,214 [INFO] [TWIN printer_04 v119 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 80.0 mm/s)
+2026-10-31 10:33:46,240 [INFO] [TWIN printer_01 v134 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 72.1 mm/s)
+2026-10-31 10:33:46,874 [INFO] [METRICS] in 2013 msg/s | processed 1569 msg/s | e2e mean  206.4 ms  p95  211.0  max   219.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/208
+2026-10-31 10:33:47,642 [WARNING] [TWIN printer_03 v263 EVENT] nozzle_temperature: raw 211.93 rejected (window median 209.45), last accepted 210.99 kept
+2026-10-31 10:33:47,883 [INFO] [METRICS] in 2408 msg/s | processed 2405 msg/s | e2e mean  205.7 ms  p95  210.2  max   216.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 1 | commits P/E/T 4/1/326
+2026-10-31 10:33:48,893 [INFO] [METRICS] in 2398 msg/s | processed 2398 msg/s | e2e mean  205.4 ms  p95  209.6  max   214.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/283
+2026-10-31 10:33:49,899 [INFO] [METRICS] in 2409 msg/s | processed 2407 msg/s | e2e mean  205.3 ms  p95  209.3  max   216.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/279
+2026-10-31 10:33:50,923 [INFO] [METRICS] in 2378 msg/s | processed 2394 msg/s | e2e mean  205.7 ms  p95  210.3  max   228.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/288
+2026-10-31 10:33:51,585 [WARNING] [TWIN printer_04 v485 EVENT] stepper_current_x: raw 1.277 rejected (window median 1.194), last accepted 1.194 kept
+2026-10-31 10:33:51,818 [WARNING] [TWIN printer_01 v546 EVENT] stepper_current_x: raw 1.28 rejected (window median 1.197), last accepted 1.184 kept
+2026-10-31 10:33:51,932 [INFO] [METRICS] in 2416 msg/s | processed 2402 msg/s | e2e mean  206.0 ms  p95  210.4  max   216.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 2 | commits P/E/T 4/2/261
+2026-10-31 10:33:52,940 [INFO] [METRICS] in 2400 msg/s | processed 2400 msg/s | e2e mean  205.8 ms  p95  210.1  max   215.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/278
+2026-10-31 10:33:53,948 [INFO] [METRICS] in 2395 msg/s | processed 2395 msg/s | e2e mean  205.5 ms  p95  209.4  max   215.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/280
+2026-10-31 10:33:54,955 [INFO] [METRICS] in 2404 msg/s | processed 2408 msg/s | e2e mean  205.7 ms  p95  209.6  max   216.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/297
+2026-10-31 10:33:55,962 [INFO] [METRICS] in 2391 msg/s | processed 2398 msg/s | e2e mean  206.0 ms  p95  210.6  max   216.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/293
+2026-10-31 10:33:56,970 [INFO] [METRICS] in 2399 msg/s | processed 2391 msg/s | e2e mean  206.3 ms  p95  210.8  max   215.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/277
+2026-10-31 10:33:57,977 [INFO] [METRICS] in 2406 msg/s | processed 2408 msg/s | e2e mean  206.0 ms  p95  210.2  max   217.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/299
+2026-10-31 10:33:58,987 [INFO] [METRICS] in 2393 msg/s | processed 2393 msg/s | e2e mean  205.5 ms  p95  209.7  max   214.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/283
+2026-10-31 10:33:59,677 [WARNING] [TWIN printer_01 v1101 EVENT] chamber_temperature: raw 37.98 rejected (window median 40.52), last accepted 40.68 kept
+2026-10-31 10:34:00,014 [INFO] [METRICS] in 2407 msg/s | processed 2400 msg/s | e2e mean  206.8 ms  p95  218.3  max   234.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 1 | commits P/E/T 4/1/277
+2026-10-31 10:34:01,024 [INFO] [METRICS] in 2400 msg/s | processed 2400 msg/s | e2e mean  206.1 ms  p95  210.8  max   215.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/302
+2026-10-31 10:34:02,033 [INFO] [METRICS] in 2391 msg/s | processed 2396 msg/s | e2e mean  205.4 ms  p95  208.9  max   214.2 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/278
+2026-10-31 10:34:03,041 [INFO] [METRICS] in 2388 msg/s | processed 2399 msg/s | e2e mean  208.1 ms  p95  215.9  max   219.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/297
+2026-10-31 10:34:04,047 [INFO] [METRICS] in 2421 msg/s | processed 2407 msg/s | e2e mean  206.1 ms  p95  211.2  max   217.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/289
+2026-10-31 10:34:05,056 [INFO] [METRICS] in 2395 msg/s | processed 2400 msg/s | e2e mean  206.0 ms  p95  210.6  max   218.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/301
+2026-10-31 10:34:06,063 [INFO] [METRICS] in 2308 msg/s | processed 2396 msg/s | e2e mean  205.4 ms  p95  209.5  max   214.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/300
+2026-10-31 10:34:06,393 [INFO] [TWIN printer_02 v1660 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 92.5 mm/s)
+2026-10-31 10:34:06,404 [INFO] [TWIN printer_03 v1604 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 92.8 mm/s)
+2026-10-31 10:34:06,414 [INFO] [TWIN printer_04 v1501 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 93.0 mm/s)
+2026-10-31 10:34:06,436 [INFO] [TWIN printer_01 v1573 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 92.3 mm/s)
+2026-10-31 10:34:06,693 [INFO] [TWIN printer_02 v1661 EVENT] operating_mode: HIGH_SPEED -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:34:06,703 [INFO] [TWIN printer_03 v1605 EVENT] operating_mode: HIGH_SPEED -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:34:06,716 [INFO] [TWIN printer_04 v1503 EVENT] operating_mode: HIGH_SPEED -> IDLE (feed rate -0.0 mm/s)
+2026-10-31 10:34:06,736 [INFO] [TWIN printer_01 v1574 EVENT] operating_mode: HIGH_SPEED -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:34:07,106 [INFO] [METRICS] in   94 msg/s | processed  432 msg/s | e2e mean  211.7 ms  p95  256.7  max   261.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/8/43
+2026-10-31 10:34:08,151 [INFO] [METRICS] in   96 msg/s | processed  107 msg/s | e2e mean  207.6 ms  p95  240.3  max   259.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/13
+2026-10-31 10:34:09,205 [INFO] [METRICS] in   94 msg/s | processed   94 msg/s | e2e mean  204.4 ms  p95  216.0  max   228.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/9
+2026-10-31 10:34:10,248 [INFO] [METRICS] in   96 msg/s | processed   96 msg/s | e2e mean  203.1 ms  p95  206.1  max   230.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/11
+2026-10-31 10:34:11,093 [INFO] [TWIN printer_02 v1679 EVENT] operating_mode: IDLE -> PRINTING (feed rate 12.0 mm/s)
+2026-10-31 10:34:11,103 [INFO] [TWIN printer_03 v1620 EVENT] operating_mode: IDLE -> PRINTING (feed rate 12.4 mm/s)
+2026-10-31 10:34:11,143 [INFO] [TWIN printer_04 v1515 EVENT] operating_mode: IDLE -> PRINTING (feed rate 9.7 mm/s)
+2026-10-31 10:34:11,144 [INFO] [TWIN printer_01 v1586 EVENT] operating_mode: IDLE -> PRINTING (feed rate 11.5 mm/s)
+2026-10-31 10:34:11,248 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  208.5 ms  p95  242.3  max   252.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/5
+2026-10-31 10:34:12,307 [INFO] [METRICS] in   93 msg/s | processed   94 msg/s | e2e mean  205.3 ms  p95  231.2  max   250.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/12
+2026-10-31 10:34:13,360 [INFO] [METRICS] in   95 msg/s | processed   94 msg/s | e2e mean  203.8 ms  p95  213.5  max   258.2 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/11
+2026-10-31 10:34:14,415 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  203.4 ms  p95  213.0  max   229.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/14
+2026-10-31 10:34:15,415 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  205.2 ms  p95  229.4  max   248.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/20
+2026-10-31 10:34:16,415 [INFO] [METRICS] in   95 msg/s | processed   94 msg/s | e2e mean  204.2 ms  p95  210.2  max   249.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/14
+2026-10-31 10:34:17,416 [INFO] [METRICS] in   93 msg/s | processed   94 msg/s | e2e mean  207.3 ms  p95  249.0  max   249.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/9
+2026-10-31 10:34:18,461 [INFO] [METRICS] in   96 msg/s | processed   96 msg/s | e2e mean  204.3 ms  p95  219.1  max   249.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/13
+2026-10-31 10:34:19,509 [INFO] [METRICS] in   94 msg/s | processed   94 msg/s | e2e mean  211.1 ms  p95  241.0  max   251.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/17
+2026-10-31 10:34:20,555 [INFO] [METRICS] in   96 msg/s | processed   96 msg/s | e2e mean  204.2 ms  p95  217.4  max   240.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/9
+2026-10-31 10:34:21,317 [INFO] [TWIN printer_04 v1562 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 91.2 mm/s)
+2026-10-31 10:34:21,393 [INFO] [TWIN printer_02 v1725 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 97.4 mm/s)
+2026-10-31 10:34:21,403 [INFO] [TWIN printer_03 v1668 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 97.5 mm/s)
+2026-10-31 10:34:21,453 [INFO] [TWIN printer_01 v1622 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 106.5 mm/s)
+2026-10-31 10:34:21,596 [INFO] [METRICS] in   92 msg/s | processed   93 msg/s | e2e mean  211.4 ms  p95  251.6  max   258.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/13
+2026-10-31 10:34:22,637 [INFO] [METRICS] in   99 msg/s | processed   98 msg/s | e2e mean  206.7 ms  p95  232.0  max   251.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/8
+2026-10-31 10:34:23,638 [INFO] [METRICS] in   94 msg/s | processed   95 msg/s | e2e mean  205.2 ms  p95  216.2  max   241.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/17
+2026-10-31 10:34:24,658 [INFO] [METRICS] in   95 msg/s | processed   94 msg/s | e2e mean  203.7 ms  p95  210.9  max   242.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/7
+2026-10-31 10:34:25,669 [INFO] [METRICS] in   94 msg/s | processed   94 msg/s | e2e mean  202.7 ms  p95  205.9  max   211.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/12
+2026-10-31 10:34:26,193 [INFO] [TWIN printer_02 v1745 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 80.3 mm/s)
+2026-10-31 10:34:26,203 [INFO] [TWIN printer_03 v1688 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 80.3 mm/s)
+2026-10-31 10:34:26,214 [INFO] [TWIN printer_04 v1583 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 71.4 mm/s)
+2026-10-31 10:34:26,236 [INFO] [TWIN printer_01 v1640 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 80.3 mm/s)
+2026-10-31 10:34:26,495 [INFO] [TWIN printer_02 v1746 EVENT] operating_mode: PRINTING -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:34:26,504 [INFO] [TWIN printer_03 v1690 EVENT] operating_mode: PRINTING -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:34:26,514 [INFO] [TWIN printer_04 v1584 EVENT] operating_mode: PRINTING -> IDLE (feed rate -0.0 mm/s)
+2026-10-31 10:34:26,536 [INFO] [TWIN printer_01 v1641 EVENT] operating_mode: PRINTING -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:34:26,670 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  203.7 ms  p95  212.7  max   250.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/8/11
+2026-10-31 10:34:27,726 [INFO] [METRICS] in   96 msg/s | processed   96 msg/s | e2e mean  203.2 ms  p95  212.7  max   216.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/11
+2026-10-31 10:34:28,768 [INFO] [METRICS] in   94 msg/s | processed   94 msg/s | e2e mean  202.9 ms  p95  212.7  max   213.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/12
+2026-10-31 10:34:29,816 [INFO] [METRICS] in   95 msg/s | processed   96 msg/s | e2e mean  202.8 ms  p95  205.0  max   215.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/9
+2026-10-31 10:34:30,827 [INFO] [METRICS] in   96 msg/s | processed   95 msg/s | e2e mean  208.2 ms  p95  249.1  max   250.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/13
+2026-10-31 10:34:31,094 [INFO] [TWIN printer_02 v1765 EVENT] operating_mode: IDLE -> PRINTING (feed rate 9.9 mm/s)
+2026-10-31 10:34:31,103 [INFO] [TWIN printer_03 v1706 EVENT] operating_mode: IDLE -> PRINTING (feed rate 12.0 mm/s)
+2026-10-31 10:34:31,117 [INFO] [TWIN printer_04 v1604 EVENT] operating_mode: IDLE -> PRINTING (feed rate 11.9 mm/s)
+2026-10-31 10:34:31,136 [INFO] [TWIN printer_01 v1658 EVENT] operating_mode: IDLE -> PRINTING (feed rate 11.8 mm/s)
+2026-10-31 10:34:31,875 [INFO] [METRICS] in   93 msg/s | processed   93 msg/s | e2e mean  202.7 ms  p95  204.0  max   239.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/8
+2026-10-31 10:34:32,928 [INFO] [METRICS] in  108 msg/s | processed   96 msg/s | e2e mean  205.0 ms  p95  228.9  max   250.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/10
+2026-10-31 10:34:33,971 [INFO] [METRICS] in   93 msg/s | processed   93 msg/s | e2e mean  206.9 ms  p95  258.9  max   260.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/12
+2026-10-31 10:34:35,016 [INFO] [METRICS] in   97 msg/s | processed   95 msg/s | e2e mean  205.4 ms  p95  239.7  max   242.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/13
+2026-10-31 10:34:36,061 [INFO] [METRICS] in  332 msg/s | processed   95 msg/s | e2e mean  203.2 ms  p95  204.5  max   249.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/4
+2026-10-31 10:34:37,073 [INFO] [METRICS] in 3276 msg/s | processed 2501 msg/s | e2e mean  424.9 ms  p95  603.6  max   670.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/313
+2026-10-31 10:34:38,081 [INFO] [METRICS] in 3102 msg/s | processed 3201 msg/s | e2e mean  827.9 ms  p95  990.0  max  1445.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/324
+2026-10-31 10:34:39,089 [INFO] [METRICS] in 3368 msg/s | processed 3369 msg/s | e2e mean 1180.2 ms  p95 1306.7  max  2378.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/282
+2026-10-31 10:34:40,096 [INFO] [METRICS] in 3176 msg/s | processed 3192 msg/s | e2e mean 1527.5 ms  p95 1662.6  max  3330.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/262
+2026-10-31 10:34:41,104 [INFO] [METRICS] in 3017 msg/s | processed 3013 msg/s | e2e mean 1895.2 ms  p95 2046.4  max  4248.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/301
+2026-10-31 10:34:42,120 [INFO] [METRICS] in 2978 msg/s | processed 2994 msg/s | e2e mean 2265.5 ms  p95 2432.2  max  5249.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/202
+2026-10-31 10:34:42,336 [WARNING] [TWIN printer_01 v2082 EVENT] stepper_current_x: raw 1.274 rejected (window median 1.192), last accepted 1.195 kept
+2026-10-31 10:34:43,129 [INFO] [METRICS] in 2932 msg/s | processed 2919 msg/s | e2e mean 2699.7 ms  p95 2835.2  max  6224.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 1 | commits P/E/T 4/1/242
+2026-10-31 10:34:44,136 [INFO] [METRICS] in 3154 msg/s | processed 3150 msg/s | e2e mean 3058.7 ms  p95 3181.1  max  7100.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/255
+2026-10-31 10:34:45,145 [INFO] [METRICS] in 3272 msg/s | processed 3267 msg/s | e2e mean 3403.0 ms  p95 3509.7  max  8156.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/268
+2026-10-31 10:34:46,155 [INFO] [METRICS] in 3246 msg/s | processed 3285 msg/s | e2e mean 3703.8 ms  p95 3819.6  max  9070.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/243
+2026-10-31 10:34:47,169 [INFO] [METRICS] in 3199 msg/s | processed 3172 msg/s | e2e mean 4065.3 ms  p95 4185.5  max 10065.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/224
+2026-10-31 10:34:48,177 [INFO] [METRICS] in 3228 msg/s | processed 3212 msg/s | e2e mean 4380.3 ms  p95 4524.1  max 11028.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/248
+2026-10-31 10:34:49,187 [INFO] [METRICS] in 3099 msg/s | processed 3119 msg/s | e2e mean 4728.7 ms  p95 4865.9  max 12128.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/205
+2026-10-31 10:34:50,194 [INFO] [METRICS] in 3106 msg/s | processed 3098 msg/s | e2e mean 5147.5 ms  p95 5232.3  max 13107.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/272
+2026-10-31 10:34:51,199 [INFO] [METRICS] in 3197 msg/s | processed 3201 msg/s | e2e mean 5501.3 ms  p95 5585.2  max 13973.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/236
+2026-10-31 10:34:52,206 [INFO] [METRICS] in 3301 msg/s | processed 3309 msg/s | e2e mean 5774.2 ms  p95 5885.5  max 14616.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/247
+2026-10-31 10:34:53,215 [INFO] [METRICS] in 3418 msg/s | processed 3401 msg/s | e2e mean 6128.0 ms  p95 6195.1  max 16067.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/234
+2026-10-31 10:34:53,753 [WARNING] [TWIN printer_01 v2751 EVENT] stepper_current_x: raw 1.123 rejected (window median 1.205), last accepted 1.216 kept
+2026-10-31 10:34:54,221 [INFO] [METRICS] in 3530 msg/s | processed 3543 msg/s | e2e mean 6365.7 ms  p95 6463.4  max 16675.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 1 | commits P/E/T 4/1/267
+2026-10-31 10:34:55,227 [INFO] [METRICS] in 3348 msg/s | processed 3343 msg/s | e2e mean 6641.2 ms  p95 6754.2  max 17606.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/253
+2026-10-31 10:34:56,239 [INFO] [METRICS] in 2973 msg/s | processed 2960 msg/s | e2e mean 6966.4 ms  p95 7145.6  max 18779.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/228
+2026-10-31 10:34:57,243 [INFO] [METRICS] in 2853 msg/s | processed 2887 msg/s | e2e mean 7455.2 ms  p95 7548.5  max 20069.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/208
+2026-10-31 10:34:58,252 [INFO] [METRICS] in 3074 msg/s | processed 3046 msg/s | e2e mean 7788.2 ms  p95 7917.4  max 21005.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/220
+2026-10-31 10:34:59,260 [INFO] [METRICS] in 3269 msg/s | processed 3285 msg/s | e2e mean 8199.7 ms  p95 8252.5  max 22012.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/212
+2026-10-31 10:35:00,264 [INFO] [METRICS] in 3413 msg/s | processed 3402 msg/s | e2e mean 8434.2 ms  p95 8542.0  max 22719.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/240
+2026-10-31 10:35:01,270 [INFO] [METRICS] in 3211 msg/s | processed 3221 msg/s | e2e mean 8726.5 ms  p95 8867.7  max 24011.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/272
+2026-10-31 10:35:02,279 [INFO] [METRICS] in 3382 msg/s | processed 3374 msg/s | e2e mean 9127.4 ms  p95 9177.6  max 25038.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/243
+2026-10-31 10:35:03,288 [INFO] [METRICS] in 3418 msg/s | processed 3414 msg/s | e2e mean 9372.9 ms  p95 9462.7  max 25738.2 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/289
+2026-10-31 10:35:04,307 [INFO] [METRICS] in 3402 msg/s | processed 3400 msg/s | e2e mean 9681.1 ms  p95 9770.2  max 27045.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/307
+2026-10-31 10:35:04,566 [WARNING] [TWIN printer_02 v3740 EVENT] stepper_current_x: raw 1.129 rejected (window median 1.211), last accepted 1.211 kept
+2026-10-31 10:35:05,313 [INFO] [METRICS] in 3638 msg/s | processed 3649 msg/s | e2e mean 9885.2 ms  p95 10005.9  max 10023.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 1 | commits P/E/T 4/1/283
+2026-10-31 10:35:06,278 [INFO] [TWIN printer_02 v3885 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 91.8 mm/s)
+2026-10-31 10:35:06,279 [INFO] [TWIN printer_04 v3528 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 91.8 mm/s)
+2026-10-31 10:35:06,281 [INFO] [TWIN printer_01 v3577 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 92.0 mm/s)
+2026-10-31 10:35:06,284 [INFO] [TWIN printer_03 v3620 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 97.1 mm/s)
+2026-10-31 10:35:06,333 [INFO] [METRICS] in 3156 msg/s | processed 3975 msg/s | e2e mean 9656.4 ms  p95 10225.2  max 28611.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/322
+2026-10-31 10:35:06,397 [INFO] [TWIN printer_02 v3893 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 80.3 mm/s)
+2026-10-31 10:35:06,400 [INFO] [TWIN printer_03 v3628 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 81.1 mm/s)
+2026-10-31 10:35:06,401 [INFO] [TWIN printer_04 v3531 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 79.9 mm/s)
+2026-10-31 10:35:06,402 [INFO] [TWIN printer_01 v3591 EVENT] operating_mode: HIGH_SPEED -> PRINTING (feed rate 80.4 mm/s)
+2026-10-31 10:35:06,521 [INFO] [TWIN printer_02 v3913 EVENT] operating_mode: PRINTING -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:35:06,657 [INFO] [TWIN printer_03 v3666 EVENT] operating_mode: PRINTING -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:35:06,672 [INFO] [TWIN printer_04 v3572 EVENT] operating_mode: PRINTING -> IDLE (feed rate -0.0 mm/s)
+2026-10-31 10:35:06,695 [INFO] [TWIN printer_01 v3638 EVENT] operating_mode: PRINTING -> IDLE (feed rate 0.0 mm/s)
+2026-10-31 10:35:07,341 [INFO] [METRICS] in 1927 msg/s | processed 1826 msg/s | e2e mean 24175.8 ms  p95 29110.1  max 29162.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/8/558
+2026-10-31 10:35:08,349 [INFO] [METRICS] in 1808 msg/s | processed 1809 msg/s | e2e mean 26849.1 ms  p95 28457.7  max 28494.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/632
+2026-10-31 10:35:09,356 [INFO] [METRICS] in 2221 msg/s | processed 2220 msg/s | e2e mean 26095.5 ms  p95 27625.3  max 27686.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/749
+2026-10-31 10:35:10,368 [INFO] [METRICS] in 2393 msg/s | processed 2393 msg/s | e2e mean 24857.1 ms  p95 26364.3  max 26447.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/785
+2026-10-31 10:35:11,133 [INFO] [TWIN printer_02 v4723 EVENT] operating_mode: IDLE -> PRINTING (feed rate 12.1 mm/s)
+2026-10-31 10:35:11,148 [INFO] [TWIN printer_03 v4446 EVENT] operating_mode: IDLE -> PRINTING (feed rate 11.6 mm/s)
+2026-10-31 10:35:11,158 [INFO] [TWIN printer_04 v4361 EVENT] operating_mode: IDLE -> PRINTING (feed rate 12.2 mm/s)
+2026-10-31 10:35:11,180 [INFO] [TWIN printer_01 v4458 EVENT] operating_mode: IDLE -> PRINTING (feed rate 12.2 mm/s)
+2026-10-31 10:35:11,378 [INFO] [METRICS] in 2214 msg/s | processed 2214 msg/s | e2e mean 23534.8 ms  p95 24947.4  max 25020.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/772
+2026-10-31 10:35:12,396 [INFO] [METRICS] in 2303 msg/s | processed 2303 msg/s | e2e mean 22314.3 ms  p95 23709.7  max 23782.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/770
+2026-10-31 10:35:12,982 [WARNING] [TWIN printer_01 v4780 EVENT] nozzle_temperature: raw 210.42 rejected (window median 207.96), last accepted 209.04 kept
+2026-10-31 10:35:12,992 [WARNING] [TWIN printer_01 v4781 EVENT] nozzle_temperature: raw 210.51 rejected (window median 207.96), last accepted 209.04 kept
+2026-10-31 10:35:13,408 [INFO] [METRICS] in 2280 msg/s | processed 2280 msg/s | e2e mean 21042.4 ms  p95 22380.2  max 22447.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 2 | commits P/E/T 4/2/751
+2026-10-31 10:35:14,415 [INFO] [METRICS] in 2355 msg/s | processed 2353 msg/s | e2e mean 19766.1 ms  p95 21069.4  max 21137.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/808
+2026-10-31 10:35:15,457 [INFO] [METRICS] in 1440 msg/s | processed 1629 msg/s | e2e mean 16547.0 ms  p95 19704.8  max 19755.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/551
+2026-10-31 10:35:16,456 [INFO] [METRICS] in   97 msg/s | processed   96 msg/s | e2e mean  209.7 ms  p95  248.9  max   250.6 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/13
+2026-10-31 10:35:17,504 [INFO] [METRICS] in   95 msg/s | processed   94 msg/s | e2e mean  208.3 ms  p95  249.5  max   259.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/19
+2026-10-31 10:35:18,548 [INFO] [METRICS] in   96 msg/s | processed   96 msg/s | e2e mean  204.6 ms  p95  228.2  max   250.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/11
+2026-10-31 10:35:19,550 [INFO] [METRICS] in   95 msg/s | processed   95 msg/s | e2e mean  207.9 ms  p95  239.0  max   250.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/16
+2026-10-31 10:35:20,594 [INFO] [METRICS] in   92 msg/s | processed   92 msg/s | e2e mean  203.7 ms  p95  212.8  max   248.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/8
+2026-10-31 10:35:21,294 [INFO] [TWIN printer_02 v5532 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 91.2 mm/s)
+2026-10-31 10:35:21,304 [INFO] [TWIN printer_03 v5243 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 92.7 mm/s)
+2026-10-31 10:35:21,316 [INFO] [TWIN printer_04 v5155 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 91.7 mm/s)
+2026-10-31 10:35:21,439 [INFO] [TWIN printer_01 v5227 EVENT] operating_mode: PRINTING -> HIGH_SPEED (feed rate 97.2 mm/s)
+2026-10-31 10:35:21,637 [INFO] [METRICS] in   94 msg/s | processed   94 msg/s | e2e mean  205.2 ms  p95  227.8  max   241.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/16
+2026-10-31 10:35:22,636 [INFO] [METRICS] in   99 msg/s | processed   99 msg/s | e2e mean  204.8 ms  p95  227.0  max   238.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/11
+2026-10-31 10:35:23,637 [INFO] [METRICS] in   91 msg/s | processed   96 msg/s | e2e mean  203.0 ms  p95  205.8  max   214.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/14
+2026-10-31 10:35:24,682 [INFO] [METRICS] in   96 msg/s | processed   91 msg/s | e2e mean  210.2 ms  p95  237.6  max   251.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/15
+2026-10-31 10:35:25,727 [INFO] [METRICS] in   92 msg/s | processed   97 msg/s | e2e mean  203.3 ms  p95  213.4  max   215.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/11
+2026-10-31 10:35:25,994 [WARNING] [TWIN printer_02 v5549 EVENT] connectivity: ONLINE -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:35:26,004 [WARNING] [TWIN printer_03 v5262 EVENT] connectivity: ONLINE -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:35:26,015 [WARNING] [TWIN printer_04 v5172 EVENT] connectivity: ONLINE -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:35:26,036 [WARNING] [TWIN printer_01 v5252 EVENT] connectivity: ONLINE -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:35:26,774 [INFO] [METRICS] in   41 msg/s | processed   47 msg/s | e2e mean  203.4 ms  p95  205.7  max   205.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/15
+2026-10-31 10:35:30,372 [INFO] [PIPELINE] Stopping...
+2026-10-31 10:35:31,089 [WARNING] [MQTT] Disconnected (Normal disconnection), reconnecting...
+2026-10-31 10:35:31,766 [INFO] [PIPELINE] processed 171840 measurements, e2e latency mean 5834.4 ms, p95 24562.5 ms, max 29162.1 ms

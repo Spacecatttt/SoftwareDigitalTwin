@@ -1,0 +1,23 @@
+{
+  "run_id": "S3_outage",
+  "t_start": 1793439321.825136,
+  "t_emulators_end": 1793439415.3168573,
+  "t_end": 1793439420.1947625,
+  "emulators": {
+    "printer_01": [
+      "--duration",
+      "100",
+      "--seed",
+      "1",
+      "--outage",
+      "40:20"
+    ],
+    "printer_02": [
+      "--duration",
+      "100",
+      "--seed",
+      "2"
+    ]
+  },
+  "pipeline_args": []
+}

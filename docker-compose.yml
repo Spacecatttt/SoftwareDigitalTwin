@@ -1,0 +1,65 @@
+# IoT channel (MQTT) + time-series storage (InfluxDB) + visualization (Grafana)
+#   docker compose up -d
+#   InfluxDB UI:  http://localhost:8086  (admin / admin12345)
+#   Grafana:      http://localhost:3000  (anonymous access, or admin / admin)
+name: dt_soft
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: lab3-mosquitto
+    restart: unless-stopped
+    ports:
+      - "${MQTT_PORT:-1883}:1883"
+      - "9001:9001"
+    volumes:
+      - ./infra/mosquitto/config:/mosquitto/config:ro
+      - mosquitto-data:/mosquitto/data
+
+  influxdb:
+    image: influxdb:2.9
+    container_name: lab3-influxdb
+    restart: unless-stopped
+    ports:
+      - "${INFLUX_PORT:-8086}:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: admin12345
+      DOCKER_INFLUXDB_INIT_ORG: kpi
+      DOCKER_INFLUXDB_INIT_BUCKET: digital_twin
+      DOCKER_INFLUXDB_INIT_RETENTION: 30d
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUX_TOKEN:-dt-lab3-token}
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
+    healthcheck:
+      test: ["CMD", "influx", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  grafana:
+    image: grafana/grafana:13.0
+    container_name: lab3-grafana
+    restart: unless-stopped
+    depends_on:
+      - influxdb
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_DASHBOARDS_MIN_REFRESH_INTERVAL: 1s
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/digital_twin.json
+      INFLUX_TOKEN: ${INFLUX_TOKEN:-dt-lab3-token}
+    volumes:
+      - ./infra/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./infra/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+
+volumes:
+  mosquitto-data:
+  influxdb-data:
+  influxdb-config:
+  grafana-data:

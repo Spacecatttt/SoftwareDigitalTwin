@@ -1,0 +1,16 @@
+{
+  "printer_id": "printer_01",
+  "generated": 2880,
+  "sent": 2888,
+  "invalid_range": 7,
+  "invalid": 18,
+  "duplicates": 12,
+  "jittered": 142,
+  "invalid_nan": 4,
+  "dropped": 4,
+  "invalid_missing": 4,
+  "invalid_malformed": 1,
+  "invalid_unit": 2,
+  "steps": 1200,
+  "elapsed_s": 120.0
+}

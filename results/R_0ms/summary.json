@@ -1,0 +1,628 @@
+{
+  "run_id": "R_0ms",
+  "config": {
+    "pipeline": {
+      "reorder_delay_s": 0.0,
+      "max_future_skew_s": 30.0,
+      "max_age_s": 3600.0,
+      "dedup_window": 2000,
+      "resample_period_s": 1.0,
+      "resample_grace_s": 0.05,
+      "max_locf_s": 5.0,
+      "max_interp_s": 10.0,
+      "correction_horizon_s": 120.0,
+      "missing_markers_s": 30.0
+    },
+    "sync": {
+      "periodic_interval_s": 1.0,
+      "stale_timeout_s": 3.0,
+      "health_deadband": 5.0
+    }
+  },
+  "received": 1932,
+  "status": 12,
+  "events": 34,
+  "commits_event": 34,
+  "commits_threshold": 227,
+  "processed": 1650,
+  "commits_periodic": 86,
+  "lost": 270,
+  "late": 270,
+  "resampled_points": 512,
+  "resample_corrections": 67,
+  "e2e_ms": {
+    "n": 1650,
+    "mean": 28.222395149092666,
+    "min": 1.0150129996873147,
+    "p50": 3.378653999789094,
+    "p95": 140.40661600029125,
+    "p99": 245.5969269999514,
+    "max": 304.5320139999603
+  },
+  "net_ms": {
+    "n": 1650,
+    "mean": 27.853361587270257,
+    "min": 0.81447799993839,
+    "p50": 2.9449389999172126,
+    "p95": 140.16714200033675,
+    "p99": 245.3623069995956,
+    "max": 303.94785099997534
+  },
+  "proc_ms": {
+    "n": 1650,
+    "mean": 0.36903356182241015,
+    "min": 0.09390900004291325,
+    "p50": 0.2959319999717991,
+    "p95": 0.7177830002547125,
+    "p99": 1.3927590002822399,
+    "max": 3.261809999912657
+  },
+  "sync_event_ms": {
+    "n": 22,
+    "mean": 37.69155245456866,
+    "min": 1.1120369999844115,
+    "p50": 3.7572259998341906,
+    "p95": 189.84178400023666,
+    "p99": 250.55015499992805,
+    "max": 250.55015499992805
+  },
+  "sync_threshold_ms": {
+    "n": 213,
+    "mean": 41.28437576056814,
+    "min": 1.2533069998426072,
+    "p50": 4.210185999909299,
+    "p95": 233.65447500009395,
+    "p99": 272.320886000216,
+    "max": 293.6926420002237
+  },
+  "commit_counts": {
+    "PERIODIC": 86,
+    "EVENT": 34,
+    "THRESHOLD": 227
+  },
+  "resample_dropped_too_late": 0,
+  "writer": {
+    "lines_written": 2923,
+    "batches": 87,
+    "errors": 0,
+    "dropped": 0
+  },
+  "devices": {
+    "printer_01": {
+      "printer_id": "printer_01",
+      "version": 165,
+      "reason": "PERIODIC",
+      "committed_at": 1793437411.5986252,
+      "connectivity": "OFFLINE",
+      "last_event_ts": 1793437407.989714,
+      "measurements": {
+        "nozzle_temperature": {
+          "value": 211.83,
+          "unit": "Celsius",
+          "ts": 1793437407.989624,
+          "quality": "STALE"
+        },
+        "bed_temperature": {
+          "value": 59.83,
+          "unit": "Celsius",
+          "ts": 1793437407.989661,
+          "quality": "STALE"
+        },
+        "chamber_temperature": {
+          "value": 40.3,
+          "unit": "Celsius",
+          "ts": 1793437407.98969,
+          "quality": "STALE"
+        },
+        "fan_speed_percent": {
+          "value": 80.4,
+          "unit": "%",
+          "ts": 1793437407.989714,
+          "quality": "STALE"
+        },
+        "extruder_feed_rate": {
+          "value": 48.86,
+          "unit": "mm/s",
+          "ts": 1793437407.989461,
+          "quality": "STALE"
+        },
+        "stepper_current_x": {
+          "value": 1.189,
+          "unit": "A",
+          "ts": 1793437407.989593,
+          "quality": "STALE"
+        }
+      },
+      "derived": {
+        "nozzle_temp_avg_30s": 209.98,
+        "nozzle_temp_rate": 0.238,
+        "feed_rate_avg_5s": 60.14,
+        "stepper_current_rms_5s": 1.2,
+        "extruded_length_mm": 2295.84356190443,
+        "filament_used_g": 6.847467126184442,
+        "print_time_s": 30.700459718704224,
+        "message_rate_hz": 7.4
+      },
+      "indicators": {
+        "operating_mode": "PRINTING",
+        "thermal_state": "NORMAL",
+        "motor_load": "NORMAL",
+        "health_index": 72.7
+      },
+      "counters": {
+        "anomalies_total": 0,
+        "anomalies_60s": 0,
+        "data_quality_pct": 85.4
+      }
+    },
+    "probe_04": {
+      "printer_id": null,
+      "version": 2,
+      "reason": "THRESHOLD",
+      "committed_at": 1793437366.9491923,
+      "connectivity": "OFFLINE",
+      "last_event_ts": null,
+      "measurements": {
+        "nozzle_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "bed_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "chamber_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "fan_speed_percent": {
+          "value": null,
+          "unit": "%",
+          "ts": null,
+          "quality": null
+        },
+        "extruder_feed_rate": {
+          "value": null,
+          "unit": "mm/s",
+          "ts": null,
+          "quality": null
+        },
+        "stepper_current_x": {
+          "value": null,
+          "unit": "A",
+          "ts": null,
+          "quality": null
+        }
+      },
+      "derived": {
+        "nozzle_temp_avg_30s": null,
+        "nozzle_temp_rate": null,
+        "feed_rate_avg_5s": null,
+        "stepper_current_rms_5s": null,
+        "extruded_length_mm": null,
+        "filament_used_g": null,
+        "print_time_s": null,
+        "message_rate_hz": null
+      },
+      "indicators": {
+        "operating_mode": null,
+        "thermal_state": null,
+        "motor_load": null,
+        "health_index": 80.0
+      },
+      "counters": {
+        "anomalies_total": 0,
+        "anomalies_60s": 0,
+        "data_quality_pct": null
+      }
+    },
+    "probe_01": {
+      "printer_id": null,
+      "version": 2,
+      "reason": "THRESHOLD",
+      "committed_at": 1793437366.9491923,
+      "connectivity": "OFFLINE",
+      "last_event_ts": null,
+      "measurements": {
+        "nozzle_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "bed_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "chamber_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "fan_speed_percent": {
+          "value": null,
+          "unit": "%",
+          "ts": null,
+          "quality": null
+        },
+        "extruder_feed_rate": {
+          "value": null,
+          "unit": "mm/s",
+          "ts": null,
+          "quality": null
+        },
+        "stepper_current_x": {
+          "value": null,
+          "unit": "A",
+          "ts": null,
+          "quality": null
+        }
+      },
+      "derived": {
+        "nozzle_temp_avg_30s": null,
+        "nozzle_temp_rate": null,
+        "feed_rate_avg_5s": null,
+        "stepper_current_rms_5s": null,
+        "extruded_length_mm": null,
+        "filament_used_g": null,
+        "print_time_s": null,
+        "message_rate_hz": null
+      },
+      "indicators": {
+        "operating_mode": null,
+        "thermal_state": null,
+        "motor_load": null,
+        "health_index": 80.0
+      },
+      "counters": {
+        "anomalies_total": 0,
+        "anomalies_60s": 0,
+        "data_quality_pct": null
+      }
+    },
+    "probe_03": {
+      "printer_id": null,
+      "version": 2,
+      "reason": "THRESHOLD",
+      "committed_at": 1793437366.9491923,
+      "connectivity": "OFFLINE",
+      "last_event_ts": null,
+      "measurements": {
+        "nozzle_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "bed_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "chamber_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "fan_speed_percent": {
+          "value": null,
+          "unit": "%",
+          "ts": null,
+          "quality": null
+        },
+        "extruder_feed_rate": {
+          "value": null,
+          "unit": "mm/s",
+          "ts": null,
+          "quality": null
+        },
+        "stepper_current_x": {
+          "value": null,
+          "unit": "A",
+          "ts": null,
+          "quality": null
+        }
+      },
+      "derived": {
+        "nozzle_temp_avg_30s": null,
+        "nozzle_temp_rate": null,
+        "feed_rate_avg_5s": null,
+        "stepper_current_rms_5s": null,
+        "extruded_length_mm": null,
+        "filament_used_g": null,
+        "print_time_s": null,
+        "message_rate_hz": null
+      },
+      "indicators": {
+        "operating_mode": null,
+        "thermal_state": null,
+        "motor_load": null,
+        "health_index": 80.0
+      },
+      "counters": {
+        "anomalies_total": 0,
+        "anomalies_60s": 0,
+        "data_quality_pct": null
+      }
+    },
+    "probe_02": {
+      "printer_id": null,
+      "version": 2,
+      "reason": "THRESHOLD",
+      "committed_at": 1793437366.9491923,
+      "connectivity": "OFFLINE",
+      "last_event_ts": null,
+      "measurements": {
+        "nozzle_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "bed_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "chamber_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "fan_speed_percent": {
+          "value": null,
+          "unit": "%",
+          "ts": null,
+          "quality": null
+        },
+        "extruder_feed_rate": {
+          "value": null,
+          "unit": "mm/s",
+          "ts": null,
+          "quality": null
+        },
+        "stepper_current_x": {
+          "value": null,
+          "unit": "A",
+          "ts": null,
+          "quality": null
+        }
+      },
+      "derived": {
+        "nozzle_temp_avg_30s": null,
+        "nozzle_temp_rate": null,
+        "feed_rate_avg_5s": null,
+        "stepper_current_rms_5s": null,
+        "extruded_length_mm": null,
+        "filament_used_g": null,
+        "print_time_s": null,
+        "message_rate_hz": null
+      },
+      "indicators": {
+        "operating_mode": null,
+        "thermal_state": null,
+        "motor_load": null,
+        "health_index": 80.0
+      },
+      "counters": {
+        "anomalies_total": 0,
+        "anomalies_60s": 0,
+        "data_quality_pct": null
+      }
+    },
+    "printer_02": {
+      "printer_id": "printer_02",
+      "version": 170,
+      "reason": "PERIODIC",
+      "committed_at": 1793437411.5986252,
+      "connectivity": "OFFLINE",
+      "last_event_ts": 1793437408.000806,
+      "measurements": {
+        "nozzle_temperature": {
+          "value": 211.8,
+          "unit": "Celsius",
+          "ts": 1793437408.000748,
+          "quality": "STALE"
+        },
+        "bed_temperature": {
+          "value": 60.06,
+          "unit": "Celsius",
+          "ts": 1793437408.000762,
+          "quality": "STALE"
+        },
+        "chamber_temperature": {
+          "value": 39.41,
+          "unit": "Celsius",
+          "ts": 1793437408.000772,
+          "quality": "STALE"
+        },
+        "fan_speed_percent": {
+          "value": 80.1,
+          "unit": "%",
+          "ts": 1793437408.000806,
+          "quality": "STALE"
+        },
+        "extruder_feed_rate": {
+          "value": 50.62,
+          "unit": "mm/s",
+          "ts": 1793437408.000605,
+          "quality": "STALE"
+        },
+        "stepper_current_x": {
+          "value": 1.216,
+          "unit": "A",
+          "ts": 1793437408.000718,
+          "quality": "GOOD"
+        }
+      },
+      "derived": {
+        "nozzle_temp_avg_30s": 209.83,
+        "nozzle_temp_rate": 0.243,
+        "feed_rate_avg_5s": 60.05,
+        "stepper_current_rms_5s": 1.202,
+        "extruded_length_mm": 2286.53073791504,
+        "filament_used_g": 6.819691167413804,
+        "print_time_s": 30.699945211410522,
+        "message_rate_hz": 7.6
+      },
+      "indicators": {
+        "operating_mode": "PRINTING",
+        "thermal_state": "NORMAL",
+        "motor_load": "NORMAL",
+        "health_index": 73.2
+      },
+      "counters": {
+        "anomalies_total": 0,
+        "anomalies_60s": 0,
+        "data_quality_pct": 86.5
+      }
+    },
+    "printer_03": {
+      "printer_id": null,
+      "version": 2,
+      "reason": "THRESHOLD",
+      "committed_at": 1793437366.9491923,
+      "connectivity": "OFFLINE",
+      "last_event_ts": null,
+      "measurements": {
+        "nozzle_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "bed_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "chamber_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "fan_speed_percent": {
+          "value": null,
+          "unit": "%",
+          "ts": null,
+          "quality": null
+        },
+        "extruder_feed_rate": {
+          "value": null,
+          "unit": "mm/s",
+          "ts": null,
+          "quality": null
+        },
+        "stepper_current_x": {
+          "value": null,
+          "unit": "A",
+          "ts": null,
+          "quality": null
+        }
+      },
+      "derived": {
+        "nozzle_temp_avg_30s": null,
+        "nozzle_temp_rate": null,
+        "feed_rate_avg_5s": null,
+        "stepper_current_rms_5s": null,
+        "extruded_length_mm": null,
+        "filament_used_g": null,
+        "print_time_s": null,
+        "message_rate_hz": null
+      },
+      "indicators": {
+        "operating_mode": null,
+        "thermal_state": null,
+        "motor_load": null,
+        "health_index": 80.0
+      },
+      "counters": {
+        "anomalies_total": 0,
+        "anomalies_60s": 0,
+        "data_quality_pct": null
+      }
+    },
+    "printer_04": {
+      "printer_id": null,
+      "version": 2,
+      "reason": "THRESHOLD",
+      "committed_at": 1793437366.9491923,
+      "connectivity": "OFFLINE",
+      "last_event_ts": null,
+      "measurements": {
+        "nozzle_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "bed_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "chamber_temperature": {
+          "value": null,
+          "unit": "Celsius",
+          "ts": null,
+          "quality": null
+        },
+        "fan_speed_percent": {
+          "value": null,
+          "unit": "%",
+          "ts": null,
+          "quality": null
+        },
+        "extruder_feed_rate": {
+          "value": null,
+          "unit": "mm/s",
+          "ts": null,
+          "quality": null
+        },
+        "stepper_current_x": {
+          "value": null,
+          "unit": "A",
+          "ts": null,
+          "quality": null
+        }
+      },
+      "derived": {
+        "nozzle_temp_avg_30s": null,
+        "nozzle_temp_rate": null,
+        "feed_rate_avg_5s": null,
+        "stepper_current_rms_5s": null,
+        "extruded_length_mm": null,
+        "filament_used_g": null,
+        "print_time_s": null,
+        "message_rate_hz": null
+      },
+      "indicators": {
+        "operating_mode": null,
+        "thermal_state": null,
+        "motor_load": null,
+        "health_index": 80.0
+      },
+      "counters": {
+        "anomalies_total": 0,
+        "anomalies_60s": 0,
+        "data_quality_pct": null
+      }
+    }
+  }
+}

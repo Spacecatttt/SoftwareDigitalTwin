@@ -1,0 +1,34 @@
+{
+  "run_id": "R_50ms",
+  "t_start": 1793437408.6290915,
+  "t_emulators_end": 1793437446.7951365,
+  "t_end": 1793437451.879046,
+  "emulators": {
+    "printer_01": [
+      "--duration",
+      "40",
+      "--seed",
+      "1",
+      "--p-jitter",
+      "0.3",
+      "--jitter-ms",
+      "300",
+      "--no-spikes"
+    ],
+    "printer_02": [
+      "--duration",
+      "40",
+      "--seed",
+      "2",
+      "--p-jitter",
+      "0.3",
+      "--jitter-ms",
+      "300",
+      "--no-spikes"
+    ]
+  },
+  "pipeline_args": [
+    "--reorder-ms",
+    "50"
+  ]
+}

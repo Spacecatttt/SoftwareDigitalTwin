@@ -1,0 +1,1144 @@
+{
+ "uid": "digital-twin-lab3",
+ "title": "Digital Twin · 3D printer (lab 3)",
+ "tags": [
+  "digital-twin",
+  "lab3"
+ ],
+ "timezone": "browser",
+ "schemaVersion": 39,
+ "version": 1,
+ "refresh": "2s",
+ "editable": true,
+ "time": {
+  "from": "now-5m",
+  "to": "now"
+ },
+ "timepicker": {
+  "refresh_intervals": [
+   "1s",
+   "2s",
+   "5s",
+   "10s",
+   "30s",
+   "1m"
+  ]
+ },
+ "templating": {
+  "list": [
+   {
+    "name": "printer",
+    "label": "Принтер",
+    "type": "query",
+    "datasource": {
+     "type": "influxdb",
+     "uid": "influxdb-dt"
+    },
+    "refresh": 2,
+    "current": {
+     "text": "printer_01",
+     "value": "printer_01"
+    },
+    "query": "import \"influxdata/influxdb/schema\"\nschema.tagValues(bucket: \"digital_twin\", tag: \"printer_id\")",
+    "definition": "printer_id tag values"
+   },
+   {
+    "name": "run_id",
+    "label": "Запуск конвеєра",
+    "type": "query",
+    "datasource": {
+     "type": "influxdb",
+     "uid": "influxdb-dt"
+    },
+    "refresh": 2,
+    "current": {
+     "text": "live",
+     "value": "live"
+    },
+    "query": "import \"influxdata/influxdb/schema\"\nschema.measurementTagValues(bucket: \"digital_twin\", measurement: \"pipeline_metrics\", tag: \"run_id\")",
+    "definition": "run_id tag values"
+   }
+  ]
+ },
+ "panels": [
+  {
+   "id": 1,
+   "type": "stat",
+   "title": "Зв'язок",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 0,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"twin_state\" and r.printer_id == \"${printer}\" and r._field == \"connectivity\") |> group() |> last() |> keep(columns: [\"_value\"])"
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "ONLINE": {
+         "color": "green",
+         "index": 0
+        },
+        "STALE": {
+         "color": "orange",
+         "index": 1
+        },
+        "OFFLINE": {
+         "color": "red",
+         "index": 2
+        },
+        "UNKNOWN": {
+         "color": "gray",
+         "index": 3
+        },
+        "PRINTING": {
+         "color": "green",
+         "index": 4
+        },
+        "HIGH_SPEED": {
+         "color": "blue",
+         "index": 5
+        },
+        "IDLE": {
+         "color": "gray",
+         "index": 6
+        },
+        "NORMAL": {
+         "color": "green",
+         "index": 7
+        },
+        "WARNING": {
+         "color": "orange",
+         "index": 8
+        },
+        "CRITICAL": {
+         "color": "red",
+         "index": 9
+        },
+        "HIGH": {
+         "color": "orange",
+         "index": 10
+        },
+        "OVERLOAD": {
+         "color": "red",
+         "index": 11
+        }
+       }
+      }
+     ],
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "gray"
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 2,
+   "type": "stat",
+   "title": "Режим роботи",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 4,
+    "y": 0,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"twin_state\" and r.printer_id == \"${printer}\" and r._field == \"operating_mode\") |> group() |> last() |> keep(columns: [\"_value\"])"
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "ONLINE": {
+         "color": "green",
+         "index": 0
+        },
+        "STALE": {
+         "color": "orange",
+         "index": 1
+        },
+        "OFFLINE": {
+         "color": "red",
+         "index": 2
+        },
+        "UNKNOWN": {
+         "color": "gray",
+         "index": 3
+        },
+        "PRINTING": {
+         "color": "green",
+         "index": 4
+        },
+        "HIGH_SPEED": {
+         "color": "blue",
+         "index": 5
+        },
+        "IDLE": {
+         "color": "gray",
+         "index": 6
+        },
+        "NORMAL": {
+         "color": "green",
+         "index": 7
+        },
+        "WARNING": {
+         "color": "orange",
+         "index": 8
+        },
+        "CRITICAL": {
+         "color": "red",
+         "index": 9
+        },
+        "HIGH": {
+         "color": "orange",
+         "index": 10
+        },
+        "OVERLOAD": {
+         "color": "red",
+         "index": 11
+        }
+       }
+      }
+     ],
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "gray"
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 3,
+   "type": "stat",
+   "title": "Тепловий стан",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 0,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"twin_state\" and r.printer_id == \"${printer}\" and r._field == \"thermal_state\") |> group() |> last() |> keep(columns: [\"_value\"])"
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "ONLINE": {
+         "color": "green",
+         "index": 0
+        },
+        "STALE": {
+         "color": "orange",
+         "index": 1
+        },
+        "OFFLINE": {
+         "color": "red",
+         "index": 2
+        },
+        "UNKNOWN": {
+         "color": "gray",
+         "index": 3
+        },
+        "PRINTING": {
+         "color": "green",
+         "index": 4
+        },
+        "HIGH_SPEED": {
+         "color": "blue",
+         "index": 5
+        },
+        "IDLE": {
+         "color": "gray",
+         "index": 6
+        },
+        "NORMAL": {
+         "color": "green",
+         "index": 7
+        },
+        "WARNING": {
+         "color": "orange",
+         "index": 8
+        },
+        "CRITICAL": {
+         "color": "red",
+         "index": 9
+        },
+        "HIGH": {
+         "color": "orange",
+         "index": 10
+        },
+        "OVERLOAD": {
+         "color": "red",
+         "index": 11
+        }
+       }
+      }
+     ],
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "gray"
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 4,
+   "type": "stat",
+   "title": "Навантаження двигуна",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 12,
+    "y": 0,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"twin_state\" and r.printer_id == \"${printer}\" and r._field == \"motor_load\") |> group() |> last() |> keep(columns: [\"_value\"])"
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "background",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "ONLINE": {
+         "color": "green",
+         "index": 0
+        },
+        "STALE": {
+         "color": "orange",
+         "index": 1
+        },
+        "OFFLINE": {
+         "color": "red",
+         "index": 2
+        },
+        "UNKNOWN": {
+         "color": "gray",
+         "index": 3
+        },
+        "PRINTING": {
+         "color": "green",
+         "index": 4
+        },
+        "HIGH_SPEED": {
+         "color": "blue",
+         "index": 5
+        },
+        "IDLE": {
+         "color": "gray",
+         "index": 6
+        },
+        "NORMAL": {
+         "color": "green",
+         "index": 7
+        },
+        "WARNING": {
+         "color": "orange",
+         "index": 8
+        },
+        "CRITICAL": {
+         "color": "red",
+         "index": 9
+        },
+        "HIGH": {
+         "color": "orange",
+         "index": 10
+        },
+        "OVERLOAD": {
+         "color": "red",
+         "index": 11
+        }
+       }
+      }
+     ],
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "gray"
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 5,
+   "type": "gauge",
+   "title": "Індекс справності, %",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 0,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"twin_state\" and r.printer_id == \"${printer}\" and r._field == \"health_index\") |> group() |> last() |> keep(columns: [\"_value\"])"
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   },
+   "fieldConfig": {
+    "defaults": {
+     "min": 0,
+     "max": 100,
+     "unit": "percent",
+     "thresholds": {
+      "mode": "absolute",
+      "steps": [
+       {
+        "color": "red",
+        "value": null
+       },
+       {
+        "color": "orange",
+        "value": 50
+       },
+       {
+        "color": "green",
+        "value": 80
+       }
+      ]
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 6,
+   "type": "stat",
+   "title": "Версія стану",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 20,
+    "y": 0,
+    "w": 4,
+    "h": 4
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: -1h) |> filter(fn: (r) => r._measurement == \"twin_state\" and r.printer_id == \"${printer}\" and r._field == \"version\") |> group() |> last() |> keep(columns: [\"_value\"])"
+    }
+   ],
+   "options": {
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "/.*/",
+     "values": false
+    },
+    "colorMode": "none",
+    "graphMode": "none",
+    "textMode": "value"
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "decimals": 0
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 7,
+   "type": "timeseries",
+   "title": "Температура сопла: сирі (макс.), після фільтра, сітка 1 с",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 4,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_raw\" and r.printer_id == \"${printer}\" and r.metric == \"nozzle_temperature\" and r._field == \"value\") |> aggregateWindow(every: v.windowPeriod, fn: max, createEmpty: false) |> map(fn: (r) => ({_time: r._time, _value: r._value, _field: \"сирі (raw)\"}))"
+    },
+    {
+     "refId": "B",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_raw\" and r.printer_id == \"${printer}\" and r.metric == \"nozzle_temperature\" and r._field == \"filtered\") |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> map(fn: (r) => ({_time: r._time, _value: r._value, _field: \"після фільтра Гампеля\"}))"
+    },
+    {
+     "refId": "C",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_resampled\" and r.printer_id == \"${printer}\" and r.metric == \"nozzle_temperature\" and r._field == \"mean\") |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> map(fn: (r) => ({_time: r._time, _value: r._value, _field: \"1 с сітка (resampled)\"}))"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "celsius",
+     "custom": {
+      "lineWidth": 1,
+      "pointSize": 4,
+      "showPoints": "never",
+      "spanNulls": false
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "сирі (raw)"
+      },
+      "properties": [
+       {
+        "id": "custom.drawStyle",
+        "value": "points"
+       },
+       {
+        "id": "custom.pointSize",
+        "value": 5
+       },
+       {
+        "id": "color",
+        "value": {
+         "mode": "fixed",
+         "fixedColor": "red"
+        }
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "1 с сітка (resampled)"
+      },
+      "properties": [
+       {
+        "id": "custom.lineInterpolation",
+        "value": "stepAfter"
+       },
+       {
+        "id": "custom.lineWidth",
+        "value": 2
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": 8,
+   "type": "timeseries",
+   "title": "Струм двигуна X: сирі (макс.), після фільтра, сітка 1 с",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 12,
+    "y": 4,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_raw\" and r.printer_id == \"${printer}\" and r.metric == \"stepper_current_x\" and r._field == \"value\") |> aggregateWindow(every: v.windowPeriod, fn: max, createEmpty: false) |> map(fn: (r) => ({_time: r._time, _value: r._value, _field: \"сирі (raw)\"}))"
+    },
+    {
+     "refId": "B",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_raw\" and r.printer_id == \"${printer}\" and r.metric == \"stepper_current_x\" and r._field == \"filtered\") |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> map(fn: (r) => ({_time: r._time, _value: r._value, _field: \"після фільтра Гампеля\"}))"
+    },
+    {
+     "refId": "C",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_resampled\" and r.printer_id == \"${printer}\" and r.metric == \"stepper_current_x\" and r._field == \"mean\") |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> map(fn: (r) => ({_time: r._time, _value: r._value, _field: \"1 с сітка (resampled)\"}))"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "amp",
+     "custom": {
+      "lineWidth": 1,
+      "pointSize": 4,
+      "showPoints": "never",
+      "spanNulls": false
+     }
+    },
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "сирі (raw)"
+      },
+      "properties": [
+       {
+        "id": "custom.drawStyle",
+        "value": "points"
+       },
+       {
+        "id": "custom.pointSize",
+        "value": 5
+       },
+       {
+        "id": "color",
+        "value": {
+         "mode": "fixed",
+         "fixedColor": "red"
+        }
+       }
+      ]
+     },
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "1 с сітка (resampled)"
+      },
+      "properties": [
+       {
+        "id": "custom.lineInterpolation",
+        "value": "stepAfter"
+       },
+       {
+        "id": "custom.lineWidth",
+        "value": 2
+       }
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "id": 9,
+   "type": "timeseries",
+   "title": "Подача екструдера (сітка 1 с: середнє / мін / макс)",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 12,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_resampled\" and r.printer_id == \"${printer}\" and r.metric == \"extruder_feed_rate\" and (r._field == \"mean\" or r._field == \"min\" or r._field == \"max\")) |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "suffix: мм/с",
+     "custom": {
+      "lineInterpolation": "stepAfter",
+      "spanNulls": false
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 10,
+   "type": "timeseries",
+   "title": "Температури столу та камери (сітка 1 с)",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 12,
+    "y": 12,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_resampled\" and r.printer_id == \"${printer}\" and (r.metric == \"bed_temperature\" or r.metric == \"chamber_temperature\") and r._field == \"mean\") |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> map(fn: (r) => ({_time: r._time, _value: r._value, _field: r.metric}))"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "celsius",
+     "custom": {
+      "spanNulls": false
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 11,
+   "type": "state-timeline",
+   "title": "Індикатори стану двійника (історія)",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 20,
+    "w": 24,
+    "h": 6
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"twin_state\" and r.printer_id == \"${printer}\" and (r._field == \"connectivity\" or r._field == \"operating_mode\" or r._field == \"thermal_state\" or r._field == \"motor_load\")) |> group(columns: [\"_field\"]) |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false) |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
+    }
+   ],
+   "options": {
+    "showValue": "auto",
+    "mergeValues": true,
+    "rowHeight": 0.85
+   },
+   "fieldConfig": {
+    "defaults": {
+     "mappings": [
+      {
+       "type": "value",
+       "options": {
+        "ONLINE": {
+         "color": "green",
+         "index": 0
+        },
+        "STALE": {
+         "color": "orange",
+         "index": 1
+        },
+        "OFFLINE": {
+         "color": "red",
+         "index": 2
+        },
+        "UNKNOWN": {
+         "color": "gray",
+         "index": 3
+        },
+        "PRINTING": {
+         "color": "green",
+         "index": 4
+        },
+        "HIGH_SPEED": {
+         "color": "blue",
+         "index": 5
+        },
+        "IDLE": {
+         "color": "gray",
+         "index": 6
+        },
+        "NORMAL": {
+         "color": "green",
+         "index": 7
+        },
+        "WARNING": {
+         "color": "orange",
+         "index": 8
+        },
+        "CRITICAL": {
+         "color": "red",
+         "index": 9
+        },
+        "HIGH": {
+         "color": "orange",
+         "index": 10
+        },
+        "OVERLOAD": {
+         "color": "red",
+         "index": 11
+        }
+       }
+      }
+     ],
+     "color": {
+      "mode": "fixed",
+      "fixedColor": "gray"
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 12,
+   "type": "timeseries",
+   "title": "Пропускна здатність конвеєра, пов./с",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 26,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"pipeline_metrics\" and r.run_id == \"${run_id}\" and (r._field == \"ingress_mps\" or r._field == \"throughput_mps\")) |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none"
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 13,
+   "type": "timeseries",
+   "title": "Затримка генерація → стан двійника, мс (макс. за інтервал відображення)",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 8,
+    "y": 26,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"pipeline_metrics\" and r.run_id == \"${run_id}\" and (r._field == \"e2e_mean_ms\" or r._field == \"e2e_p95_ms\" or r._field == \"e2e_max_ms\")) |> aggregateWindow(every: v.windowPeriod, fn: max, createEmpty: false) |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "ms"
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 14,
+   "type": "timeseries",
+   "title": "Оновлення стану за правилами синхронізації, commit/с (середнє)",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 16,
+    "y": 26,
+    "w": 8,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"pipeline_metrics\" and r.run_id == \"${run_id}\" and (r._field == \"commits_periodic\" or r._field == \"commits_event\" or r._field == \"commits_threshold\")) |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false) |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "custom": {
+      "drawStyle": "bars",
+      "stacking": {
+       "mode": "normal"
+      },
+      "fillOpacity": 70
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 15,
+   "type": "timeseries",
+   "title": "Якість даних: відхилені, дублі, запізнілі, втрачені, викиди (кількість)",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 34,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"pipeline_metrics\" and r.run_id == \"${run_id}\" and (r._field == \"invalid\" or r._field == \"duplicate\" or r._field == \"late\" or r._field == \"lost\" or r._field == \"outlier\")) |> aggregateWindow(every: v.windowPeriod, fn: sum, createEmpty: false) |> keep(columns: [\"_time\", \"_value\", \"_field\"])"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "custom": {
+      "drawStyle": "bars",
+      "stacking": {
+       "mode": "normal"
+      },
+      "fillOpacity": 70
+     }
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 16,
+   "type": "bargauge",
+   "title": "Заповнення пропусків на сітці 1 с (кількість інтервалів)",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 12,
+    "y": 34,
+    "w": 12,
+    "h": 8
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"telemetry_resampled\" and r.printer_id == \"${printer}\" and r._field == \"fill\" and r._value != \"measured\") |> map(fn: (r) => ({_value: 1, metric: r.metric, fill: r._value})) |> group(columns: [\"metric\", \"fill\"]) |> sum() |> map(fn: (r) => ({_value: r._value, _field: r.metric + \" · \" + r.fill})) |> group() |> pivot(rowKey: [], columnKey: [\"_field\"], valueColumn: \"_value\")"
+    }
+   ],
+   "options": {
+    "orientation": "horizontal",
+    "displayMode": "gradient",
+    "reduceOptions": {
+     "calcs": [
+      "lastNotNull"
+     ],
+     "fields": "",
+     "values": false
+    }
+   },
+   "fieldConfig": {
+    "defaults": {
+     "unit": "none",
+     "min": 0
+    },
+    "overrides": []
+   }
+  },
+  {
+   "id": 17,
+   "type": "table",
+   "title": "Події двійника",
+   "datasource": {
+    "type": "influxdb",
+    "uid": "influxdb-dt"
+   },
+   "gridPos": {
+    "x": 0,
+    "y": 42,
+    "w": 24,
+    "h": 9
+   },
+   "targets": [
+    {
+     "refId": "A",
+     "datasource": {
+      "type": "influxdb",
+      "uid": "influxdb-dt"
+     },
+     "query": "from(bucket: \"digital_twin\") |> range(start: v.timeRangeStart, stop: v.timeRangeStop) |> filter(fn: (r) => r._measurement == \"twin_events\" and r.printer_id == \"${printer}\") |> pivot(rowKey: [\"_time\", \"type\", \"severity\"], columnKey: [\"_field\"], valueColumn: \"_value\") |> group() |> sort(columns: [\"_time\"], desc: true) |> limit(n: 200) |> keep(columns: [\"_time\", \"type\", \"severity\", \"message\"])"
+    }
+   ],
+   "fieldConfig": {
+    "defaults": {},
+    "overrides": [
+     {
+      "matcher": {
+       "id": "byName",
+       "options": "message"
+      },
+      "properties": [
+       {
+        "id": "custom.width",
+        "value": 900
+       }
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

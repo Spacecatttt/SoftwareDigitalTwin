@@ -1,0 +1,47 @@
+{
+  "run_id": "L_nodb_x30",
+  "t_start": 1793438440.5488622,
+  "t_emulators_end": 1793438456.083488,
+  "t_end": 1793438458.919683,
+  "emulators": {
+    "load_01": [
+      "--duration",
+      "15",
+      "--seed",
+      "1",
+      "--rate",
+      "30",
+      "--no-spikes"
+    ],
+    "load_02": [
+      "--duration",
+      "15",
+      "--seed",
+      "2",
+      "--rate",
+      "30",
+      "--no-spikes"
+    ],
+    "load_03": [
+      "--duration",
+      "15",
+      "--seed",
+      "3",
+      "--rate",
+      "30",
+      "--no-spikes"
+    ],
+    "load_04": [
+      "--duration",
+      "15",
+      "--seed",
+      "4",
+      "--rate",
+      "30",
+      "--no-spikes"
+    ]
+  },
+  "pipeline_args": [
+    "--no-storage"
+  ]
+}

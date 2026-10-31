@@ -1,0 +1,8 @@
+{
+  "printer_id": "printer_01",
+  "generated": 960,
+  "sent": 960,
+  "jittered": 283,
+  "steps": 400,
+  "elapsed_s": 40.001
+}

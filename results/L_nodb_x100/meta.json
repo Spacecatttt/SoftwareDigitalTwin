@@ -1,0 +1,47 @@
+{
+  "run_id": "L_nodb_x100",
+  "t_start": 1793437923.0709784,
+  "t_emulators_end": 1793437936.341981,
+  "t_end": 1793437958.733534,
+  "emulators": {
+    "load_01": [
+      "--duration",
+      "15",
+      "--seed",
+      "1",
+      "--rate",
+      "100",
+      "--no-spikes"
+    ],
+    "load_02": [
+      "--duration",
+      "15",
+      "--seed",
+      "2",
+      "--rate",
+      "100",
+      "--no-spikes"
+    ],
+    "load_03": [
+      "--duration",
+      "15",
+      "--seed",
+      "3",
+      "--rate",
+      "100",
+      "--no-spikes"
+    ],
+    "load_04": [
+      "--duration",
+      "15",
+      "--seed",
+      "4",
+      "--rate",
+      "100",
+      "--no-spikes"
+    ]
+  },
+  "pipeline_args": [
+    "--no-storage"
+  ]
+}

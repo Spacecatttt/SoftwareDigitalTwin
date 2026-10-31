@@ -1,0 +1,91 @@
+2026-10-31 10:07:44,489 [INFO] [PIPELINE] Started: reorder 200 ms, resample 1.00 s, periodic sync 1.00 s, stale 3.0 s, storage on
+2026-10-31 10:07:44,498 [INFO] [MQTT] Connected to localhost:1883 as DigitalTwin_Pipeline_b4edbf (session present: False)
+2026-10-31 10:07:44,500 [INFO] [STORE] New digital twin instance: printer_01
+2026-10-31 10:07:44,501 [WARNING] [TWIN printer_01 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,501 [INFO] [STORE] New digital twin instance: probe_04
+2026-10-31 10:07:44,502 [WARNING] [TWIN probe_04 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,502 [INFO] [STORE] New digital twin instance: probe_01
+2026-10-31 10:07:44,503 [WARNING] [TWIN probe_01 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,504 [INFO] [STORE] New digital twin instance: probe_03
+2026-10-31 10:07:44,506 [WARNING] [TWIN probe_03 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,506 [INFO] [STORE] New digital twin instance: probe_02
+2026-10-31 10:07:44,507 [WARNING] [TWIN probe_02 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,507 [INFO] [STORE] New digital twin instance: printer_02
+2026-10-31 10:07:44,507 [WARNING] [TWIN printer_02 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,509 [INFO] [STORE] New digital twin instance: printer_03
+2026-10-31 10:07:44,510 [WARNING] [TWIN printer_03 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,510 [INFO] [STORE] New digital twin instance: printer_04
+2026-10-31 10:07:44,511 [WARNING] [TWIN printer_04 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,512 [INFO] [STORE] New digital twin instance: load_01
+2026-10-31 10:07:44,512 [WARNING] [TWIN load_01 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,512 [INFO] [STORE] New digital twin instance: load_02
+2026-10-31 10:07:44,513 [WARNING] [TWIN load_02 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,514 [INFO] [STORE] New digital twin instance: load_04
+2026-10-31 10:07:44,515 [WARNING] [TWIN load_04 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:44,516 [INFO] [STORE] New digital twin instance: load_03
+2026-10-31 10:07:44,517 [WARNING] [TWIN load_03 v1 EVENT] connectivity: UNKNOWN -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:07:45,484 [INFO] [METRICS] in   11 msg/s | processed    0 msg/s | e2e mean    0.0 ms  p95    0.0  max     0.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 0/12/12
+2026-10-31 10:07:45,725 [INFO] [TWIN load_02 v3 EVENT] connectivity: OFFLINE -> ONLINE (telemetry received)
+2026-10-31 10:07:45,736 [INFO] [TWIN load_01 v3 EVENT] connectivity: OFFLINE -> ONLINE (status topic: ONLINE)
+2026-10-31 10:07:45,758 [INFO] [TWIN load_04 v3 EVENT] connectivity: OFFLINE -> ONLINE (telemetry received)
+2026-10-31 10:07:45,769 [INFO] [TWIN load_03 v3 EVENT] connectivity: OFFLINE -> ONLINE (telemetry received)
+2026-10-31 10:07:45,967 [INFO] [TWIN load_02 v6 EVENT] operating_mode: UNKNOWN -> PRINTING (feed rate 52.8 mm/s)
+2026-10-31 10:07:45,969 [INFO] [TWIN load_02 v8 EVENT] motor_load: UNKNOWN -> NORMAL (X current RMS 1.187 A)
+2026-10-31 10:07:45,976 [INFO] [TWIN load_01 v6 EVENT] motor_load: UNKNOWN -> NORMAL (X current RMS 1.229 A)
+2026-10-31 10:07:45,986 [INFO] [TWIN load_02 v9 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.6 C (setpoint 210))
+2026-10-31 10:07:45,988 [INFO] [TWIN load_01 v7 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.9 C (setpoint 210))
+2026-10-31 10:07:45,991 [INFO] [TWIN load_01 v11 EVENT] operating_mode: UNKNOWN -> PRINTING (feed rate 51.5 mm/s)
+2026-10-31 10:07:46,036 [INFO] [TWIN load_04 v6 EVENT] operating_mode: UNKNOWN -> PRINTING (feed rate 50.0 mm/s)
+2026-10-31 10:07:46,041 [INFO] [TWIN load_04 v7 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.4 C (setpoint 210))
+2026-10-31 10:07:46,043 [INFO] [TWIN load_04 v11 EVENT] motor_load: UNKNOWN -> NORMAL (X current RMS 1.209 A)
+2026-10-31 10:07:46,059 [INFO] [TWIN load_03 v6 EVENT] operating_mode: UNKNOWN -> PRINTING (feed rate 50.1 mm/s)
+2026-10-31 10:07:46,060 [INFO] [TWIN load_03 v7 EVENT] motor_load: UNKNOWN -> NORMAL (X current RMS 1.225 A)
+2026-10-31 10:07:46,065 [INFO] [TWIN load_03 v9 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.2 C (setpoint 210))
+2026-10-31 10:07:46,504 [INFO] [METRICS] in 3226 msg/s | processed 1863 msg/s | e2e mean  386.2 ms  p95  477.7  max   544.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/16/205
+2026-10-31 10:07:47,513 [INFO] [METRICS] in 3817 msg/s | processed 3979 msg/s | e2e mean  683.2 ms  p95  868.0  max  1218.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/467
+2026-10-31 10:07:48,524 [INFO] [METRICS] in 3517 msg/s | processed 3547 msg/s | e2e mean 1103.9 ms  p95 1304.8  max  2119.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/278
+2026-10-31 10:07:49,534 [INFO] [METRICS] in 3903 msg/s | processed 3903 msg/s | e2e mean 1506.5 ms  p95 1656.7  max  3130.2 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/278
+2026-10-31 10:07:49,667 [WARNING] [TWIN load_04 v300 EVENT] stepper_current_x: raw 1.277 rejected, replaced by window median 1.194
+2026-10-31 10:07:49,746 [WARNING] [TWIN load_01 v331 EVENT] stepper_current_x: raw 1.28 rejected, replaced by window median 1.197
+2026-10-31 10:07:50,543 [INFO] [METRICS] in 4207 msg/s | processed 4182 msg/s | e2e mean 1853.3 ms  p95 1976.6  max  4127.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 2 | commits P/E/T 4/2/319
+2026-10-31 10:07:51,563 [INFO] [METRICS] in 2606 msg/s | processed 2706 msg/s | e2e mean 2251.1 ms  p95 2524.6  max  4968.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/220
+2026-10-31 10:07:52,617 [INFO] [METRICS] in 2557 msg/s | processed 2662 msg/s | e2e mean 2879.9 ms  p95 3152.1  max  6126.8 | inbox 22 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/201
+2026-10-31 10:07:53,621 [INFO] [METRICS] in 2058 msg/s | processed 1928 msg/s | e2e mean 3550.2 ms  p95 3803.9  max  6936.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/139
+2026-10-31 10:07:54,666 [INFO] [METRICS] in 2255 msg/s | processed 2197 msg/s | e2e mean 4205.2 ms  p95 4476.4  max  8043.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/182
+2026-10-31 10:07:55,675 [INFO] [METRICS] in 3328 msg/s | processed 3364 msg/s | e2e mean 4755.9 ms  p95 4921.3  max  9126.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/225
+2026-10-31 10:07:56,683 [INFO] [METRICS] in 3232 msg/s | processed 3208 msg/s | e2e mean 5207.5 ms  p95 5399.3  max  9940.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/276
+2026-10-31 10:07:57,689 [INFO] [METRICS] in 3127 msg/s | processed 3146 msg/s | e2e mean 5675.4 ms  p95 5882.8  max 11114.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/256
+2026-10-31 10:07:58,696 [INFO] [METRICS] in 3162 msg/s | processed 3161 msg/s | e2e mean 6124.8 ms  p95 6293.6  max 12108.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/233
+2026-10-31 10:07:59,739 [INFO] [METRICS] in 1706 msg/s | processed 2088 msg/s | e2e mean 6804.0 ms  p95 6998.3  max 13124.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/206
+2026-10-31 10:08:00,784 [INFO] [METRICS] in 2389 msg/s | processed 2114 msg/s | e2e mean 7538.1 ms  p95 7683.6  max 14189.2 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/164
+2026-10-31 10:08:01,808 [INFO] [METRICS] in 2284 msg/s | processed 2193 msg/s | e2e mean 8067.4 ms  p95 8304.8  max 14448.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/141
+2026-10-31 10:08:02,814 [INFO] [METRICS] in 3300 msg/s | processed 3258 msg/s | e2e mean 8637.7 ms  p95 8819.1  max 16188.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/302
+2026-10-31 10:08:03,820 [INFO] [METRICS] in 3753 msg/s | processed 3770 msg/s | e2e mean 9056.7 ms  p95 9201.3  max 17178.4 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/282
+2026-10-31 10:08:04,827 [INFO] [METRICS] in 3608 msg/s | processed 3616 msg/s | e2e mean 9434.2 ms  p95 9597.1  max 18160.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/282
+2026-10-31 10:08:05,840 [INFO] [METRICS] in 3076 msg/s | processed 3060 msg/s | e2e mean 9889.9 ms  p95 10099.4  max 18604.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/266
+2026-10-31 10:08:06,866 [INFO] [METRICS] in 2624 msg/s | processed 2615 msg/s | e2e mean 10397.7 ms  p95 10676.8  max 20145.0 | inbox 1 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/209
+2026-10-31 10:08:06,984 [WARNING] [TWIN load_01 v1309 EVENT] stepper_current_x: raw 1.274 rejected, replaced by window median 1.192
+2026-10-31 10:08:07,876 [INFO] [METRICS] in 2408 msg/s | processed 2447 msg/s | e2e mean 11011.6 ms  p95 11254.6  max 20784.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 1 | commits P/E/T 4/1/175
+2026-10-31 10:08:08,885 [INFO] [METRICS] in 2275 msg/s | processed 2292 msg/s | e2e mean 11621.3 ms  p95 11893.9  max 21920.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/174
+2026-10-31 10:08:09,894 [INFO] [METRICS] in 2924 msg/s | processed 2874 msg/s | e2e mean 12278.3 ms  p95 12433.9  max 23196.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/225
+2026-10-31 10:08:10,899 [INFO] [METRICS] in 3561 msg/s | processed 3561 msg/s | e2e mean 12683.4 ms  p95 12836.8  max 24093.7 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/252
+2026-10-31 10:08:11,905 [INFO] [METRICS] in 4199 msg/s | processed 4199 msg/s | e2e mean 13032.9 ms  p95 13146.9  max 24874.2 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/297
+2026-10-31 10:08:12,909 [INFO] [METRICS] in 3802 msg/s | processed 3869 msg/s | e2e mean 13361.3 ms  p95 13514.3  max 25959.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/284
+2026-10-31 10:08:12,973 [WARNING] [TWIN load_03 v1716 EVENT] nozzle_temperature: raw 211.93 rejected, replaced by window median 209.45
+2026-10-31 10:08:13,915 [INFO] [METRICS] in 4770 msg/s | processed 4726 msg/s | e2e mean 13677.7 ms  p95 13728.5  max 27165.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 1 | commits P/E/T 4/1/377
+2026-10-31 10:08:14,923 [INFO] [METRICS] in 3036 msg/s | processed 3949 msg/s | e2e mean 15908.5 ms  p95 27887.2  max 27941.5 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/442
+2026-10-31 10:08:15,930 [INFO] [METRICS] in 2389 msg/s | processed 2389 msg/s | e2e mean 27283.9 ms  p95 27735.1  max 27786.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/850
+2026-10-31 10:08:16,620 [WARNING] [TWIN load_01 v2170 EVENT] chamber_temperature: raw 37.98 rejected, replaced by window median 40.52
+2026-10-31 10:08:16,936 [INFO] [METRICS] in 2473 msg/s | processed 2473 msg/s | e2e mean 26248.8 ms  p95 26726.6  max 26785.9 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 1 | commits P/E/T 4/1/868
+2026-10-31 10:08:17,943 [INFO] [METRICS] in 2559 msg/s | processed 2559 msg/s | e2e mean 25180.5 ms  p95 25678.2  max 25721.3 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/924
+2026-10-31 10:08:18,947 [INFO] [METRICS] in 2728 msg/s | processed 2728 msg/s | e2e mean 23948.7 ms  p95 24520.0  max 24579.8 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/990
+2026-10-31 10:08:19,954 [INFO] [METRICS] in 2606 msg/s | processed 2606 msg/s | e2e mean 22694.8 ms  p95 23242.2  max 23300.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/908
+2026-10-31 10:08:20,960 [INFO] [METRICS] in 2462 msg/s | processed 2462 msg/s | e2e mean 21572.5 ms  p95 22058.2  max 22121.0 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/0/825
+2026-10-31 10:08:21,257 [WARNING] [TWIN load_02 v3369 EVENT] connectivity: ONLINE -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:08:21,260 [WARNING] [TWIN load_01 v3239 EVENT] connectivity: ONLINE -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:08:21,266 [WARNING] [TWIN load_04 v3234 EVENT] connectivity: ONLINE -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:08:21,269 [WARNING] [TWIN load_03 v3312 EVENT] connectivity: ONLINE -> OFFLINE (status topic: OFFLINE normal_shutdown)
+2026-10-31 10:08:22,014 [INFO] [METRICS] in  744 msg/s | processed  968 msg/s | e2e mean 20849.6 ms  p95 21036.4  max 21062.1 | inbox 0 | invalid 0 dup 0 late 0 lost 0 outliers 0 | commits P/E/T 4/4/349
+2026-10-31 10:08:25,179 [INFO] [PIPELINE] Stopping...
+2026-10-31 10:08:25,388 [WARNING] [MQTT] Disconnected (Normal disconnection), reconnecting...
+2026-10-31 10:08:25,778 [INFO] [PIPELINE] processed 108000 measurements, e2e latency mean 10128.9 ms, p95 25754.7 ms, max 27941.5 ms

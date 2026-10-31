@@ -1,0 +1,7 @@
+[10:31:17] S1_normal: 2 emulator(s) 
+    processed 5718, e2e mean 207.7 ms, p95 249.0, max 529.2
+[10:33:14] S2_burst: 4 emulator(s) 
+    processed 171840, e2e mean 5834.4 ms, p95 24562.5, max 29162.1
+[10:35:20] S3_outage: 2 emulator(s) 
+    processed 4400, e2e mean 376.1 ms, p95 248.0, max 19114.8
+done

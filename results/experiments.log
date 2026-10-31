@@ -1,0 +1,45 @@
+[09:57:01] S3_outage: 2 emulator(s) 
+    processed 4400, e2e mean 376.5 ms, p95 249.1, max 19117.0
+[09:58:41] S1_normal: 2 emulator(s) 
+    processed 5720, e2e mean 207.3 ms, p95 249.0, max 538.9
+[10:00:37] S2_burst: 4 emulator(s) 
+    processed 171840, e2e mean 4481.4 ms, p95 21111.3, max 25880.2
+[10:02:46] R_0ms: 2 emulator(s) --reorder-ms 0
+    processed 1650, e2e mean 28.2 ms, p95 140.4, max 304.5
+[10:03:27] R_50ms: 2 emulator(s) --reorder-ms 50
+    processed 1727, e2e mean 79.9 ms, p95 200.8, max 351.6
+[10:04:11] R_100ms: 2 emulator(s) --reorder-ms 100
+    processed 1786, e2e mean 124.4 ms, p95 226.0, max 414.2
+[10:04:53] R_200ms: 2 emulator(s) --reorder-ms 200
+    processed 1918, e2e mean 222.0 ms, p95 301.7, max 499.5
+[10:05:37] R_400ms: 2 emulator(s) --reorder-ms 400
+    processed 1920, e2e mean 416.8 ms, p95 491.2, max 702.3
+[10:06:18] L_db_x1: 4 emulator(s) 
+    processed 1440, e2e mean 204.6 ms, p95 222.5, max 273.1
+[10:06:37] L_db_x10: 4 emulator(s) 
+    processed 14400, e2e mean 205.4 ms, p95 213.2, max 293.5
+[10:06:57] L_db_x25: 4 emulator(s) 
+    processed 36000, e2e mean 207.7 ms, p95 220.2, max 299.9
+[10:07:18] L_db_x50: 4 emulator(s) 
+    processed 72000, e2e mean 2600.2 ms, p95 11322.4, max 14074.0
+[10:07:44] L_db_x75: 4 emulator(s) 
+    processed 108000, e2e mean 10128.9 ms, p95 25754.7, max 27941.5
+[10:08:23] L_db_x100: 4 emulator(s) 
+    processed 144000, e2e mean 11937.7 ms, p95 29443.6, max 30608.0
+[10:09:06] L_db_x150: 4 emulator(s) 
+    processed 216000, e2e mean 20475.2 ms, p95 44323.0, max 44571.8
+[10:10:09] L_nodb_x1: 4 emulator(s) --no-storage
+    processed 1440, e2e mean 205.1 ms, p95 224.3, max 265.8
+[10:10:27] L_nodb_x10: 4 emulator(s) --no-storage
+    processed 14400, e2e mean 204.9 ms, p95 212.4, max 244.5
+[10:10:45] L_nodb_x25: 4 emulator(s) --no-storage
+    processed 36000, e2e mean 204.8 ms, p95 207.9, max 256.0
+[10:11:07] L_nodb_x50: 4 emulator(s) --no-storage
+    processed 72000, e2e mean 1714.8 ms, p95 8704.6, max 11494.0
+[10:11:29] L_nodb_x75: 4 emulator(s) --no-storage
+    processed 108000, e2e mean 5573.0 ms, p95 17676.3, max 20251.9
+[10:12:01] L_nodb_x100: 4 emulator(s) --no-storage
+    processed 144000, e2e mean 9974.9 ms, p95 25468.5, max 27435.2
+[10:12:38] L_nodb_x150: 4 emulator(s) --no-storage
+    processed 216000, e2e mean 16277.7 ms, p95 36681.4, max 36917.2
+done

@@ -1,0 +1,45 @@
+{
+  "run_id": "S2_burst",
+  "t_start": 1793439195.878252,
+  "t_emulators_end": 1793439314.818658,
+  "t_end": 1793439320.4215567,
+  "emulators": {
+    "printer_01": [
+      "--duration",
+      "130",
+      "--seed",
+      "1",
+      "--profile",
+      "0:1,30:25,50:1,80:60,100:1",
+      "--no-spikes"
+    ],
+    "printer_02": [
+      "--duration",
+      "130",
+      "--seed",
+      "2",
+      "--profile",
+      "0:1,30:25,50:1,80:60,100:1",
+      "--no-spikes"
+    ],
+    "printer_03": [
+      "--duration",
+      "130",
+      "--seed",
+      "3",
+      "--profile",
+      "0:1,30:25,50:1,80:60,100:1",
+      "--no-spikes"
+    ],
+    "printer_04": [
+      "--duration",
+      "130",
+      "--seed",
+      "4",
+      "--profile",
+      "0:1,30:25,50:1,80:60,100:1",
+      "--no-spikes"
+    ]
+  },
+  "pipeline_args": []
+}

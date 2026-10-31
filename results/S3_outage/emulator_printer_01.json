@@ -1,0 +1,10 @@
+{
+  "printer_id": "printer_01",
+  "generated": 2400,
+  "sent": 2000,
+  "lost_in_outage": 400,
+  "buffered": 80,
+  "flushed": 80,
+  "steps": 1000,
+  "elapsed_s": 100.0
+}

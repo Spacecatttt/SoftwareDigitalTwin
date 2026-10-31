@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Twin Live</title>
+<style>
+  :root {
+    --bg: #f4f5f7; --panel: #ffffff; --ink: #1d2330; --muted: #6b7385; --line: #e1e4ea;
+    --accent: #2f6fde; --ok: #1f9d55; --warn: #d98a00; --crit: #d64545; --info: #5b6b8c;
+    --periodic: #8a94a8; --event: #c2410c; --threshold: #2f6fde;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12151b; --panel: #1b2029; --ink: #e6e9ef; --muted: #98a1b3; --line: #2b3240;
+      --accent: #6ea1ff; --periodic: #7d879b;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12151b; --panel: #1b2029; --ink: #e6e9ef; --muted: #98a1b3; --line: #2b3240;
+    --accent: #6ea1ff; --periodic: #7d879b;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 14px 20px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  header h1 { font-size: 17px; margin: 0; font-weight: 650; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; background: var(--crit); margin-right: 6px; }
+  .dot.on { background: var(--ok); }
+  .strip { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12.5px; color: var(--muted); }
+  .strip b { color: var(--ink); font-family: var(--mono); font-weight: 600; }
+  main { padding: 16px 20px 40px; max-width: 1500px; margin: 0 auto; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tab { padding: 6px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); cursor: pointer; color: var(--ink); font: inherit; }
+  .tab.active { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; min-width: 0; }
+  .card h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 10px; font-weight: 600; }
+  .span-12 { grid-column: span 12; } .span-8 { grid-column: span 8; } .span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; }
+  @media (max-width: 1000px) { .span-8, .span-6, .span-4 { grid-column: span 12; } }
+  .status-row { display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: flex-end; }
+  .kv .k { font-size: 11.5px; color: var(--muted); }
+  .kv .v { font-size: 18px; font-weight: 650; }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12.5px; font-weight: 600; border: 1px solid currentColor; }
+  .s-ok { color: var(--ok); } .s-warn { color: var(--warn); } .s-crit { color: var(--crit); } .s-info { color: var(--info); }
+  .meas { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .m { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; transition: box-shadow .25s; }
+  .m .name { font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 6px; }
+  .m .val { font-family: var(--mono); font-size: 24px; font-weight: 600; margin: 2px 0; }
+  .m .val small { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+  .m canvas { width: 100%; height: 42px; display: block; }
+  .m.flash-THRESHOLD { box-shadow: 0 0 0 2px var(--threshold); }
+  .m.flash-EVENT { box-shadow: 0 0 0 2px var(--event); }
+  .m.flash-PERIODIC { box-shadow: 0 0 0 2px var(--periodic); }
+  .q { font-size: 10.5px; padding: 0 6px; border-radius: 4px; border: 1px solid var(--line); }
+  .q-FILTERED { color: var(--warn); border-color: var(--warn); } .q-STALE { color: var(--crit); border-color: var(--crit); }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  td, th { padding: 4px 6px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 11.5px; }
+  td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+  .log { max-height: 290px; overflow: auto; font-size: 12px; }
+  .log div { padding: 3px 0; border-bottom: 1px dashed var(--line); font-family: var(--mono); overflow-wrap: anywhere; }
+  .r-PERIODIC { color: var(--periodic); } .r-EVENT { color: var(--event); } .r-THRESHOLD { color: var(--threshold); }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+  select, input, button { font: inherit; padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); }
+  button { cursor: pointer; } button.primary { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  #hist { width: 100%; height: 260px; display: block; }
+  .muted { color: var(--muted); }
+  .health { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; width: 140px; margin-top: 6px; }
+  .health > div { height: 100%; background: var(--ok); transition: width .3s; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Цифровий двійник 3D-принтера · стан у реальному часі</h1>
+  <span class="strip"><span><span id="sse" class="dot"></span><span id="sseText">з'єднання…</span></span></span>
+  <div class="strip" id="metrics"></div>
+</header>
+<main>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid">
+    <section class="card span-12">
+      <h2>Синхронізований стан двійника</h2>
+      <div class="status-row" id="status"></div>
+    </section>
+    <section class="card span-12">
+      <h2>Виміряні атрибути (після валідації та фільтрації)</h2>
+      <div class="legend" style="margin-bottom:10px">
+        <span>Підсвічування за правилом синхронізації:</span>
+        <span><i style="background:var(--threshold)"></i>THRESHOLD — перевищення порогу зміни</span>
+        <span><i style="background:var(--event)"></i>EVENT — подія</span>
+        <span><i style="background:var(--periodic)"></i>PERIODIC — періодичне оновлення</span>
+      </div>
+      <div class="meas" id="meas"></div>
+    </section>
+    <section class="card span-4">
+      <h2>Похідні показники</h2>
+      <table id="derived"></table>
+    </section>
+    <section class="card span-4">
+      <h2>Події двійника</h2>
+      <div class="log" id="events"></div>
+    </section>
+    <section class="card span-4">
+      <h2>Журнал синхронізації (commit)</h2>
+      <div class="log" id="commits"></div>
+    </section>
+    <section class="card span-8">
+      <h2>Історія зі сховища часових рядів (InfluxDB)</h2>
+      <div class="controls">
+        <select id="hMetric"></select>
+        <select id="hSource">
+          <option value="resampled">resampled · 1 с, із заповненням пропусків</option>
+          <option value="raw">raw · як виміряно, з викидами</option>
+        </select>
+        <select id="hRange">
+          <option value="-2m">2 хв</option><option value="-5m" selected>5 хв</option>
+          <option value="-15m">15 хв</option><option value="-1h">1 год</option>
+        </select>
+        <button class="primary" id="hLoad">Завантажити</button>
+        <label class="muted"><input type="checkbox" id="hAuto"> автооновлення</label>
+      </div>
+      <canvas id="hist"></canvas>
+      <div class="legend" id="hLegend" style="margin-top:6px"></div>
+    </section>
+    <section class="card span-4">
+      <h2>Стан двійника на момент часу</h2>
+      <div class="controls">
+        <input type="datetime-local" step="1" id="atTime">
+        <button class="primary" id="atLoad">Запит</button>
+      </div>
+      <div class="log" style="max-height:260px"><table id="atTable"></table></div>
+    </section>
+  </div>
+</main>
+<script>
+const MEASURED = ["nozzle_temperature","bed_temperature","chamber_temperature","fan_speed_percent","extruder_feed_rate","stepper_current_x"];
+const LABELS = {nozzle_temperature:"Температура сопла", bed_temperature:"Температура столу", chamber_temperature:"Температура камери",
+  fan_speed_percent:"Швидкість вентилятора", extruder_feed_rate:"Подача екструдера", stepper_current_x:"Струм двигуна X"};
+const UNITS = {Celsius:"°C", "%":"%", "mm/s":"мм/с", A:"А"};
+const STATE_CLASS = {ONLINE:"s-ok", NORMAL:"s-ok", PRINTING:"s-ok", IDLE:"s-info", HIGH_SPEED:"s-info",
+  WARNING:"s-warn", HIGH:"s-warn", STALE:"s-warn", CRITICAL:"s-crit", OVERLOAD:"s-crit", OFFLINE:"s-crit", UNKNOWN:"s-info"};
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const $ = id => document.getElementById(id);
+const fmt = (v, d=2) => v == null ? "—" : (typeof v === "number" ? v.toFixed(d) : v);
+const tstr = ts => ts ? new Date(ts*1000).toLocaleTimeString("uk-UA", {hour12:false}) + "." + String(Math.floor((ts%1)*1000)).padStart(3,"0") : "—";
+
+const twins = {};          // printer -> latest snapshot
+const spark = {};          // printer -> metric -> [[t, v]]
+const logs = {};           // printer -> {events:[], commits:[]}
+const params = new URLSearchParams(location.search);   // ?printer=..&metric=..&source=..&range=..&history=1
+let current = params.get("printer");
+
+function ensure(pid) {
+  if (!spark[pid]) {
+    spark[pid] = {}; MEASURED.forEach(m => spark[pid][m] = []); logs[pid] = {events: [], commits: []};
+    preloadSpark(pid);
+  }
+  if (!current) current = pid;
+}
+
+// sparklines start with the last minute from the time-series storage, then continue from the live stream
+function preloadSpark(pid) {
+  MEASURED.forEach(async m => {
+    try {
+      const rows = await (await fetch(`/api/history/series?printer=${pid}&metric=${m}&source=raw&start=-60s`)).json();
+      if (!Array.isArray(rows)) return;
+      const hist = rows.map(r => [Date.parse(r._time) / 1000, r.filtered ?? r.value]).filter(p => p[1] != null);
+      const live = spark[pid][m], first = live.length ? live[0][0] : Infinity;
+      spark[pid][m] = hist.filter(p => p[0] < first).concat(live);
+    } catch (e) { /* storage disabled */ }
+  });
+}
+
+function renderTabs() {
+  $("tabs").innerHTML = Object.keys(twins).sort().map(pid =>
+    `<button class="tab ${pid===current?"active":""}" data-p="${pid}">${pid} <span class="${STATE_CLASS[twins[pid].connectivity]||""}">●</span></button>`).join("");
+  document.querySelectorAll(".tab").forEach(b => b.onclick = () => { current = b.dataset.p; renderAll(); });
+}
+
+function badge(v) { return `<span class="badge ${STATE_CLASS[v]||"s-info"}">${v ?? "—"}</span>`; }
+
+function renderStatus(s, n) {
+  const ind = s.indicators, h = ind.health_index ?? 0;
+  const hc = h >= 80 ? css("--ok") : h >= 50 ? css("--warn") : css("--crit");
+  $("status").innerHTML = `
+    <div class="kv"><div class="k">Зв'язок</div><div class="v">${badge(s.connectivity)}</div></div>
+    <div class="kv"><div class="k">Режим роботи</div><div class="v">${badge(ind.operating_mode)}</div></div>
+    <div class="kv"><div class="k">Тепловий стан</div><div class="v">${badge(ind.thermal_state)}</div></div>
+    <div class="kv"><div class="k">Навантаження двигуна</div><div class="v">${badge(ind.motor_load)}</div></div>
+    <div class="kv"><div class="k">Індекс справності</div><div class="v">${fmt(ind.health_index,1)} %</div>
+      <div class="health"><div style="width:${h}%;background:${hc}"></div></div></div>
+    <div class="kv"><div class="k">Версія стану</div><div class="v" style="font-family:var(--mono)">v${s.version}</div></div>
+    <div class="kv"><div class="k">Останнє оновлення</div><div class="v"><span class="r-${s.reason}">${s.reason}</span>
+      <span class="muted" style="font-size:13px">${tstr(s.committed_at)}</span></div></div>
+    <div class="kv"><div class="k">Затримка синхронізації</div><div class="v" style="font-family:var(--mono)">${n && n.latency_ms!=null ? n.latency_ms.toFixed(1)+" мс" : "—"}</div></div>`;
+}
+
+function renderMeas(s, n) {
+  const box = $("meas");
+  if (box.dataset.p !== s.printer_id) {
+    box.dataset.p = s.printer_id;
+    box.innerHTML = MEASURED.map(m => `<div class="m" id="m-${m}"><div class="name"><span>${LABELS[m]}</span><span class="q"></span></div>
+      <div class="val"></div><canvas></canvas><div class="muted ts" style="font-size:11px"></div></div>`).join("");
+  }
+  MEASURED.forEach(m => {
+    const el = $("m-"+m), x = s.measurements[m];
+    el.querySelector(".val").innerHTML = `${fmt(x.value, m==="stepper_current_x"?3:2)}<small>${UNITS[x.unit]||x.unit}</small>`;
+    const q = el.querySelector(".q"); q.textContent = x.quality || ""; q.className = "q q-" + (x.quality||"");
+    el.querySelector(".ts").textContent = "виміряно " + tstr(x.ts);
+    drawSpark(el.querySelector("canvas"), spark[s.printer_id][m]);
+    if (n && m in n.changes) {
+      el.classList.remove("flash-THRESHOLD","flash-EVENT","flash-PERIODIC");
+      void el.offsetWidth; el.classList.add("flash-"+n.reason);
+      clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("flash-"+n.reason), 400);
+    }
+  });
+}
+
+function drawSpark(cv, pts) {
+  const w = cv.clientWidth, h = cv.clientHeight, dpr = devicePixelRatio || 1;
+  if (cv.width !== w*dpr) { cv.width = w*dpr; cv.height = h*dpr; }
+  const c = cv.getContext("2d"); c.setTransform(dpr,0,0,dpr,0,0); c.clearRect(0,0,w,h);
+  if (pts.length < 2) return;
+  const t1 = pts[pts.length-1][0], t0 = t1 - 60;
+  let lo = Infinity, hi = -Infinity; pts.forEach(p => { lo = Math.min(lo,p[1]); hi = Math.max(hi,p[1]); });
+  if (hi - lo < 1e-6) { hi += 1; lo -= 1; }
+  c.strokeStyle = css("--accent"); c.lineWidth = 1.5; c.beginPath();
+  pts.forEach((p,i) => { const x = (p[0]-t0)/60*w, y = h-3-(p[1]-lo)/(hi-lo)*(h-6); i ? c.lineTo(x,y) : c.moveTo(x,y); });
+  c.stroke();
+}
+
+function renderDerived(s) {
+  const d = {...s.derived, ...s.counters};
+  const names = {nozzle_temp_avg_30s:"Сер. темп. сопла, 30 с", nozzle_temp_rate:"Швидкість зміни темп., °C/с",
+    feed_rate_avg_5s:"Сер. подача, 5 с", stepper_current_rms_5s:"RMS струму X, 5 с", extruded_length_mm:"Видавлено, мм",
+    filament_used_g:"Витрачено філаменту, г", print_time_s:"Час друку, с", message_rate_hz:"Інтенсивність, пов./с",
+    anomalies_total:"Аномалій усього", anomalies_60s:"Аномалій за 60 с", data_quality_pct:"Якість даних, %"};
+  $("derived").innerHTML = Object.entries(names).map(([k, l]) => `<tr><td>${l}</td><td class="num">${fmt(d[k], k.includes("rate")&&k!=="message_rate_hz"?3:2)}</td></tr>`).join("");
+}
+
+function renderLogs(pid) {
+  $("events").innerHTML = logs[pid].events.map(e =>
+    `<div><span class="${e.severity==="critical"?"s-crit":e.severity==="warning"?"s-warn":"s-info"}">${tstr(e.ts)} ${e.type}</span> ${e.message}</div>`).join("") || '<span class="muted">подій ще немає</span>';
+  $("commits").innerHTML = logs[pid].commits.map(c =>
+    `<div><span class="r-${c.reason}">v${c.version} ${c.reason}</span> ${c.lat!=null?c.lat.toFixed(1)+" мс":""} <span class="muted">${c.ch}</span></div>`).join("");
+}
+
+function renderAll(n) {
+  renderTabs();
+  const s = twins[current]; if (!s) return;
+  renderStatus(s, n && n.printer_id === current ? n : null);
+  renderMeas(s, n && n.printer_id === current ? n : null);
+  renderDerived(s); renderLogs(current);
+}
+
+let pending = null, raf = false;
+function onCommit(n) {
+  const pid = n.printer_id; ensure(pid);
+  twins[pid] = n.snapshot;
+  const now = n.commit_ts;
+  for (const m of MEASURED) if (m in n.changes && n.changes[m] != null) {
+    const a = spark[pid][m]; a.push([now, n.changes[m]]); while (a.length && a[0][0] < now - 60) a.shift();
+  }
+  n.events.forEach(e => { logs[pid].events.unshift(e); });
+  logs[pid].events.length = Math.min(logs[pid].events.length, 60);
+  if (n.reason !== "PERIODIC" || n.events.length) {
+    const ch = Object.entries(n.changes).filter(([k]) => k !== "version").slice(0, 4)
+      .map(([k,v]) => `${k}=${typeof v==="number"?+v.toFixed(3):v}`).join(" ");
+    logs[pid].commits.unshift({version: n.version, reason: n.reason, lat: n.latency_ms, ch});
+    logs[pid].commits.length = Math.min(logs[pid].commits.length, 80);
+  }
+  pending = n;
+  if (!raf) { raf = true; requestAnimationFrame(() => { raf = false; renderAll(pending); }); }
+}
+
+function onMetrics(r) {
+  const f = (v,d=1) => v==null ? "—" : (+v).toFixed(d);
+  $("metrics").innerHTML = `
+    <span>вхід <b>${f(r.ingress_mps,0)}</b> пов./с</span><span>оброблено <b>${f(r.throughput_mps,0)}</b> пов./с</span>
+    <span>затримка сер. <b>${f(r.e2e_mean_ms)}</b> мс</span><span>p95 <b>${f(r.e2e_p95_ms)}</b></span><span>макс <b>${f(r.e2e_max_ms)}</b></span>
+    <span>черга <b>${r.inbox_depth}</b></span><span>commit P/E/T <b>${r.commits_periodic}/${r.commits_event}/${r.commits_threshold}</b></span>
+    <span>невалідні <b>${r.invalid}</b> дублі <b>${r.duplicate}</b> запізн. <b>${r.late}</b> викиди <b>${r.outlier}</b></span>`;
+}
+
+function connect() {
+  const es = new EventSource("/api/stream");
+  es.onopen = () => { $("sse").className = "dot on"; $("sseText").textContent = "SSE підключено"; };
+  es.onerror = () => { $("sse").className = "dot"; $("sseText").textContent = "перепідключення…"; };
+  es.addEventListener("snapshot", e => { const s = JSON.parse(e.data); ensure(s.printer_id); twins[s.printer_id] = s; renderAll(); });
+  es.addEventListener("commit", e => onCommit(JSON.parse(e.data)));
+  es.addEventListener("metrics", e => onMetrics(JSON.parse(e.data)));
+}
+
+// ---------------- history (InfluxDB) ----------------
+const FILL_COLORS = () => ({measured: css("--accent"), locf: css("--warn"), interpolated: css("--ok"), missing: css("--crit")});
+$("hMetric").innerHTML = MEASURED.map(m => `<option value="${m}">${LABELS[m]}</option>`).join("");
+
+async function loadHistory() {
+  if (!current) return;
+  const url = `/api/history/series?printer=${current}&metric=${$("hMetric").value}&source=${$("hSource").value}&start=${$("hRange").value}`;
+  const res = await fetch(url); const rows = await res.json();
+  if (!Array.isArray(rows)) { $("hLegend").textContent = rows.error || "помилка"; return; }
+  drawHistory(rows, $("hSource").value);
+}
+
+function drawHistory(rows, source) {
+  const cv = $("hist"), w = cv.clientWidth, h = cv.clientHeight, dpr = devicePixelRatio || 1;
+  cv.width = w*dpr; cv.height = h*dpr;
+  const c = cv.getContext("2d"); c.setTransform(dpr,0,0,dpr,0,0); c.clearRect(0,0,w,h);
+  const pts = rows.map(r => ({t: Date.parse(r._time)/1000, v: source==="raw" ? r.value : r.mean, fill: r.fill, out: r.outlier, f: r.filtered}))
+                  .filter(p => p.v != null || p.fill === "missing");
+  const counts = {};
+  pts.forEach(p => { const k = source==="raw" ? (p.out ? "outlier" : "value") : p.fill; counts[k] = (counts[k]||0) + 1; });
+  if (!pts.length) { $("hLegend").textContent = "немає даних у вибраному інтервалі"; return; }
+  const L = 52, R = 10, T = 10, B = 24;
+  const t0 = pts[0].t, t1 = pts[pts.length-1].t || t0 + 1;
+  const vals = pts.filter(p => p.v != null).map(p => p.v);
+  let lo = Math.min(...vals), hi = Math.max(...vals); if (hi - lo < 1e-6) { hi += 1; lo -= 1; }
+  const pad = (hi-lo)*0.08; lo -= pad; hi += pad;
+  const X = t => L + (t-t0)/Math.max(t1-t0,1e-6)*(w-L-R), Y = v => T + (1-(v-lo)/(hi-lo))*(h-T-B);
+  c.strokeStyle = css("--line"); c.fillStyle = css("--muted"); c.font = "11px system-ui"; c.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) { const v = lo + (hi-lo)*i/4, y = Y(v); c.beginPath(); c.moveTo(L,y); c.lineTo(w-R,y); c.stroke(); c.fillText(v.toFixed(2), 4, y+4); }
+  for (let i = 0; i <= 4; i++) { const t = t0 + (t1-t0)*i/4; c.fillText(new Date(t*1000).toLocaleTimeString("uk-UA",{hour12:false}), X(t)-24, h-6); }
+  c.strokeStyle = css("--accent"); c.lineWidth = 1.2; c.beginPath(); let started = false;
+  pts.forEach(p => { if (p.v == null) { started = false; return; } const x = X(p.t), y = Y(source==="raw" && p.out ? p.f : p.v);
+    started ? c.lineTo(x,y) : c.moveTo(x,y); started = true; });
+  c.stroke();
+  const fc = FILL_COLORS();
+  pts.forEach(p => {
+    if (source === "raw") { if (p.out) { c.fillStyle = fc.missing; c.beginPath(); c.arc(X(p.t), Y(p.v), 3.5, 0, 7); c.fill(); } return; }
+    if (p.fill === "measured") return;
+    c.fillStyle = fc[p.fill] || "#999";
+    if (p.fill === "missing") c.fillRect(X(p.t)-1, T, 2, h-T-B); else { c.beginPath(); c.arc(X(p.t), Y(p.v), 3, 0, 7); c.fill(); }
+  });
+  const names = source === "raw" ? {value: "виміряні значення (лінія — після фільтра)", outlier: "викиди (сирі значення)"}
+    : {measured: "виміряно", locf: "LOCF (тимчасово)", interpolated: "інтерпольовано", missing: "пропуск"};
+  const colors = source === "raw" ? {value: fc.measured, outlier: fc.missing} : fc;
+  $("hLegend").innerHTML = Object.entries(names).map(([k,l]) => `<span><i style="background:${colors[k]}"></i>${l}: ${counts[k]||0}</span>`).join("");
+}
+$("hLoad").onclick = loadHistory;
+for (const [id, key] of [["hMetric", "metric"], ["hSource", "source"], ["hRange", "range"]])
+  if (params.get(key)) $(id).value = params.get(key);
+if (params.get("history")) { $("hAuto").checked = true; setTimeout(loadHistory, 1500); }
+setInterval(() => { if ($("hAuto").checked) loadHistory(); }, 2000);
+
+const pad2 = x => String(x).padStart(2, "0");
+const d = new Date(Date.now() - 60000);
+$("atTime").value = `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}T${pad2(d.getHours())}:${pad2(d.getMinutes())}:${pad2(d.getSeconds())}`;
+$("atLoad").onclick = async () => {
+  if (!current) return;
+  const t = new Date($("atTime").value).toISOString();
+  const s = await (await fetch(`/api/history/state_at?printer=${current}&time=${t}`)).json();
+  $("atTable").innerHTML = Object.keys(s).length ? Object.entries(s).sort().map(([k,v]) => `<tr><td>${k}</td><td class="num">${typeof v==="number"?+v.toFixed(3):v}</td></tr>`).join("")
+    : '<tr><td class="muted">у сховищі немає стану до цього моменту</td></tr>';
+};
+
+if (params.get("stateAt")) {   // ?stateAt=N  -> query the stored state N seconds ago
+  const t = new Date(Date.now() - 1000 * +params.get("stateAt"));
+  $("atTime").value = `${t.getFullYear()}-${pad2(t.getMonth()+1)}-${pad2(t.getDate())}T${pad2(t.getHours())}:${pad2(t.getMinutes())}:${pad2(t.getSeconds())}`;
+  setTimeout(() => $("atLoad").click(), 1500);
+}
+fetch("/api/state").then(r => r.json()).then(all => { Object.values(all).forEach(s => { ensure(s.printer_id); twins[s.printer_id] = s; }); renderAll(); });
+connect();
+</script>
+</body>
+</html>

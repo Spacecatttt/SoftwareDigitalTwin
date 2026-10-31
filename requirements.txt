@@ -1,0 +1,7 @@
+paho-mqtt>=2.1
+influxdb-client>=1.40
+matplotlib>=3.8
+# profiling (experiments/profile_pipeline.py) and report generation only
+py-spy>=0.4
+python-docx>=1.1
+pypandoc_binary>=1.13

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Pipeline Diagram</title>
+<style>
+  :root { --bg: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --line: #c3c2b7;
+          --blue: #2a78d6; --blue-bg: #eaf2fc; --orange: #eb6834; --orange-bg: #fdefe8; --aqua: #1baf7a; --aqua-bg: #e6f6f0;
+          --gray-bg: #f0efec; }
+  body { margin: 0; background: var(--bg); font-family: "Segoe UI", system-ui, sans-serif; }
+  svg { display: block; }
+  .t { font-size: 15px; font-weight: 650; fill: var(--ink); }
+  .s { font-size: 12.5px; fill: var(--ink2); }
+  .h { font-size: 13px; font-weight: 700; fill: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+  .n { font-size: 12px; font-weight: 700; fill: #fff; }
+  .lbl { font-size: 11.5px; fill: var(--ink2); }
+</style>
+</head>
+<body>
+<svg id="d" width="1500" height="900" viewBox="0 0 1500 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+  </defs>
+  <rect width="1500" height="900" fill="#fcfcfb"/>
+
+  <!-- lanes -->
+  <text class="h" x="30" y="34">Фізичний об'єкт та IoT-канал (роботи 1–2)</text>
+  <text class="h" x="30" y="214">Конвеєр обробки потокових даних (pipeline.py, один потік обробки)</text>
+  <text class="h" x="30" y="550">Підписники змін стану двійника</text>
+  <text class="h" x="30" y="734">Сховище часових рядів та візуалізація</text>
+  <line x1="30" y1="190" x2="1470" y2="190" stroke="#e1e0d9"/>
+  <line x1="30" y1="528" x2="1470" y2="528" stroke="#e1e0d9"/>
+  <line x1="30" y1="710" x2="1470" y2="710" stroke="#e1e0d9"/>
+
+  <!-- IoT -->
+  <rect x="30" y="50" width="330" height="110" rx="8" fill="#f0efec" stroke="#c3c2b7"/>
+  <text class="t" x="48" y="80">Емулятор 3D-принтера × N</text>
+  <text class="s" x="48" y="102">emulator.py: 10 Гц (QoS 0) + 1 Гц (QoS 1),</text>
+  <text class="s" x="48" y="120">seq_id, мітка часу; LWT; сплеск, обрив,</text>
+  <text class="s" x="48" y="138">store-and-forward, інжекція збоїв</text>
+  <rect x="470" y="50" width="400" height="110" rx="8" fill="#f0efec" stroke="#c3c2b7"/>
+  <text class="t" x="488" y="80">MQTT-брокер Eclipse Mosquitto</text>
+  <text class="s" x="488" y="102">factory/{id}/telemetry/{metric}   (JSON)</text>
+  <text class="s" x="488" y="120">factory/{id}/status   (ONLINE / LWT OFFLINE, retained)</text>
+  <text class="s" x="488" y="138">постійна сесія конвеєра, черга QoS 1</text>
+  <line x1="360" y1="105" x2="466" y2="105" stroke="#52514e" stroke-width="1.6" marker-end="url(#a)"/>
+  <text class="lbl" x="378" y="96">publish</text>
+  <rect x="980" y="50" width="490" height="110" rx="8" fill="#fdefe8" stroke="#eb6834"/>
+  <text class="t" x="998" y="80">Зворотний канал стану двійника (MQTT)</text>
+  <text class="s" x="998" y="102">factory/{id}/twin/state — знімок стану (retained)</text>
+  <text class="s" x="998" y="120">factory/{id}/twin/events — події двійника</text>
+  <text class="s" x="998" y="138">будь-який MQTT-клієнт може стежити за двійником</text>
+  <line x1="870" y1="105" x2="976" y2="105" stroke="#52514e" stroke-width="1.6" marker-start="url(#a)"/>
+
+  <!-- pipeline row 1 -->
+  <g>
+    <rect x="30" y="232" width="200" height="140" rx="8" fill="#eaf2fc" stroke="#2a78d6"/>
+    <circle cx="52" cy="254" r="12" fill="#2a78d6"/><text class="n" x="48" y="258">1</text>
+    <text class="t" x="72" y="259">Приймання</text>
+    <text class="s" x="46" y="284">paho-mqtt, підписка QoS 1</text>
+    <text class="s" x="46" y="302">мітка t_recv (monotonic)</text>
+    <text class="s" x="46" y="320">буфер inbox (черга)</text>
+    <text class="s" x="46" y="338">→ потік обробки</text>
+
+    <rect x="265" y="232" width="215" height="140" rx="8" fill="#eaf2fc" stroke="#2a78d6"/>
+    <circle cx="287" cy="254" r="12" fill="#2a78d6"/><text class="n" x="283" y="258">2</text>
+    <text class="t" x="307" y="259">Валідація</text>
+    <text class="s" x="281" y="284">JSON, поля, типи, NaN,</text>
+    <text class="s" x="281" y="302">одиниці, фіз. діапазон,</text>
+    <text class="s" x="281" y="320">мітка часу; дедуплікація</text>
+    <text class="s" x="281" y="338">(seq_id, ts) → dead-letter</text>
+
+    <rect x="515" y="232" width="225" height="140" rx="8" fill="#eaf2fc" stroke="#2a78d6"/>
+    <circle cx="537" cy="254" r="12" fill="#2a78d6"/><text class="n" x="533" y="258">3</text>
+    <text class="t" x="557" y="259">Впорядкування</text>
+    <text class="s" x="531" y="284">купа за часом події</text>
+    <text class="s" x="531" y="302">watermark потоку =</text>
+    <text class="s" x="531" y="320">годинник потоку − 200 мс</text>
+    <text class="s" x="531" y="338">старші → «запізнілі»</text>
+
+    <rect x="775" y="232" width="215" height="140" rx="8" fill="#eaf2fc" stroke="#2a78d6"/>
+    <circle cx="797" cy="254" r="12" fill="#2a78d6"/><text class="n" x="793" y="258">4</text>
+    <text class="t" x="817" y="259">Очищення</text>
+    <text class="s" x="791" y="284">втрати за пропусками seq</text>
+    <text class="s" x="791" y="302">фільтр Гампеля (медіана,</text>
+    <text class="s" x="791" y="320">MAD, k·σ), зсув рівня</text>
+    <text class="s" x="791" y="338">→ подія OUTLIER</text>
+
+    <rect x="1025" y="232" width="215" height="140" rx="8" fill="#eaf2fc" stroke="#2a78d6"/>
+    <circle cx="1047" cy="254" r="12" fill="#2a78d6"/><text class="n" x="1043" y="258">5</text>
+    <text class="t" x="1067" y="259">Робочий стан</text>
+    <text class="s" x="1041" y="284">6 виміряних атрибутів</text>
+    <text class="s" x="1041" y="302">похідні: ковзні середні,</text>
+    <text class="s" x="1041" y="320">RMS, інтеграл, нахил;</text>
+    <text class="s" x="1041" y="338">індикатори режимів</text>
+
+    <rect x="1275" y="232" width="195" height="140" rx="8" fill="#fdefe8" stroke="#eb6834"/>
+    <circle cx="1297" cy="254" r="12" fill="#eb6834"/><text class="n" x="1293" y="258">6</text>
+    <text class="t" x="1317" y="259">Синхронізація</text>
+    <text class="s" x="1291" y="284">PERIODIC: кожну 1 с</text>
+    <text class="s" x="1291" y="302">EVENT: режим, тривога,</text>
+    <text class="s" x="1291" y="320">зв'язок, викид</text>
+    <text class="s" x="1291" y="338">THRESHOLD: |Δ| ≥ поріг</text>
+  </g>
+  <g stroke="#52514e" stroke-width="1.6" fill="none">
+    <line x1="230" y1="302" x2="261" y2="302" marker-end="url(#a)"/>
+    <line x1="480" y1="302" x2="511" y2="302" marker-end="url(#a)"/>
+    <line x1="740" y1="302" x2="771" y2="302" marker-end="url(#a)"/>
+    <line x1="990" y1="302" x2="1021" y2="302" marker-end="url(#a)"/>
+    <line x1="1240" y1="302" x2="1271" y2="302" marker-end="url(#a)"/>
+    <path d="M 670 160 L 670 196 L 14 196 L 14 302 L 26 302" marker-end="url(#a)"/>
+  </g>
+  <text class="lbl" x="684" y="180">subscribe factory/+/telemetry/#, factory/+/status (QoS 1)</text>
+
+  <!-- pipeline row 2 -->
+  <rect x="515" y="410" width="475" height="110" rx="8" fill="#e6f6f0" stroke="#1baf7a"/>
+  <circle cx="537" cy="432" r="12" fill="#1baf7a"/><text class="n" x="533" y="436">7</text>
+  <text class="t" x="557" y="437">Ресемплінг на єдину сітку 1 с</text>
+  <text class="s" x="531" y="462">10 Гц → середнє/мін/макс; 1 Гц → вирівнювання за часом події</text>
+  <text class="s" x="531" y="480">пропуски: LOCF → лінійна інтерполяція після закриття пропуску;</text>
+  <text class="s" x="531" y="498">запізнілі / буферизовані дані перезаписують інтервал (upsert)</text>
+
+  <rect x="1025" y="410" width="445" height="110" rx="8" fill="#fdefe8" stroke="#eb6834"/>
+  <circle cx="1047" cy="432" r="12" fill="#eb6834"/><text class="n" x="1043" y="436">8</text>
+  <text class="t" x="1067" y="437">Сховище стану двійника в пам'яті</text>
+  <text class="s" x="1041" y="462">синхронізований стан: версія, причина, diff змін</text>
+  <text class="s" x="1041" y="480">шаблон «Спостерігач»: subscribe(callback),</text>
+  <text class="s" x="1041" y="498">обмежені черги для повільних підписників</text>
+
+  <rect x="30" y="410" width="450" height="110" rx="8" fill="#f0efec" stroke="#c3c2b7"/>
+  <text class="t" x="48" y="437">Таймери (тік 50 мс, час обробки)</text>
+  <text class="s" x="48" y="462">закриття інтервалів за watermark потоку</text>
+  <text class="s" x="48" y="480">watchdog: немає даних 3 с → STALE</text>
+  <text class="s" x="48" y="498">періодичне правило; метрики конвеєра щосекунди</text>
+
+  <g stroke="#52514e" stroke-width="1.6" fill="none">
+    <path d="M 880 372 L 880 390 L 750 390 L 750 406" marker-end="url(#a)"/>
+    <path d="M 1372 372 L 1372 406" marker-end="url(#a)"/>
+    <path d="M 480 465 L 511 465" stroke-dasharray="0" marker-end="url(#a)"/>
+    <path d="M 1247 410 L 1247 400 L 1150 400 L 1150 376" marker-end="url(#a)" stroke="#898781"/>
+  </g>
+  <text class="lbl" x="1158" y="396">читання</text>
+
+  <!-- subscribers -->
+  <g>
+    <rect x="30" y="590" width="290" height="100" rx="8" fill="#fdefe8" stroke="#eb6834"/>
+    <text class="t" x="48" y="618">Консоль / журнал</text>
+    <text class="s" x="48" y="642">події та зміни стану,</text>
+    <text class="s" x="48" y="660">щосекундні метрики конвеєра</text>
+    <rect x="350" y="590" width="330" height="100" rx="8" fill="#fdefe8" stroke="#eb6834"/>
+    <text class="t" x="368" y="618">Веб-дашборд (SSE), :8050</text>
+    <text class="s" x="368" y="642">оновлення стану в реальному часі,</text>
+    <text class="s" x="368" y="660">історія та «стан на момент часу»</text>
+    <rect x="710" y="590" width="330" height="100" rx="8" fill="#fdefe8" stroke="#eb6834"/>
+    <text class="t" x="728" y="618">MQTT-републікатор</text>
+    <text class="s" x="728" y="642">twin/state (≤10 разів/с на пристрій),</text>
+    <text class="s" x="728" y="660">twin/events</text>
+    <rect x="1070" y="590" width="400" height="100" rx="8" fill="#fdefe8" stroke="#eb6834"/>
+    <text class="t" x="1088" y="618">Записувач історії</text>
+    <text class="s" x="1088" y="642">кожен commit → twin_state, події → twin_events;</text>
+    <text class="s" x="1088" y="660">батчі 5000 рядків / 0,5 с, повтори з back-off</text>
+  </g>
+  <g stroke="#eb6834" stroke-width="1.6" fill="none">
+    <path d="M 1247 520 L 1247 564 L 175 564 L 175 586" marker-end="url(#a)"/>
+    <path d="M 515 564 L 515 586" marker-end="url(#a)"/>
+    <path d="M 875 564 L 875 586" marker-end="url(#a)"/>
+    <path d="M 1270 564 L 1270 586" marker-end="url(#a)"/>
+    <path d="M 875 590 L 875 576 L 1488 576 L 1488 176 L 1225 176 L 1225 164" marker-end="url(#a)" stroke="#898781" stroke-width="1.2"/>
+  </g>
+  <text class="lbl" x="1258" y="556">notify(версія, причина, зміни, знімок)</text>
+
+  <!-- storage -->
+  <rect x="30" y="750" width="760" height="125" rx="8" fill="#e6f6f0" stroke="#1baf7a"/>
+  <text class="t" x="48" y="778">InfluxDB 2.x — bucket digital_twin (зберігання 30 діб)</text>
+  <text class="s" x="48" y="802">telemetry_raw · telemetry_resampled · twin_state · twin_events · telemetry_rejected · pipeline_metrics</text>
+  <text class="s" x="48" y="822">теги (індексовані): printer_id, metric, reason, type…  поля: значення; час — наносекунди</text>
+  <text class="s" x="48" y="842">задача downsample_1m (Flux, щохвилини) → bucket digital_twin_1m (365 діб)</text>
+  <text class="s" x="48" y="862">однакові серія + час ⇒ перезапис (upsert) — використано для корекцій ресемплінгу</text>
+  <rect x="820" y="750" width="300" height="125" rx="8" fill="#f0efec" stroke="#c3c2b7"/>
+  <text class="t" x="838" y="778">Grafana :3000</text>
+  <text class="s" x="838" y="802">дашборд історії, Flux-запити,</text>
+  <text class="s" x="838" y="822">поточний стан, метрики конвеєра,</text>
+  <text class="s" x="838" y="842">заповнення пропусків, події</text>
+  <rect x="1150" y="750" width="320" height="125" rx="8" fill="#f0efec" stroke="#c3c2b7"/>
+  <text class="t" x="1168" y="778">query_history.py / API</text>
+  <text class="s" x="1168" y="802">стан двійника на момент часу,</text>
+  <text class="s" x="1168" y="822">ряди raw / 1 с / 1 хв, події,</text>
+  <text class="s" x="1168" y="842">статистика заповнення пропусків</text>
+  <g stroke="#52514e" stroke-width="1.6" fill="none">
+    <path d="M 750 520 L 750 538 L 695 538 L 695 746" marker-end="url(#a)" stroke="#1baf7a"/>
+    <path d="M 1270 690 L 1270 728 L 760 728 L 760 746" marker-end="url(#a)" stroke="#eb6834"/>
+    <path d="M 790 812 L 816 812" marker-start="url(#a)"/>
+    <path d="M 1120 812 L 1146 812" marker-start="url(#a)"/>
+  </g>
+  <text class="lbl" x="688" y="742" text-anchor="end">telemetry_raw, telemetry_resampled</text>
+</svg>
+</body>
+</html>

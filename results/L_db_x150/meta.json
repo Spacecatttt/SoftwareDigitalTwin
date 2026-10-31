@@ -1,0 +1,45 @@
+{
+  "run_id": "L_db_x150",
+  "t_start": 1793437748.4548182,
+  "t_emulators_end": 1793437761.696207,
+  "t_end": 1793437809.0712502,
+  "emulators": {
+    "load_01": [
+      "--duration",
+      "15",
+      "--seed",
+      "1",
+      "--rate",
+      "150",
+      "--no-spikes"
+    ],
+    "load_02": [
+      "--duration",
+      "15",
+      "--seed",
+      "2",
+      "--rate",
+      "150",
+      "--no-spikes"
+    ],
+    "load_03": [
+      "--duration",
+      "15",
+      "--seed",
+      "3",
+      "--rate",
+      "150",
+      "--no-spikes"
+    ],
+    "load_04": [
+      "--duration",
+      "15",
+      "--seed",
+      "4",
+      "--rate",
+      "150",
+      "--no-spikes"
+    ]
+  },
+  "pipeline_args": []
+}

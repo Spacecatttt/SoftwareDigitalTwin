@@ -1,0 +1,41 @@
+{
+  "run_id": "S1_normal",
+  "t_start": 1793462815.665332,
+  "t_emulators_end": 1793462936.3200097,
+  "t_end": 1793463116.912853,
+  "emulators": {
+    "printer_01": [
+      "--duration",
+      "120",
+      "--seed",
+      "1",
+      "--p-invalid",
+      "0.005",
+      "--p-duplicate",
+      "0.005",
+      "--p-jitter",
+      "0.05",
+      "--jitter-ms",
+      "300",
+      "--p-drop",
+      "0.002"
+    ],
+    "printer_02": [
+      "--duration",
+      "120",
+      "--seed",
+      "2",
+      "--p-invalid",
+      "0.005",
+      "--p-duplicate",
+      "0.005",
+      "--p-jitter",
+      "0.05",
+      "--jitter-ms",
+      "300",
+      "--p-drop",
+      "0.002"
+    ]
+  },
+  "pipeline_args": []
+}

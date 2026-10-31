@@ -1,0 +1,8 @@
+metric               count  mean     min      max      outliers
+-------------------  -----  -------  -------  -------  --------
+bed_temperature      217    60.005   58.260   61.600           
+chamber_temperature  217    40.070   38.120   41.230           
+extruder_feed_rate   2019   57.504   0        123.220          
+fan_speed_percent    217    80.011   78.200   81.600           
+nozzle_temperature   217    219.505  206.980  275.040  45      
+stepper_current_x    2019   1.201    1.135    1.737    7       
