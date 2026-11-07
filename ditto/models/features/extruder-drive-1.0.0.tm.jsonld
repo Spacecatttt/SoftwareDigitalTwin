@@ -1,0 +1,81 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Extruder drive",
+  "description": "Filament feed of the extruder (10 Hz commanded signal, range-validated only).",
+  "version": {
+    "model": "1.0.0"
+  },
+  "tm:optional": [
+    "/properties/feedRate",
+    "/properties/feedRateAvg5s",
+    "/properties/extrudedLengthMm",
+    "/properties/filamentUsedG",
+    "/properties/measuredAt"
+  ],
+  "properties": {
+    "feedRate": {
+      "title": "Feed rate",
+      "description": "Extruder feed rate.",
+      "type": "number",
+      "unit": "mm/s",
+      "minimum": 0,
+      "maximum": 300,
+      "readOnly": true
+    },
+    "feedRateAvg5s": {
+      "title": "Average feed rate, 5 s",
+      "description": "Moving average of the feed rate over 5 s.",
+      "type": "number",
+      "unit": "mm/s",
+      "minimum": 0,
+      "maximum": 300,
+      "readOnly": true
+    },
+    "extrudedLengthMm": {
+      "title": "Extruded length",
+      "description": "Trapezoidal integral of the feed rate since the start of the twin.",
+      "type": "number",
+      "unit": "mm",
+      "minimum": 0,
+      "readOnly": true
+    },
+    "filamentUsedG": {
+      "title": "Filament used",
+      "description": "Extruded length x filament cross-section x density.",
+      "type": "number",
+      "unit": "g",
+      "minimum": 0,
+      "readOnly": true
+    },
+    "quality": {
+      "title": "Data quality",
+      "description": "Quality flag of the value from the pipeline: GOOD - as measured, FILTERED - an outlier was replaced by the last accepted value, STALE - no fresh data (connectivity lost), UNKNOWN - no data yet.",
+      "type": "string",
+      "enum": [
+        "GOOD",
+        "FILTERED",
+        "STALE",
+        "UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "readOnly": true
+    },
+    "measuredAt": {
+      "title": "Measured at",
+      "description": "Event time (device clock) of the measurement the value comes from.",
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    }
+  }
+}

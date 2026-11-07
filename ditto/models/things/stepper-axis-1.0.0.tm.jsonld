@@ -1,0 +1,81 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Motion axis",
+  "description": "Motion axis driven by a stepper motor.",
+  "version": {
+    "model": "1.0.0"
+  },
+  "links": [
+    {
+      "rel": "tm:extends",
+      "href": "http://wot-models/models/twin-node-1.0.0.tm.jsonld",
+      "type": "application/tm+json"
+    },
+    {
+      "rel": "tm:submodel",
+      "href": "http://wot-models/models/features/stepper-motor-1.0.0.tm.jsonld",
+      "type": "application/tm+json",
+      "instanceName": "motor"
+    }
+  ],
+  "properties": {
+    "axis": {
+      "title": "Axis",
+      "type": "string",
+      "enum": [
+        "X",
+        "Y",
+        "Z"
+      ]
+    },
+    "ratedCurrentA": {
+      "title": "Rated current",
+      "type": "number",
+      "unit": "A",
+      "minimum": 0
+    },
+    "relations": {
+      "title": "Relations",
+      "description": "Outgoing edges of the twin graph (thingId of the target twin).",
+      "type": "object",
+      "properties": {
+        "isPartOf": {
+          "title": "isPartOf",
+          "description": "Composition: the twin is a part of the target twin.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/printer-1.0.0.tm.jsonld"
+        },
+        "controlledBy": {
+          "title": "controlledBy",
+          "description": "The subsystem is driven by the target controller.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/controller-1.0.0.tm.jsonld"
+        },
+        "poweredBy": {
+          "title": "poweredBy",
+          "description": "The subsystem is supplied by the target power supply.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/power-supply-1.0.0.tm.jsonld"
+        }
+      },
+      "required": [
+        "isPartOf",
+        "controlledBy",
+        "poweredBy"
+      ]
+    }
+  }
+}

@@ -1,0 +1,3 @@
+[EMULATOR printer_02] Connected to localhost:1883
+[EMULATOR printer_02] COMMAND emergencyCooldown (thermalState CRITICAL at 227.1 C): heater power cut
+[EMULATOR printer_02] Work completed: {'generated': 5520, 'sent': 5520, 'commands': 1, 'steps': 2300, 'elapsed_s': 230.0}

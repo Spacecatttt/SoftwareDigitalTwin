@@ -1,0 +1,76 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Stepper motor",
+  "description": "Stepper motor of a motion axis with the phase current sensor (10 Hz).",
+  "version": {
+    "model": "1.0.0"
+  },
+  "tm:optional": [
+    "/properties/current",
+    "/properties/currentRms5s",
+    "/properties/measuredAt"
+  ],
+  "properties": {
+    "current": {
+      "title": "Current",
+      "description": "Filtered phase current.",
+      "type": "number",
+      "unit": "A",
+      "minimum": 0,
+      "maximum": 3,
+      "readOnly": true
+    },
+    "currentRms5s": {
+      "title": "RMS current, 5 s",
+      "description": "Root mean square of the current over 5 s.",
+      "type": "number",
+      "unit": "A",
+      "minimum": 0,
+      "maximum": 3,
+      "readOnly": true
+    },
+    "loadState": {
+      "title": "Load",
+      "description": "By the 5 s RMS current: NORMAL < 1.4 A, HIGH < 1.6 A, OVERLOAD otherwise.",
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "HIGH",
+        "OVERLOAD",
+        "UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "readOnly": true
+    },
+    "quality": {
+      "title": "Data quality",
+      "description": "Quality flag of the value from the pipeline: GOOD - as measured, FILTERED - an outlier was replaced by the last accepted value, STALE - no fresh data (connectivity lost), UNKNOWN - no data yet.",
+      "type": "string",
+      "enum": [
+        "GOOD",
+        "FILTERED",
+        "STALE",
+        "UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "readOnly": true
+    },
+    "measuredAt": {
+      "title": "Measured at",
+      "description": "Event time (device clock) of the measurement the value comes from.",
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    }
+  }
+}

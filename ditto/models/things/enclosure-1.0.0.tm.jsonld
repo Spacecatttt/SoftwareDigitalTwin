@@ -1,0 +1,56 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Enclosure",
+  "description": "Enclosure of the printer with the chamber temperature sensor.",
+  "version": {
+    "model": "1.0.0"
+  },
+  "links": [
+    {
+      "rel": "tm:extends",
+      "href": "http://wot-models/models/twin-node-1.0.0.tm.jsonld",
+      "type": "application/tm+json"
+    },
+    {
+      "rel": "tm:submodel",
+      "href": "http://wot-models/models/features/temperature-sensor-1.0.0.tm.jsonld",
+      "type": "application/tm+json",
+      "instanceName": "temperature"
+    }
+  ],
+  "properties": {
+    "volumeL": {
+      "title": "Volume",
+      "type": "number",
+      "unit": "L",
+      "minimum": 0
+    },
+    "relations": {
+      "title": "Relations",
+      "description": "Outgoing edges of the twin graph (thingId of the target twin).",
+      "type": "object",
+      "properties": {
+        "isPartOf": {
+          "title": "isPartOf",
+          "description": "Composition: the twin is a part of the target twin.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/printer-1.0.0.tm.jsonld"
+        }
+      },
+      "required": [
+        "isPartOf"
+      ]
+    }
+  }
+}

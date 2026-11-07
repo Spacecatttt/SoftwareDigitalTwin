@@ -1,0 +1,42 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Twin graph node",
+  "description": "Common attributes of every twin of the 3D print farm: name and kind (type of the node).",
+  "version": {
+    "model": "1.0.0"
+  },
+  "properties": {
+    "name": {
+      "title": "Name",
+      "description": "Human-readable name of the twin.",
+      "type": "string"
+    },
+    "kind": {
+      "title": "Kind",
+      "description": "Type of the node of the twin graph.",
+      "type": "string",
+      "enum": [
+        "PrintFarm",
+        "Printer",
+        "Controller",
+        "PowerSupply",
+        "Hotend",
+        "HeatedBed",
+        "Extruder",
+        "StepperAxis",
+        "Fan",
+        "Enclosure"
+      ]
+    }
+  }
+}

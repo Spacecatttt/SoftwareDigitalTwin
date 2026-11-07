@@ -1,0 +1,46 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Fleet summary",
+  "description": "Roll-up of the printers of a print farm, maintained by the event monitor via search queries.",
+  "version": {
+    "model": "1.0.0"
+  },
+  "tm:optional": [
+    "/properties/updatedAt"
+  ],
+  "properties": {
+    "printersTotal": {
+      "title": "Printers",
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "printersOnline": {
+      "title": "Online",
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "printersInAlarm": {
+      "title": "In alarm",
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "updatedAt": {
+      "title": "Updated at",
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

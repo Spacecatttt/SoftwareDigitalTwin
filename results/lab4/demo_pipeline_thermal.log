@@ -1,0 +1,7 @@
+2026-11-03 20:37:20,539 [INFO] [TWIN printer_03 v10 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.3 C (setpoint 210))
+2026-11-03 20:37:20,571 [INFO] [TWIN printer_01 v9 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.8 C (setpoint 210))
+2026-11-03 20:37:20,575 [INFO] [TWIN printer_02 v9 EVENT] thermal_state: UNKNOWN -> NORMAL (nozzle 210.4 C (setpoint 210))
+2026-11-03 20:39:25,569 [WARNING] [TWIN printer_02 v392 EVENT] thermal_state: NORMAL -> WARNING (nozzle 221.8 C (setpoint 210))
+2026-11-03 20:39:27,568 [WARNING] [TWIN printer_02 v404 EVENT] thermal_state: WARNING -> CRITICAL (nozzle 227.1 C (setpoint 210))
+2026-11-03 20:39:30,570 [WARNING] [TWIN printer_02 v420 EVENT] thermal_state: CRITICAL -> WARNING (nozzle 219.0 C (setpoint 210))
+2026-11-03 20:39:35,613 [INFO] [TWIN printer_02 v436 EVENT] thermal_state: WARNING -> NORMAL (nozzle 212.9 C (setpoint 210))

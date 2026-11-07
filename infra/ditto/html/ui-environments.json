@@ -1,0 +1,41 @@
+{
+  "dt_soft": {
+    "api_uri": "http://localhost:8180",
+    "ditto_version": 3,
+    "disableConnections": true,
+    "searchNamespaces": "kpi.dt",
+    "fieldList": [
+      {"active": true, "path": "attributes/kind", "label": "Kind"},
+      {"active": true, "path": "attributes/relations/isPartOf", "label": "Part of"},
+      {"active": true, "path": "features/heater/properties/temperature", "label": "Nozzle, C"},
+      {"active": true, "path": "features/heater/properties/thermalState", "label": "Thermal"},
+      {"active": true, "path": "features/connectivity/properties/status", "label": "Link"},
+      {"active": true, "path": "features/status/properties/healthIndex", "label": "Health"},
+      {"active": true, "path": "features/alarms/properties/level", "label": "Alarm"}
+    ],
+    "filterList": [
+      "eq(attributes/kind,\"Printer\")",
+      "eq(attributes/relations/isPartOf,\"kpi.dt:printer_01\")",
+      "gt(features/heater/properties/temperature,215)",
+      "eq(features/alarms/properties/active,true)",
+      "eq(attributes/relations/poweredBy,\"kpi.dt:printer_01.psu\")"
+    ],
+    "pinnedThings": ["kpi.dt:farm-01", "kpi.dt:printer_01", "kpi.dt:printer_01.hotend"],
+    "authSettings": {
+      "main": {
+        "method": "basic",
+        "oidc": {"enabled": false},
+        "basic": {"enabled": true, "defaultUsernamePassword": "ditto:ditto"},
+        "bearer": {"enabled": false},
+        "pre": {"enabled": false}
+      },
+      "devops": {
+        "method": "basic",
+        "oidc": {"enabled": false},
+        "basic": {"enabled": true, "defaultUsernamePassword": "devops:foobar"},
+        "bearer": {"enabled": false}
+      },
+      "oidc": {}
+    }
+  }
+}

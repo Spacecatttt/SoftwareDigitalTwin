@@ -15,6 +15,13 @@ INFLUX_ORG = os.getenv("INFLUX_ORG", "kpi")
 INFLUX_BUCKET = os.getenv("INFLUX_BUCKET", "digital_twin")              # raw + state, 30 days
 INFLUX_BUCKET_LONGTERM = os.getenv("INFLUX_BUCKET_LT", "digital_twin_1m")  # 1-min downsampled, 365 days
 
+# Eclipse Ditto (lab 4): API behind ditto-nginx, basic-auth users ditto (owner), adapter, monitor
+DITTO_URL = os.getenv("DITTO_URL", "http://localhost:8180")
+DITTO_NAMESPACE = "kpi.dt"
+DITTO_POLICY_ID = f"{DITTO_NAMESPACE}:twin-policy"
+DITTO_MODELS_URL = "http://wot-models/models"   # WoT Thing Models as Ditto downloads them (docker network)
+COMMANDS_TOPIC = "factory/{printer_id}/commands"  # commands to the device (category "commands" of the lab 2 topics)
+
 
 @dataclass(frozen=True)
 class HampelSpec:

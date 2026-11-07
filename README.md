@@ -1,4 +1,4 @@
-# Лабораторна робота 3. Конвеєр обробки потокових даних і синхронізація стану цифрового двійника
+# Програмне забезпечення технології цифрових двійників
 
 Продовження робіт 1–2 (емулятор 3D-принтера та IoT-канал MQTT; їхній код лежить у `lab2/`).
 Формат повідомлень і топіки ті самі: `factory/{printer_id}/telemetry/{metric}`, `factory/{printer_id}/status`.
@@ -17,7 +17,7 @@ emulator.py ──MQTT──▶ Mosquitto ──▶ pipeline.py ──▶ ста
 |---|---|
 | `lab2/` | код робіт 1–2 без змін: `emulator_publisher.py`, `subscriber_receiver.py` (запуск з `lab2/`: `../.venv/bin/python emulator_publisher.py`) |
 | `.venv/` | спільне віртуальне оточення (`requirements.txt`) |
-| `docker-compose.yml`, `infra/` | Mosquitto (конфіг на основі роботи 2), InfluxDB 2.9, Grafana 13 з готовими джерелом даних і дашбордом |
+| `docker-compose.yml`, `infra/` | Mosquitto (конфіг на основі роботи 2), InfluxDB 2.9, Grafana 13 з готовими джерелом даних і дашбордом; Eclipse Ditto 3.9.7 (робота 4, `infra/ditto/`) |
 | `pipeline.py` | точка входу конвеєра: MQTT → обробка → стан → підписники, метрики |
 | `twin/config.py` | каталог метрик (одиниці, фізичні діапазони, пороги зміни, параметри фільтра та заповнення пропусків) |
 | `twin/model.py` | **модель стану двійника**: атрибути, похідні показники, індикатори режимів |
@@ -28,11 +28,14 @@ emulator.py ──MQTT──▶ Mosquitto ──▶ pipeline.py ──▶ ста
 | `twin/processor.py` | зшивання етапів, таймери (watchdog, періодичне правило, метрики) |
 | `twin/storage.py`, `twin/history.py` | запис у InfluxDB (line protocol, батчі, повтори), схема, Flux-запити до історії |
 | `twin/web.py`, `web/index.html` | веб-дашборд реального часу (SSE) + історія зі сховища |
-| `emulator.py` | емулятор із роботи 2 + сплеск, обрив зв'язку, thermal runaway, інжекція збоїв |
+| `emulator.py` | емулятор із роботи 2 + сплеск, обрив зв'язку, thermal runaway, інжекція збоїв, команди `factory/{id}/commands` |
 | `query_history.py` | CLI-вибірки історичних даних |
 | `experiments/` | сценарії вимірювань і побудова таблиць / графіків |
-| `tests/` | модульні тести етапів конвеєра |
-| `report/` | звіт (`Звіт_ЛР3.md` → `build_report.py` → `.docx`, `.pdf`), рисунки, схема конвеєра |
+| `ditto/models/` | **робота 4**: моделі двійників — WoT Thing Models (`things/` — типи двійників, `features/` — їхні складові) |
+| `twin/ditto_graph.py`, `twin/ditto_mapping.py`, `twin/ditto_client.py` | граф двійників і політика доступу; відповідність стану конвеєра властивостям двійників; клієнт HTTP / WebSocket API Ditto |
+| `ditto_setup.py`, `ditto_adapter.py`, `ditto_monitor.py`, `ditto_query.py` | створення графа; адаптер конвеєр ↔ Ditto; реакція на події; запити до графа |
+| `tests/` | модульні тести етапів конвеєра та інтеграції з Ditto |
+| `report/` | звіти (`Звіт_ЛР3.docx`, `lab4/Звіт_ЛР4.md` → `build_report.py` → `.docx`), рисунки |
 | `results/` | сирі результати вимірювань: метрики щосекунди, підсумки, вибірки затримок, профіль |
 
 ## Запуск
@@ -140,6 +143,55 @@ docker exec lab3-mosquitto mosquitto_sub -t 'factory/+/twin/events' -v
 ```
 
 `run_experiments.py` триває близько 25 хв. Сценарії: S1 штатний режим, S2 сплески ×25 / ×60, S3 обрив зв'язку на 20 с, навантажувальний тест (×1…×150, із записом у БД і без нього), перебір затримки буфера впорядкування. Сирі результати лежать у `results/<run>/` (метрики щосекунди, підсумок, вибірка затримок, статистика емуляторів). `analyze.py` будує `results/tables.md` і `report/figures/*.png`.
+
+## Робота 4. Платформа цифрових двійників Eclipse Ditto
+
+```
+pipeline.py ──MQTT twin/state──▶ ditto_adapter.py ──HTTP PATCH (merge)──▶ Eclipse Ditto ──WebSocket events──▶ ditto_monitor.py
+     ▲                                  │ ◀──── WebSocket messages (WoT action) ────┘ ◀── emergencyCooldown ─────┘
+emulator.py ◀──MQTT factory/{id}/commands┘
+```
+
+Ditto запускається тим самим `docker compose up -d` (перший старт ≈ 1–2 хв). Після цього:
+
+```bash
+.venv/bin/python ditto_setup.py
+```
+
+Скрипт створює політику та граф: ферма `kpi.dt:farm-01`, принтери `printer_01`, `printer_02`, по 9 двійників на принтер. Ще один принтер: `ditto_setup.py printer_03`.
+
+| Компонент | Термінал |
+|---|---|
+| конвеєр роботи 3 | `.venv/bin/python pipeline.py` |
+| адаптер конвеєр ↔ Ditto | `.venv/bin/python ditto_adapter.py` |
+| монітор подій (реакція) | `.venv/bin/python ditto_monitor.py` |
+| емулятори | `.venv/bin/python emulator.py printer_01`, `... printer_02 --runaway 15:60` |
+
+| Інтерфейс | Адреса |
+|---|---|
+| Ditto Explorer UI (`ditto` / `ditto`) | http://localhost:8180/ |
+| Ditto HTTP API | http://localhost:8180/api/2/things/kpi.dt:printer_01 |
+| WoT Thing Models | http://localhost:8180/models/things/hotend-1.0.0.tm.jsonld |
+
+Користувачі Ditto (пароль = ім'я): `ditto` — власник, `adapter` — може писати лише features, `monitor` — лише тривоги, зведення ферми та дію `emergencyCooldown`.
+
+Запити до графа:
+
+```bash
+.venv/bin/python ditto_query.py tree
+```
+
+```bash
+.venv/bin/python ditto_query.py search 'gt(features/heater/properties/temperature,212)' --fields features/heater/properties/temperature
+```
+
+```bash
+.venv/bin/python ditto_query.py impact kpi.dt:printer_01.psu
+```
+
+Інші: `state`, `count`, `parts`, `relations`, `td` (WoT Thing Description), `history` (стан на момент часу), див. `ditto_query.py -h`.
+
+Ditto не дозволяє створити двійник нікому, крім `ditto`, поза простором імен `kpi.dt` та без моделі з `http://wot-models/models/things/` (`entity-creation` у `docker-compose.yml`). Адаптер оновлює лише наявні двійники (`If-Match: *`).
 
 ## Примітка про годинник WSL2
 

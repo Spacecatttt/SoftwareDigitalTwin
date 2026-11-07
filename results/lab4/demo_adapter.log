@@ -1,0 +1,29 @@
+2026-11-03 20:37:13,261 [INFO] [ADAPTER] factory/+/twin/state -> Ditto http://localhost:8180 as 'adapter', flush 250 ms, commands Ditto -> MQTT on
+2026-11-03 20:37:13,272 [INFO] [MQTT] connected to localhost:1883 (Success)
+2026-11-03 20:37:17,226 [INFO] [WS] START-SEND-MESSAGES -> START-SEND-MESSAGES:ACK
+2026-11-03 20:37:23,262 [INFO] [ADAPTER] states 4.0/s | Ditto writes 12.5/s (341 properties, 709 unchanged skipped) | write ms mean 21.9 max 47.2 | pending 16 | rejected 0 errors 0
+2026-11-03 20:37:33,263 [INFO] [ADAPTER] states 7.2/s | Ditto writes 28.9/s (822 properties, 1725 unchanged skipped) | write ms mean 19.3 max 38.2 | pending 0 | rejected 0 errors 0
+2026-11-03 20:37:43,263 [INFO] [ADAPTER] states 8.3/s | Ditto writes 29.6/s (846 properties, 2056 unchanged skipped) | write ms mean 20.0 max 38.7 | pending 27 | rejected 0 errors 0
+2026-11-03 20:37:53,265 [INFO] [ADAPTER] states 8.2/s | Ditto writes 28.1/s (792 properties, 1975 unchanged skipped) | write ms mean 20.3 max 51.1 | pending 0 | rejected 0 errors 0
+2026-11-03 20:38:03,266 [INFO] [ADAPTER] states 7.3/s | Ditto writes 29.5/s (816 properties, 1795 unchanged skipped) | write ms mean 19.2 max 62.9 | pending 5 | rejected 0 errors 0
+2026-11-03 20:38:13,267 [INFO] [ADAPTER] states 7.3/s | Ditto writes 28.0/s (753 properties, 1876 unchanged skipped) | write ms mean 14.4 max 32.1 | pending 56 | rejected 0 errors 0
+2026-11-03 20:38:23,269 [INFO] [ADAPTER] states 7.4/s | Ditto writes 29.7/s (832 properties, 1764 unchanged skipped) | write ms mean 19.2 max 37.4 | pending 4 | rejected 0 errors 0
+2026-11-03 20:38:33,269 [INFO] [ADAPTER] states 7.5/s | Ditto writes 29.1/s (772 properties, 1926 unchanged skipped) | write ms mean 17.9 max 38.2 | pending 5 | rejected 0 errors 0
+2026-11-03 20:38:43,270 [INFO] [ADAPTER] states 7.9/s | Ditto writes 27.5/s (755 properties, 2033 unchanged skipped) | write ms mean 16.3 max 31.8 | pending 0 | rejected 0 errors 0
+2026-11-03 20:38:53,271 [INFO] [ADAPTER] states 8.6/s | Ditto writes 30.9/s (820 properties, 2205 unchanged skipped) | write ms mean 16.7 max 33.2 | pending 0 | rejected 0 errors 0
+2026-11-03 20:39:03,272 [INFO] [ADAPTER] states 8.1/s | Ditto writes 29.6/s (774 properties, 2117 unchanged skipped) | write ms mean 17.4 max 36.5 | pending 0 | rejected 0 errors 0
+2026-11-03 20:39:13,273 [INFO] [ADAPTER] states 8.5/s | Ditto writes 30.5/s (835 properties, 2094 unchanged skipped) | write ms mean 16.4 max 37.0 | pending 0 | rejected 0 errors 0
+2026-11-03 20:39:23,274 [INFO] [ADAPTER] states 7.4/s | Ditto writes 30.1/s (817 properties, 1867 unchanged skipped) | write ms mean 18.2 max 35.8 | pending 0 | rejected 0 errors 0
+2026-11-03 20:39:27,585 [WARNING] [COMMAND] Ditto kpi.dt:printer_02.hotend /features/heater/inbox/messages/emergencyCooldown -> MQTT factory/printer_02/commands
+2026-11-03 20:39:33,275 [INFO] [ADAPTER] states 8.9/s | Ditto writes 30.0/s (791 properties, 2355 unchanged skipped) | write ms mean 17.2 max 34.6 | pending 0 | rejected 0 errors 0
+2026-11-03 20:39:43,276 [INFO] [ADAPTER] states 8.3/s | Ditto writes 30.3/s (830 properties, 2133 unchanged skipped) | write ms mean 17.6 max 34.7 | pending 15 | rejected 0 errors 0
+2026-11-03 20:39:53,278 [INFO] [ADAPTER] states 8.5/s | Ditto writes 30.6/s (805 properties, 2112 unchanged skipped) | write ms mean 17.5 max 36.1 | pending 5 | rejected 0 errors 0
+2026-11-03 20:40:03,278 [INFO] [ADAPTER] states 8.4/s | Ditto writes 28.9/s (770 properties, 2185 unchanged skipped) | write ms mean 17.5 max 36.8 | pending 63 | rejected 0 errors 0
+2026-11-03 20:40:13,279 [INFO] [ADAPTER] states 7.5/s | Ditto writes 29.7/s (800 properties, 1836 unchanged skipped) | write ms mean 17.1 max 34.7 | pending 4 | rejected 0 errors 0
+2026-11-03 20:40:23,280 [INFO] [ADAPTER] states 7.4/s | Ditto writes 28.7/s (787 properties, 1847 unchanged skipped) | write ms mean 15.3 max 38.3 | pending 4 | rejected 0 errors 0
+2026-11-03 20:40:33,280 [INFO] [ADAPTER] states 8.3/s | Ditto writes 29.2/s (763 properties, 2218 unchanged skipped) | write ms mean 18.3 max 36.3 | pending 0 | rejected 0 errors 0
+2026-11-03 20:40:43,280 [INFO] [ADAPTER] states 7.3/s | Ditto writes 30.8/s (827 properties, 1781 unchanged skipped) | write ms mean 17.3 max 37.1 | pending 0 | rejected 0 errors 0
+2026-11-03 20:40:53,281 [INFO] [ADAPTER] states 8.7/s | Ditto writes 30.6/s (823 properties, 2236 unchanged skipped) | write ms mean 17.3 max 33.1 | pending 0 | rejected 0 errors 0
+2026-11-03 20:41:03,282 [INFO] [ADAPTER] states 8.5/s | Ditto writes 29.2/s (768 properties, 2270 unchanged skipped) | write ms mean 17.8 max 33.8 | pending 68 | rejected 0 errors 0
+2026-11-03 20:41:13,283 [INFO] [ADAPTER] states 6.7/s | Ditto writes 24.6/s (688 properties, 1667 unchanged skipped) | write ms mean 16.5 max 31.8 | pending 0 | rejected 0 errors 0
+2026-11-03 20:41:23,283 [INFO] [ADAPTER] states 3.0/s | Ditto writes 3.6/s (81 properties, 1059 unchanged skipped) | write ms mean 18.3 max 27.9 | pending 0 | rejected 0 errors 0

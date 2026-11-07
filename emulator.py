@@ -5,6 +5,7 @@ Same topics / payload / physics as in lab 2, plus test-scenario controls:
   --outage START:DUR      temporary loss of connectivity: abrupt disconnect (broker fires LWT),
                           QoS 1 metrics are buffered on the device (store-and-forward), QoS 0 are lost
   --runaway START:DUR     thermal runaway: nozzle temperature ramps +2 C/s, then cools down
+                          (the command emergencyCooldown on factory/{id}/commands cuts the heater earlier)
   --p-invalid/--p-duplicate/--p-jitter/--p-drop   data quality faults for the preprocessing stage
 
 Timestamps: the WSL2 wall clock is periodically stepped by time synchronisation (seconds back and forth),
@@ -114,6 +115,8 @@ class Emulator:
         )
         self.outage = parse_pair(args.outage)
         self.runaway = parse_pair(args.runaway)
+        self.t0 = time.monotonic()
+        self.cooldown_t: float | None = None  # time of the emergencyCooldown command, s since start
         self.seq = Counter()
         self.stats = Counter()
         self.delayed: list = []  # jitter heap: (send_at, n, topic, payload, qos)
@@ -139,6 +142,7 @@ class Emulator:
             retain=True,
         )
         self.client.on_connect = self._on_connect
+        self.client.on_message = self._on_command
 
     def log(self, msg):
         if not self.args.quiet:
@@ -153,6 +157,21 @@ class Emulator:
                 qos=1,
                 retain=True,
             )
+            client.subscribe(f"factory/{self.pid}/commands", qos=1)
+
+    def _on_command(self, client, userdata, msg):
+        """Commands from the digital twin platform (lab 4): forwarded by ditto_adapter.py from Ditto messages."""
+        try:
+            cmd = json.loads(msg.payload)
+        except ValueError:
+            return
+        self.stats["commands"] += 1
+        reason = (cmd.get("args") or {}).get("reason", "")
+        if cmd.get("command") == "emergencyCooldown" and self.cooldown_t is None:
+            self.cooldown_t = time.monotonic() - self.t0
+            print(f"[EMULATOR {self.pid}] COMMAND emergencyCooldown ({reason}): heater power cut", flush=True)
+        else:
+            print(f"[EMULATOR {self.pid}] COMMAND {cmd.get('command')} ignored", flush=True)
 
     def now_iso(self, mono: float | None = None) -> str:
         if self.args.wall_clock:
@@ -304,6 +323,12 @@ class Emulator:
     def runaway_offset(self, t: float) -> float:
         if not self.runaway:
             return 0.0
+        if self.cooldown_t is not None and t >= self.cooldown_t:
+            # heater power cut: the overheating decays with a 3 s time constant, then regulation resumes
+            return self._runaway_ramp(self.cooldown_t) * math.exp(-(t - self.cooldown_t) / 3.0)
+        return self._runaway_ramp(t)
+
+    def _runaway_ramp(self, t: float) -> float:
         start, dur = self.runaway
         if t < start:
             return 0.0
@@ -315,7 +340,7 @@ class Emulator:
     def run(self):
         self.client.connect(self.args.host, self.args.port, keepalive=10)
         self.client.loop_start()
-        t0 = time.monotonic()
+        t0 = self.t0 = time.monotonic()
         next_t, step = t0, 0
         outage_started = outage_done = False
         try:

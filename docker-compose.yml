@@ -1,8 +1,43 @@
-# IoT channel (MQTT) + time-series storage (InfluxDB) + visualization (Grafana)
+# IoT channel (MQTT) + time-series storage (InfluxDB) + visualization (Grafana)   - labs 2-3
+# + digital twin platform Eclipse Ditto                                             - lab 4
 #   docker compose up -d
 #   InfluxDB UI:  http://localhost:8086  (admin / admin12345)
 #   Grafana:      http://localhost:3000  (anonymous access, or admin / admin)
+#   Ditto API:    http://localhost:8180/api/2  (ditto / ditto), Explorer UI: http://localhost:8180/
 name: dt_soft
+
+x-ditto-service: &ditto-service
+  restart: unless-stopped
+  networks:
+    default:
+      aliases:
+        - ditto-cluster
+  depends_on:
+    - ditto-mongodb
+  healthcheck:
+    test: curl --fail `hostname`:7626/alive || exit 1
+    interval: 30s
+    timeout: 15s
+    retries: 4
+    start_period: 120s
+  logging:
+    options:
+      max-size: 50m
+
+# entity-creation: only the owner (nginx:ditto) may create twins / policies, only in the namespace kpi.dt and only
+# with a Thing Model of our model registry - e.g. a merge (PATCH) of the adapter on a missing twin must not create it
+x-ditto-env: &ditto-env
+  TZ: Europe/Kyiv
+  BIND_HOSTNAME: 0.0.0.0
+  MONGO_DB_HOSTNAME: ditto-mongodb
+  JAVA_TOOL_OPTIONS: >-
+    -XX:ActiveProcessorCount=2 -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:+UseStringDeduplication
+    -Xss512k -XX:MaxRAMPercentage=50 -XX:+UseG1GC -XX:MaxGCPauseMillis=150 -Dpekko.coordinated-shutdown.exit-jvm=on
+    -Dpekko.cluster.shutdown-after-unsuccessful-join-seed-nodes=180s -Dpekko.cluster.failure-detector.threshold=15.0
+    -Dpekko.cluster.failure-detector.expected-response-after=10s
+    -Dpekko.cluster.failure-detector.acceptable-heartbeat-pause=20s -Dpekko.cluster.downing-provider-class=
+    -Dditto.entity-creation.grant.0.namespaces.0=kpi.dt -Dditto.entity-creation.grant.0.auth-subjects.0=nginx:ditto
+    -Dditto.entity-creation.grant.0.thing-definitions.0=http://wot-models/models/things/*
 
 services:
   mosquitto:
@@ -58,8 +93,84 @@ services:
       - ./infra/grafana/dashboards:/var/lib/grafana/dashboards:ro
       - grafana-data:/var/lib/grafana
 
+  # --- Eclipse Ditto (lab 4): same layout as ditto/deployment/docker of the Ditto release, without the
+  #     connectivity service (the integration with the pipeline is done by ditto_adapter.py)
+  ditto-mongodb:
+    image: mongo:7.0
+    restart: unless-stopped
+    command: mongod --storageEngine wiredTiger --noscripting
+    user: mongodb
+    volumes:
+      - ditto-mongo-data:/data/db
+    logging:
+      options:
+        max-size: 50m
+
+  policies:
+    <<: *ditto-service
+    image: eclipse/ditto-policies:${DITTO_VERSION:-3.9.7}
+    environment:
+      <<: *ditto-env
+
+  things:
+    <<: *ditto-service
+    image: eclipse/ditto-things:${DITTO_VERSION:-3.9.7}
+    environment:
+      <<: *ditto-env
+      # WoT Thing Models are served by ditto-nginx under the internal host name "wot-models";
+      # since 3.9.7 Ditto refuses to download models from private addresses unless the host is allow-listed
+      THINGS_WOT_THING_MODEL_HTTP_SECURITY_ALLOWED_HOSTNAMES: wot-models
+      THINGS_WOT_TO_THING_DESCRIPTION_BASE_PREFIX: http://localhost:${DITTO_PORT:-8180}
+      # + who changed a twin (adapter / monitor / user) is kept with every historical revision
+      JAVA_TOOL_OPTIONS: >-
+        -XX:ActiveProcessorCount=2 -XX:+ExitOnOutOfMemoryError -XX:+UseContainerSupport -XX:+UseStringDeduplication
+        -Xss512k -XX:MaxRAMPercentage=50 -XX:+UseG1GC -XX:MaxGCPauseMillis=150 -Dpekko.coordinated-shutdown.exit-jvm=on
+        -Dpekko.cluster.shutdown-after-unsuccessful-join-seed-nodes=180s -Dpekko.cluster.failure-detector.threshold=15.0
+        -Dpekko.cluster.failure-detector.expected-response-after=10s
+        -Dpekko.cluster.failure-detector.acceptable-heartbeat-pause=20s -Dpekko.cluster.downing-provider-class=
+        -Dditto.things.thing.event.historical-headers-to-persist.0=ditto-originator
+        -Dditto.things.thing.event.historical-headers-to-persist.1=correlation-id
+        -Dditto.entity-creation.grant.0.namespaces.0=kpi.dt -Dditto.entity-creation.grant.0.auth-subjects.0=nginx:ditto
+        -Dditto.entity-creation.grant.0.thing-definitions.0=http://wot-models/models/things/*
+
+  things-search:
+    <<: *ditto-service
+    image: eclipse/ditto-things-search:${DITTO_VERSION:-3.9.7}
+    environment:
+      <<: *ditto-env
+
+  gateway:
+    <<: *ditto-service
+    image: eclipse/ditto-gateway:${DITTO_VERSION:-3.9.7}
+    environment:
+      <<: *ditto-env
+      ENABLE_PRE_AUTHENTICATION: "true"   # users are authenticated by ditto-nginx (basic auth)
+
+  ditto-ui:
+    image: eclipse/ditto-ui:${DITTO_VERSION:-3.9.7}
+    restart: unless-stopped
+
+  ditto-nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - gateway
+      - ditto-ui
+    networks:
+      default:
+        aliases:
+          - wot-models
+    ports:
+      - "${DITTO_PORT:-8180}:80"
+    # directories, not single files: an edited file gets a new inode and a single-file bind mount keeps the old one
+    command: ["nginx", "-c", "/etc/nginx/ditto/nginx.conf", "-g", "daemon off;"]
+    volumes:
+      - ./infra/ditto:/etc/nginx/ditto:ro
+      - ./ditto/models:/usr/share/nginx/models:ro
+
 volumes:
   mosquitto-data:
   influxdb-data:
   influxdb-config:
   grafana-data:
+  ditto-mongo-data:

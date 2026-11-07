@@ -271,3 +271,86 @@ python query_history.py stats printer_02 --start 15m
 ```bash
 python query_history.py flux 'from(bucket: "digital_twin") |> range(start: -1m) |> filter(fn: (r) => r._measurement == "twin_events")'
 ```
+
+# Lab 4 — Eclipse Ditto
+
+## Запуск
+
+Ditto стартує разом з усім стеком (перший старт ≈ 1–2 хв):
+```bash
+docker compose up -d
+```
+
+Політика та граф двійників (ферма + printer_01..03, ідемпотентно):
+```bash
+python ditto_setup.py printer_01 printer_02 printer_03
+```
+
+Термінали:
+```bash
+python pipeline.py
+```
+```bash
+python ditto_adapter.py
+```
+```bash
+python ditto_monitor.py
+```
+```bash
+python emulator.py printer_01
+```
+
+Explorer UI (`ditto` / `ditto`): http://localhost:8180/ ; моделі: http://localhost:8180/models/things/hotend-1.0.0.tm.jsonld
+
+## Демонстрація на захисті
+
+| # | Дія | Що показати |
+|---|---|---|
+| 1 | Explorer UI, клік `kpi.dt:printer_01.hotend` → feature `heater` | значення оновлюються за надходження телеметрії (адаптер) |
+| 2 | `python ditto_query.py tree` | граф: ферма → принтери → 8 підсистем, зв'язки |
+| 3 | `python ditto_query.py search 'gt(features/heater/properties/temperature,212)' --fields features/heater/properties/temperature` | пошук за значенням властивості |
+| 4 | `python ditto_query.py relations kpi.dt:printer_01.psu`, `impact kpi.dt:printer_01.psu` | обхід зв'язків, аналіз впливу |
+| 5 | `python emulator.py printer_02 --runaway 15:60` | монітор: WARNING → CRITICAL → дія emergencyCooldown → емулятор охолоджується → NORMAL |
+| 6 | `python ditto_query.py td kpi.dt:printer_01.hotend --feature heater` | WoT Thing Description, згенерований з моделі |
+| 7 | `python ditto_query.py history kpi.dt:printer_02 --ago 2m --fields features/alarms` | стан двійника 2 хв тому і хто його змінив |
+
+## Модель і політика як контракт
+
+Неправильний тип → 400 `wot:payload.validation.error`:
+```bash
+curl -s -u ditto:ditto -X PATCH -H 'Content-Type: application/merge-patch+json' localhost:8180/api/2/things/kpi.dt:printer_01.hotend -d '{"features":{"heater":{"properties":{"temperature":"hot"}}}}'
+```
+
+Немодельований атрибут → 400:
+```bash
+curl -s -u ditto:ditto -X PATCH -H 'Content-Type: application/merge-patch+json' localhost:8180/api/2/things/kpi.dt:printer_01.hotend -d '{"attributes":{"color":"red"}}'
+```
+
+Адаптеру політика не дозволяє міняти атрибути → 403:
+```bash
+curl -s -u adapter:adapter -X PATCH -H 'Content-Type: application/merge-patch+json' localhost:8180/api/2/things/kpi.dt:printer_01.hotend -d '{"attributes":{"name":"x"}}'
+```
+
+Створити двійник без моделі не можна (entity-creation) → 403 `entity.notcreatable`:
+```bash
+curl -s -u ditto:ditto -X PUT -H 'Content-Type: application/json' localhost:8180/api/2/things/kpi.dt:test -d '{"policyId":"kpi.dt:twin-policy"}'
+```
+
+## Події без коду (SSE)
+
+```bash
+curl -N -u monitor:monitor -H 'Accept: text/event-stream' 'http://localhost:8180/api/2/things?namespaces=kpi.dt&fields=thingId,features/heater/properties/thermalState'
+```
+
+## Ditto ↔ Azure Digital Twins (термінологія)
+
+| Ditto | Azure Digital Twins (DTDL) |
+|---|---|
+| Thing | digital twin |
+| WoT Thing Model (`definition`) | Interface (DTMI) |
+| attributes / feature properties | Property |
+| feature (`tm:submodel`) | Component |
+| `attributes/relations` + search | Relationship + query `JOIN` / `MATCH` |
+| message to inbox (WoT action) | Command |
+| events (WS / SSE / connections) | event routes (Event Grid / Event Hubs / Service Bus) |
+| Policy | Azure RBAC |

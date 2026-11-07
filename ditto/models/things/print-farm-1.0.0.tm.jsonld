@@ -1,0 +1,38 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Print farm",
+  "description": "Root of the twin graph: a site with 3D printers.",
+  "version": {
+    "model": "1.0.0"
+  },
+  "links": [
+    {
+      "rel": "tm:extends",
+      "href": "http://wot-models/models/twin-node-1.0.0.tm.jsonld",
+      "type": "application/tm+json"
+    },
+    {
+      "rel": "tm:submodel",
+      "href": "http://wot-models/models/features/fleet-summary-1.0.0.tm.jsonld",
+      "type": "application/tm+json",
+      "instanceName": "summary"
+    }
+  ],
+  "properties": {
+    "site": {
+      "title": "Site",
+      "description": "Address / location of the farm.",
+      "type": "string"
+    }
+  }
+}

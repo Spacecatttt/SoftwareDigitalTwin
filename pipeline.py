@@ -22,6 +22,7 @@ from pathlib import Path
 import paho.mqtt.client as mqtt
 
 from twin import config
+from twin.logutil import SteadyTimeFilter
 from twin.processor import StreamProcessor
 from twin.state_store import Notification, QueueSubscriber
 from twin.web import DashboardServer, notification_json
@@ -77,18 +78,6 @@ def parse_args():
     )
     p.add_argument("--log-file", default="logs/pipeline.log")
     return p.parse_args()
-
-
-class SteadyTimeFilter(logging.Filter):
-    """Log timestamps from start offset + monotonic clock: the WSL2 wall clock is stepped back and forth
-    by time synchronisation, which would make the log go backwards in time."""
-
-    offset = time.time() - time.monotonic()
-
-    def filter(self, record):
-        record.created = self.offset + time.monotonic()
-        record.msecs = (record.created % 1) * 1000
-        return True
 
 
 def setup_logging(args):

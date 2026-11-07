@@ -1,0 +1,35 @@
+2026-11-03 20:37:13,258 [INFO] [MONITOR] subscribing as 'monitor': START-SEND-EVENTS?namespaces=kpi.dt&filter=or%28exists%28features/heater/properties/thermalState%29,exists%28features/connectivity/properties/status%29%29&extraFields=attributes/kind,attributes/relations,features/heater/properties/temperature
+2026-11-03 20:37:13,311 [INFO] [REACTION] kpi.dt:farm-01 summary: 3 printers, 3 online, 0 in alarm
+2026-11-03 20:37:17,226 [INFO] [WS] START-SEND-EVENTS -> START-SEND-EVENTS:ACK
+2026-11-03 20:37:19,469 [INFO] [EVENT] kpi.dt:printer_03.controller rev 163 status=ONLINE, messageRateHz=0.2 by nginx:adapter, delivered in 57 ms
+2026-11-03 20:37:19,473 [INFO] [EVENT] kpi.dt:printer_01.controller rev 341 status=ONLINE, messageRateHz=0.2 by nginx:adapter, delivered in 59 ms
+2026-11-03 20:37:19,489 [INFO] [EVENT] kpi.dt:printer_01.hotend rev 386 thermalState=UNKNOWN by nginx:adapter, delivered in 40 ms
+2026-11-03 20:37:19,494 [INFO] [EVENT] kpi.dt:printer_03.hotend rev 184 thermalState=UNKNOWN by nginx:adapter, delivered in 37 ms
+2026-11-03 20:37:19,514 [INFO] [EVENT] kpi.dt:printer_02.controller rev 341 status=ONLINE, messageRateHz=0.2 by nginx:adapter, delivered in 22 ms
+2026-11-03 20:37:19,519 [INFO] [EVENT] kpi.dt:printer_02.hotend rev 419 thermalState=UNKNOWN by nginx:adapter, delivered in 19 ms
+2026-11-03 20:37:20,422 [INFO] [EVENT] kpi.dt:printer_03.hotend rev 185 temperature=210.29, thermalState=NORMAL, quality=GOOD, measuredAt=2026-11-03T19:37:19.835Z by nginx:adapter, delivered in 14 ms
+2026-11-03 20:37:20,747 [INFO] [EVENT] kpi.dt:printer_01.hotend rev 387 temperature=210.84, thermalState=NORMAL, quality=GOOD, measuredAt=2026-11-03T19:37:19.846Z by nginx:adapter, delivered in 32 ms
+2026-11-03 20:37:20,747 [INFO] [EVENT] kpi.dt:printer_02.hotend rev 420 temperature=210.36, thermalState=NORMAL, quality=GOOD, measuredAt=2026-11-03T19:37:19.866Z by nginx:adapter, delivered in 31 ms
+2026-11-03 20:37:43,312 [INFO] [MONITOR] 9 events | delivery latency adapter -> Ditto -> monitor: mean 35, p95 59, max 59 ms
+2026-11-03 20:39:25,431 [INFO] [EVENT] kpi.dt:printer_02.hotend rev 572 temperature=221.84, temperatureRate=1.1, thermalState=WARNING, quality=GOOD, measuredAt=2026-11-03T19:39:24.866Z by nginx:adapter, delivered in 17 ms
+2026-11-03 20:39:25,470 [WARNING] [REACTION] alarm WARNING on kpi.dt:printer_02: Hotend temperature out of band: 221.8 C
+2026-11-03 20:39:27,030 [INFO] [REACTION] kpi.dt:farm-01 summary: 3 printers, 3 online, 1 in alarm
+2026-11-03 20:39:27,441 [INFO] [EVENT] kpi.dt:printer_02.hotend rev 576 temperature=227.07, temperatureRate=1.985, thermalState=CRITICAL, measuredAt=2026-11-03T19:39:26.866Z by nginx:adapter, delivered in 20 ms
+2026-11-03 20:39:27,441 [WARNING] [REACTION] kpi.dt:printer_02: CRITICAL 227.1 C -> action emergencyCooldown of kpi.dt:printer_02.hotend
+2026-11-03 20:39:27,503 [WARNING] [REACTION] alarm CRITICAL on kpi.dt:printer_02: Hotend overheating: 227.1 C
+2026-11-03 20:39:29,058 [INFO] [REACTION] kpi.dt:farm-01 summary: 3 printers, 3 online, 1 in alarm
+2026-11-03 20:39:30,438 [INFO] [EVENT] kpi.dt:printer_02.hotend rev 582 temperature=219.02, temperatureRate=1.67, thermalState=WARNING, quality=GOOD, measuredAt=2026-11-03T19:39:29.866Z by nginx:adapter, delivered in 18 ms
+2026-11-03 20:39:30,460 [WARNING] [REACTION] alarm WARNING on kpi.dt:printer_02: Hotend temperature out of band: 219.0 C
+2026-11-03 20:39:32,001 [INFO] [REACTION] kpi.dt:farm-01 summary: 3 printers, 3 online, 1 in alarm
+2026-11-03 20:39:35,560 [INFO] [EVENT] kpi.dt:printer_02.hotend rev 591 temperatureAvg30s=213.48, temperatureRate=-1.345, temperature=212.86, thermalState=NORMAL, quality=GOOD, measuredAt=2026-11-03T19:39:34.866Z by nginx:adapter, delivered in 14 ms
+2026-11-03 20:39:35,588 [INFO] [REACTION] alarm cleared on kpi.dt:printer_02: hotend back to NORMAL (212.9 C)
+2026-11-03 20:39:37,130 [INFO] [REACTION] kpi.dt:farm-01 summary: 3 printers, 3 online, 0 in alarm
+2026-11-03 20:39:43,314 [INFO] [MONITOR] 4 events | delivery latency adapter -> Ditto -> monitor: mean 17, p95 20, max 20 ms
+2026-11-03 20:41:09,468 [INFO] [EVENT] kpi.dt:printer_03.controller rev 385 status=OFFLINE, lastEventAt=2026-11-03T19:41:08.736Z, messageRateHz=23.8 by nginx:adapter, delivered in 22 ms
+2026-11-03 20:41:09,469 [INFO] [EVENT] kpi.dt:printer_01.controller rev 563 status=OFFLINE, lastEventAt=2026-11-03T19:41:08.746Z, messageRateHz=24.0 by nginx:adapter, delivered in 20 ms
+2026-11-03 20:41:09,481 [INFO] [EVENT] kpi.dt:printer_02.controller rev 563 status=OFFLINE, lastEventAt=2026-11-03T19:41:08.666Z by nginx:adapter, delivered in 14 ms
+2026-11-03 20:41:09,495 [WARNING] [REACTION] alarm WARNING on kpi.dt:printer_03: Printer OFFLINE
+2026-11-03 20:41:09,517 [WARNING] [REACTION] alarm WARNING on kpi.dt:printer_01: Printer OFFLINE
+2026-11-03 20:41:09,542 [WARNING] [REACTION] alarm WARNING on kpi.dt:printer_02: Printer OFFLINE
+2026-11-03 20:41:11,097 [INFO] [REACTION] kpi.dt:farm-01 summary: 3 printers, 0 online, 3 in alarm
+2026-11-03 20:41:13,315 [INFO] [MONITOR] 3 events | delivery latency adapter -> Ditto -> monitor: mean 19, p95 22, max 22 ms

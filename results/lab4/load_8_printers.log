@@ -1,0 +1,18 @@
+# Load test: 8 printers (73 twins), lab 3 pipeline -> ditto_adapter.py -> Ditto 3.9.7 -> ditto_monitor.py (all events)
+2026-11-03 20:26:49,047 [INFO] [ADAPTER] states 13.0/s | Ditto writes 36.6/s (1035 properties, 2462 unchanged skipped) | write ms mean 28.6 max 60.7 | pending 0 | rejected 0 errors 0
+2026-11-03 20:26:59,048 [INFO] [ADAPTER] states 22.0/s | Ditto writes 70.6/s (2018 properties, 5566 unchanged skipped) | write ms mean 24.0 max 63.0 | pending 0 | rejected 0 errors 0
+2026-11-03 20:27:09,049 [INFO] [ADAPTER] states 22.6/s | Ditto writes 81.0/s (2268 properties, 5648 unchanged skipped) | write ms mean 19.2 max 54.9 | pending 0 | rejected 0 errors 0
+2026-11-03 20:27:19,050 [INFO] [ADAPTER] states 23.2/s | Ditto writes 82.0/s (2233 properties, 5914 unchanged skipped) | write ms mean 18.4 max 50.6 | pending 0 | rejected 0 errors 0
+2026-11-03 20:27:29,050 [INFO] [ADAPTER] states 18.5/s | Ditto writes 77.4/s (2184 properties, 4402 unchanged skipped) | write ms mean 18.7 max 54.3 | pending 21 | rejected 0 errors 0
+2026-11-03 20:27:39,051 [INFO] [ADAPTER] states 21.4/s | Ditto writes 78.2/s (2106 properties, 5335 unchanged skipped) | write ms mean 17.9 max 53.8 | pending 5 | rejected 0 errors 0
+2026-11-03 20:27:49,052 [INFO] [ADAPTER] states 18.0/s | Ditto writes 55.8/s (1500 properties, 4878 unchanged skipped) | write ms mean 16.5 max 37.2 | pending 32 | rejected 0 errors 0
+2026-11-03 20:27:59,053 [INFO] [ADAPTER] states 7.2/s | Ditto writes 9.5/s (231 properties, 2537 unchanged skipped) | write ms mean 22.3 max 40.1 | pending 0 | rejected 0 errors 0
+2026-11-03 20:26:49,044 [INFO] [MONITOR] 350 events | delivery latency adapter -> Ditto -> monitor: mean 35, p95 56, max 114 ms
+2026-11-03 20:26:59,045 [INFO] [MONITOR] 766 events | delivery latency adapter -> Ditto -> monitor: mean 26, p95 45, max 63 ms
+2026-11-03 20:27:09,046 [INFO] [MONITOR] 805 events | delivery latency adapter -> Ditto -> monitor: mean 20, p95 27, max 55 ms
+2026-11-03 20:27:19,048 [INFO] [MONITOR] 765 events | delivery latency adapter -> Ditto -> monitor: mean 19, p95 34, max 51 ms
+2026-11-03 20:27:29,049 [INFO] [MONITOR] 774 events | delivery latency adapter -> Ditto -> monitor: mean 19, p95 33, max 55 ms
+2026-11-03 20:27:39,050 [INFO] [MONITOR] 782 events | delivery latency adapter -> Ditto -> monitor: mean 18, p95 33, max 53 ms
+2026-11-03 20:27:49,051 [INFO] [MONITOR] 558 events | delivery latency adapter -> Ditto -> monitor: mean 16, p95 28, max 35 ms
+2026-11-03 20:27:59,052 [INFO] [MONITOR] 95 events | delivery latency adapter -> Ditto -> monitor: mean 22, p95 35, max 39 ms
+2026-11-03 20:28:02,274 [INFO] [MONITOR] 24 events | delivery latency adapter -> Ditto -> monitor: mean 27, p95 40, max 40 ms

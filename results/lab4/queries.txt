@@ -1,0 +1,235 @@
+$ python ditto_query.py state kpi.dt:printer_01.hotend --fields 'thingId,attributes/relations,features/heater/properties'
+{
+  "thingId": "kpi.dt:printer_01.hotend",
+  "attributes": {
+    "relations": {
+      "isPartOf": "kpi.dt:printer_01",
+      "controlledBy": "kpi.dt:printer_01.controller",
+      "poweredBy": "kpi.dt:printer_01.psu",
+      "cooledBy": "kpi.dt:printer_01.fan",
+      "fedBy": "kpi.dt:printer_01.extruder"
+    }
+  },
+  "features": {
+    "heater": {
+      "properties": {
+        "thermalState": "NORMAL",
+        "targetTemperature": 210,
+        "quality": "FILTERED",
+        "temperature": 211.97,
+        "temperatureAvg30s": 209.93,
+        "measuredAt": "2026-11-03T19:41:08.846Z",
+        "temperatureRate": 0.2
+      }
+    }
+  }
+}
+
+$ python ditto_query.py search 'and(eq(attributes/kind,"Hotend"),gt(features/heater/properties/temperature,209))' --fields 'features/heater/properties/temperature,features/heater/properties/thermalState'
+thingId                   features/heater/properties/temperature  features/heater/properties/thermalState
+kpi.dt:printer_01.hotend  211.97                                  NORMAL                                 
+kpi.dt:printer_02.hotend  212.0                                   NORMAL                                 
+kpi.dt:printer_03.hotend  211.91                                  NORMAL                                 
+(3 twins)
+
+$ python ditto_query.py count 'eq(attributes/kind,"Printer")'
+3
+
+$ python ditto_query.py parts kpi.dt:printer_02
+kpi.dt:printer_02.axis-x           StepperAxis  current=1.223, loadState=NORMAL
+kpi.dt:printer_02.bed              HeatedBed    temperature=59.94
+kpi.dt:printer_02.controller       Controller   status=OFFLINE
+kpi.dt:printer_02.enclosure        Enclosure    temperature=40.75
+kpi.dt:printer_02.extruder         Extruder     feedRate=0.0
+kpi.dt:printer_02.fan              Fan          speedPercent=81.1
+kpi.dt:printer_02.hotend           Hotend       temperature=212.0, thermalState=NORMAL
+kpi.dt:printer_02.psu              PowerSupply  ratedPowerW=350
+(8 parts of kpi.dt:printer_02)
+
+$ python ditto_query.py relations kpi.dt:printer_01.psu
+kpi.dt:printer_01.psu (PowerSupply)
+  outgoing (attributes/relations of the twin):
+    --isPartOf--> kpi.dt:printer_01
+  incoming (search or(eq(attributes/relations/isPartOf,"kpi.dt:printer_01.psu")...):
+    kpi.dt:printer_01.axis-x (StepperAxis) --poweredBy-->
+    kpi.dt:printer_01.bed (HeatedBed) --poweredBy-->
+    kpi.dt:printer_01.controller (Controller) --poweredBy-->
+    kpi.dt:printer_01.extruder (Extruder) --poweredBy-->
+    kpi.dt:printer_01.fan (Fan) --poweredBy-->
+    kpi.dt:printer_01.hotend (Hotend) --poweredBy-->
+
+$ python ditto_query.py tree
+kpi.dt:farm-01  [PrintFarm]  printersOnline=0, printersInAlarm=3
+├── kpi.dt:printer_01  [Printer]  operatingMode=HIGH_SPEED, healthIndex=59.5, level=WARNING
+│   ├── kpi.dt:printer_01.axis-x  [StepperAxis]  current=1.175, loadState=NORMAL   (controlledBy->printer_01.controller, poweredBy->printer_01.psu)
+│   ├── kpi.dt:printer_01.bed  [HeatedBed]  temperature=60.91   (controlledBy->printer_01.controller, poweredBy->printer_01.psu)
+│   ├── kpi.dt:printer_01.controller  [Controller]  status=OFFLINE   (poweredBy->printer_01.psu)
+│   ├── kpi.dt:printer_01.enclosure  [Enclosure]  temperature=39.98
+│   ├── kpi.dt:printer_01.extruder  [Extruder]  feedRate=0.0   (controlledBy->printer_01.controller, poweredBy->printer_01.psu)
+│   ├── kpi.dt:printer_01.fan  [Fan]  speedPercent=80.1   (controlledBy->printer_01.controller, poweredBy->printer_01.psu)
+│   ├── kpi.dt:printer_01.hotend  [Hotend]  temperature=211.97, thermalState=NORMAL   (controlledBy->printer_01.controller, poweredBy->printer_01.psu, cooledBy->printer_01.fan, fedBy->printer_01.extruder)
+│   └── kpi.dt:printer_01.psu  [PowerSupply]  ratedPowerW=350
+├── kpi.dt:printer_02  [Printer]  operatingMode=HIGH_SPEED, healthIndex=59.5, level=WARNING
+│   ├── kpi.dt:printer_02.axis-x  [StepperAxis]  current=1.223, loadState=NORMAL   (controlledBy->printer_02.controller, poweredBy->printer_02.psu)
+│   ├── kpi.dt:printer_02.bed  [HeatedBed]  temperature=59.94   (controlledBy->printer_02.controller, poweredBy->printer_02.psu)
+│   ├── kpi.dt:printer_02.controller  [Controller]  status=OFFLINE   (poweredBy->printer_02.psu)
+│   ├── kpi.dt:printer_02.enclosure  [Enclosure]  temperature=40.75
+│   ├── kpi.dt:printer_02.extruder  [Extruder]  feedRate=0.0   (controlledBy->printer_02.controller, poweredBy->printer_02.psu)
+│   ├── kpi.dt:printer_02.fan  [Fan]  speedPercent=81.1   (controlledBy->printer_02.controller, poweredBy->printer_02.psu)
+│   ├── kpi.dt:printer_02.hotend  [Hotend]  temperature=212.0, thermalState=NORMAL   (controlledBy->printer_02.controller, poweredBy->printer_02.psu, cooledBy->printer_02.fan, fedBy->printer_02.extruder)
+│   └── kpi.dt:printer_02.psu  [PowerSupply]  ratedPowerW=350
+└── kpi.dt:printer_03  [Printer]  operatingMode=HIGH_SPEED, healthIndex=59.5, level=WARNING
+    ├── kpi.dt:printer_03.axis-x  [StepperAxis]  current=1.175, loadState=NORMAL   (controlledBy->printer_03.controller, poweredBy->printer_03.psu)
+    ├── kpi.dt:printer_03.bed  [HeatedBed]  temperature=60.5   (controlledBy->printer_03.controller, poweredBy->printer_03.psu)
+    ├── kpi.dt:printer_03.controller  [Controller]  status=OFFLINE   (poweredBy->printer_03.psu)
+    ├── kpi.dt:printer_03.enclosure  [Enclosure]  temperature=39.61
+    ├── kpi.dt:printer_03.extruder  [Extruder]  feedRate=0.0   (controlledBy->printer_03.controller, poweredBy->printer_03.psu)
+    ├── kpi.dt:printer_03.fan  [Fan]  speedPercent=80.5   (controlledBy->printer_03.controller, poweredBy->printer_03.psu)
+    ├── kpi.dt:printer_03.hotend  [Hotend]  temperature=211.91, thermalState=NORMAL   (controlledBy->printer_03.controller, poweredBy->printer_03.psu, cooledBy->printer_03.fan, fedBy->printer_03.extruder)
+    └── kpi.dt:printer_03.psu  [PowerSupply]  ratedPowerW=350
+(28 twins, 66 relations)
+
+$ python ditto_query.py impact kpi.dt:printer_01.psu
+failure of kpi.dt:printer_01.psu affects 8 twins:
+  kpi.dt:printer_01.axis-x           because kpi.dt:printer_01.axis-x --poweredBy--> kpi.dt:printer_01.psu
+  kpi.dt:printer_01.bed              because kpi.dt:printer_01.bed --poweredBy--> kpi.dt:printer_01.psu
+  kpi.dt:printer_01.controller       because kpi.dt:printer_01.controller --poweredBy--> kpi.dt:printer_01.psu
+  kpi.dt:printer_01.extruder         because kpi.dt:printer_01.extruder --poweredBy--> kpi.dt:printer_01.psu
+  kpi.dt:printer_01.fan              because kpi.dt:printer_01.fan --poweredBy--> kpi.dt:printer_01.psu
+  kpi.dt:printer_01.hotend           because kpi.dt:printer_01.hotend --poweredBy--> kpi.dt:printer_01.psu
+  kpi.dt:printer_01                  because kpi.dt:printer_01.psu is a part of kpi.dt:printer_01
+  kpi.dt:farm-01                     because kpi.dt:printer_01 is a part of kpi.dt:farm-01
+
+$ python ditto_query.py td kpi.dt:printer_01.hotend --feature heater
+Hotend heater  (urn:kpi.dt:printer_01.hotend/features/heater)
+  Heater of the hotend with the nozzle temperature sensor (1 Hz, Hampel-filtered by the pipeline).
+  base: http://localhost:8180/api/2/things/kpi.dt:printer_01.hotend/features/heater/
+  property temperature          number   [°C] read-only  properties/temperature
+  property temperatureAvg30s    number   [°C] read-only  properties/temperatureAvg30s
+  property temperatureRate      number   [°C/s] read-only  properties/temperatureRate
+  property thermalState         string   read-only  properties/thermalState
+  property targetTemperature    number   [°C] read/write  properties/targetTemperature
+  property quality              string   read-only  properties/quality
+  property measuredAt           string   read-only  properties/measuredAt
+  action   emergencyCooldown    object    inbox/messages/emergencyCooldown
+  link     collection           http://localhost:8180/api/2/things/kpi.dt:printer_01.hotend/
+  link     type                 http://wot-models/models/features/heater-1.0.0.tm.jsonld
+
+$ python ditto_query.py history kpi.dt:printer_02.hotend --revision 576 --fields features/heater/properties
+kpi.dt:printer_02.hotend at {'at-historical-revision': '576'}:
+  changed by: {"ditto-originator":"nginx:adapter","correlation-id":"adapter:126763713434610:6f3e6e","entity-revision":576}
+  features/heater/properties/thermalState                 CRITICAL
+  features/heater/properties/targetTemperature            210
+  features/heater/properties/quality                      GOOD
+  features/heater/properties/temperature                  227.07
+  features/heater/properties/temperatureAvg30s            211.31
+  features/heater/properties/measuredAt                   2026-11-03T19:39:26.866Z
+  features/heater/properties/temperatureRate              1.985
+
+$ python ditto_query.py history kpi.dt:printer_02 --revision 962 --fields 'features/alarms/properties,features/status/properties/healthIndex'
+kpi.dt:printer_02 at {'at-historical-revision': '962'}:
+  changed by: {"ditto-originator":"nginx:adapter","correlation-id":"adapter:126765762031331:eb3f03","entity-revision":962}
+  features/alarms/properties/active                       True
+  features/alarms/properties/level                        CRITICAL
+  features/alarms/properties/count                        5
+  features/alarms/properties/message                      Hotend overheating: 227.1 C
+  features/alarms/properties/source                       kpi.dt:printer_02.hotend
+  features/alarms/properties/raisedAt                     2026-11-03T19:39:15.154Z
+  features/status/properties/healthIndex                  53.4
+
+$ python ditto_query.py tree --mermaid
+graph TD
+  farm_01["farm-01<br/>PrintFarm"]
+  printer_01["printer_01<br/>Printer"]
+  printer_02["printer_02<br/>Printer"]
+  printer_03["printer_03<br/>Printer"]
+  printer_01_axis_x["printer_01.axis-x<br/>StepperAxis"]
+  printer_01_bed["printer_01.bed<br/>HeatedBed"]
+  printer_01_controller["printer_01.controller<br/>Controller"]
+  printer_01_enclosure["printer_01.enclosure<br/>Enclosure"]
+  printer_01_extruder["printer_01.extruder<br/>Extruder"]
+  printer_01_fan["printer_01.fan<br/>Fan"]
+  printer_01_hotend["printer_01.hotend<br/>Hotend"]
+  printer_01_psu["printer_01.psu<br/>PowerSupply"]
+  printer_02_axis_x["printer_02.axis-x<br/>StepperAxis"]
+  printer_02_bed["printer_02.bed<br/>HeatedBed"]
+  printer_02_controller["printer_02.controller<br/>Controller"]
+  printer_02_enclosure["printer_02.enclosure<br/>Enclosure"]
+  printer_02_extruder["printer_02.extruder<br/>Extruder"]
+  printer_02_fan["printer_02.fan<br/>Fan"]
+  printer_02_hotend["printer_02.hotend<br/>Hotend"]
+  printer_02_psu["printer_02.psu<br/>PowerSupply"]
+  printer_03_axis_x["printer_03.axis-x<br/>StepperAxis"]
+  printer_03_bed["printer_03.bed<br/>HeatedBed"]
+  printer_03_controller["printer_03.controller<br/>Controller"]
+  printer_03_enclosure["printer_03.enclosure<br/>Enclosure"]
+  printer_03_extruder["printer_03.extruder<br/>Extruder"]
+  printer_03_fan["printer_03.fan<br/>Fan"]
+  printer_03_hotend["printer_03.hotend<br/>Hotend"]
+  printer_03_psu["printer_03.psu<br/>PowerSupply"]
+  printer_01 -->|isPartOf| farm_01
+  printer_02 -->|isPartOf| farm_01
+  printer_03 -->|isPartOf| farm_01
+  printer_01_axis_x -->|isPartOf| printer_01
+  printer_01_axis_x -.->|controlledBy| printer_01_controller
+  printer_01_axis_x -.->|poweredBy| printer_01_psu
+  printer_01_bed -->|isPartOf| printer_01
+  printer_01_bed -.->|controlledBy| printer_01_controller
+  printer_01_bed -.->|poweredBy| printer_01_psu
+  printer_01_controller -->|isPartOf| printer_01
+  printer_01_controller -.->|poweredBy| printer_01_psu
+  printer_01_enclosure -->|isPartOf| printer_01
+  printer_01_extruder -->|isPartOf| printer_01
+  printer_01_extruder -.->|controlledBy| printer_01_controller
+  printer_01_extruder -.->|poweredBy| printer_01_psu
+  printer_01_fan -->|isPartOf| printer_01
+  printer_01_fan -.->|controlledBy| printer_01_controller
+  printer_01_fan -.->|poweredBy| printer_01_psu
+  printer_01_hotend -->|isPartOf| printer_01
+  printer_01_hotend -.->|controlledBy| printer_01_controller
+  printer_01_hotend -.->|poweredBy| printer_01_psu
+  printer_01_hotend -.->|cooledBy| printer_01_fan
+  printer_01_hotend -.->|fedBy| printer_01_extruder
+  printer_01_psu -->|isPartOf| printer_01
+  printer_02_axis_x -->|isPartOf| printer_02
+  printer_02_axis_x -.->|controlledBy| printer_02_controller
+  printer_02_axis_x -.->|poweredBy| printer_02_psu
+  printer_02_bed -->|isPartOf| printer_02
+  printer_02_bed -.->|controlledBy| printer_02_controller
+  printer_02_bed -.->|poweredBy| printer_02_psu
+  printer_02_controller -->|isPartOf| printer_02
+  printer_02_controller -.->|poweredBy| printer_02_psu
+  printer_02_enclosure -->|isPartOf| printer_02
+  printer_02_extruder -->|isPartOf| printer_02
+  printer_02_extruder -.->|controlledBy| printer_02_controller
+  printer_02_extruder -.->|poweredBy| printer_02_psu
+  printer_02_fan -->|isPartOf| printer_02
+  printer_02_fan -.->|controlledBy| printer_02_controller
+  printer_02_fan -.->|poweredBy| printer_02_psu
+  printer_02_hotend -->|isPartOf| printer_02
+  printer_02_hotend -.->|controlledBy| printer_02_controller
+  printer_02_hotend -.->|poweredBy| printer_02_psu
+  printer_02_hotend -.->|cooledBy| printer_02_fan
+  printer_02_hotend -.->|fedBy| printer_02_extruder
+  printer_02_psu -->|isPartOf| printer_02
+  printer_03_axis_x -->|isPartOf| printer_03
+  printer_03_axis_x -.->|controlledBy| printer_03_controller
+  printer_03_axis_x -.->|poweredBy| printer_03_psu
+  printer_03_bed -->|isPartOf| printer_03
+  printer_03_bed -.->|controlledBy| printer_03_controller
+  printer_03_bed -.->|poweredBy| printer_03_psu
+  printer_03_controller -->|isPartOf| printer_03
+  printer_03_controller -.->|poweredBy| printer_03_psu
+  printer_03_enclosure -->|isPartOf| printer_03
+  printer_03_extruder -->|isPartOf| printer_03
+  printer_03_extruder -.->|controlledBy| printer_03_controller
+  printer_03_extruder -.->|poweredBy| printer_03_psu
+  printer_03_fan -->|isPartOf| printer_03
+  printer_03_fan -.->|controlledBy| printer_03_controller
+  printer_03_fan -.->|poweredBy| printer_03_psu
+  printer_03_hotend -->|isPartOf| printer_03
+  printer_03_hotend -.->|controlledBy| printer_03_controller
+  printer_03_hotend -.->|poweredBy| printer_03_psu
+  printer_03_hotend -.->|cooledBy| printer_03_fan
+  printer_03_hotend -.->|fedBy| printer_03_extruder
+  printer_03_psu -->|isPartOf| printer_03

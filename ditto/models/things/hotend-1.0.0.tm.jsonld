@@ -1,0 +1,92 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Hotend",
+  "description": "Hotend: heater block, nozzle and temperature sensor.",
+  "version": {
+    "model": "1.0.0"
+  },
+  "links": [
+    {
+      "rel": "tm:extends",
+      "href": "http://wot-models/models/twin-node-1.0.0.tm.jsonld",
+      "type": "application/tm+json"
+    },
+    {
+      "rel": "tm:submodel",
+      "href": "http://wot-models/models/features/heater-1.0.0.tm.jsonld",
+      "type": "application/tm+json",
+      "instanceName": "heater"
+    }
+  ],
+  "properties": {
+    "nozzleDiameterMm": {
+      "title": "Nozzle diameter",
+      "type": "number",
+      "unit": "mm",
+      "minimum": 0
+    },
+    "maxTemperatureC": {
+      "title": "Max temperature",
+      "type": "number",
+      "unit": "°C",
+      "minimum": 0
+    },
+    "relations": {
+      "title": "Relations",
+      "description": "Outgoing edges of the twin graph (thingId of the target twin).",
+      "type": "object",
+      "properties": {
+        "isPartOf": {
+          "title": "isPartOf",
+          "description": "Composition: the twin is a part of the target twin.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/printer-1.0.0.tm.jsonld"
+        },
+        "controlledBy": {
+          "title": "controlledBy",
+          "description": "The subsystem is driven by the target controller.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/controller-1.0.0.tm.jsonld"
+        },
+        "poweredBy": {
+          "title": "poweredBy",
+          "description": "The subsystem is supplied by the target power supply.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/power-supply-1.0.0.tm.jsonld"
+        },
+        "cooledBy": {
+          "title": "cooledBy",
+          "description": "The hotend is cooled by the target fan.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/fan-1.0.0.tm.jsonld"
+        },
+        "fedBy": {
+          "title": "fedBy",
+          "description": "The hotend gets filament from the target extruder.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/extruder-1.0.0.tm.jsonld"
+        }
+      },
+      "required": [
+        "isPartOf",
+        "controlledBy",
+        "poweredBy"
+      ]
+    }
+  }
+}

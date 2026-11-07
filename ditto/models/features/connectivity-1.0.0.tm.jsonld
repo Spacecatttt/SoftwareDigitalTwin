@@ -1,0 +1,52 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Connectivity",
+  "description": "Link state of the device to the IoT channel (MQTT birth / LWT messages and the pipeline watchdog).",
+  "version": {
+    "model": "1.0.0"
+  },
+  "tm:optional": [
+    "/properties/lastEventAt",
+    "/properties/messageRateHz"
+  ],
+  "properties": {
+    "status": {
+      "title": "Status",
+      "description": "ONLINE / OFFLINE (LWT) / STALE (no telemetry for 3 s) / UNKNOWN.",
+      "type": "string",
+      "enum": [
+        "ONLINE",
+        "OFFLINE",
+        "STALE",
+        "UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "readOnly": true
+    },
+    "lastEventAt": {
+      "title": "Last event",
+      "description": "Event time of the latest applied measurement.",
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "messageRateHz": {
+      "title": "Message rate",
+      "description": "Telemetry messages per second, 5 s window.",
+      "type": "number",
+      "unit": "Hz",
+      "minimum": 0,
+      "readOnly": true
+    }
+  }
+}

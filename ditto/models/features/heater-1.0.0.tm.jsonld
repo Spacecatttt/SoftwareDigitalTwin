@@ -1,0 +1,118 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Hotend heater",
+  "description": "Heater of the hotend with the nozzle temperature sensor (1 Hz, Hampel-filtered by the pipeline).",
+  "version": {
+    "model": "1.0.0"
+  },
+  "tm:optional": [
+    "/properties/temperature",
+    "/properties/temperatureAvg30s",
+    "/properties/temperatureRate",
+    "/properties/measuredAt"
+  ],
+  "properties": {
+    "temperature": {
+      "title": "Nozzle temperature",
+      "description": "Filtered nozzle temperature.",
+      "type": "number",
+      "@type": "om2:CelsiusTemperature",
+      "unit": "°C",
+      "minimum": 0,
+      "maximum": 350,
+      "readOnly": true
+    },
+    "temperatureAvg30s": {
+      "title": "Average temperature, 30 s",
+      "description": "Moving average of the nozzle temperature over 30 s of event time.",
+      "type": "number",
+      "@type": "om2:CelsiusTemperature",
+      "unit": "°C",
+      "minimum": 0,
+      "maximum": 350,
+      "readOnly": true
+    },
+    "temperatureRate": {
+      "title": "Temperature rate",
+      "description": "Least-squares slope of the nozzle temperature over 10 s.",
+      "type": "number",
+      "unit": "°C/s",
+      "minimum": -50,
+      "maximum": 50,
+      "readOnly": true
+    },
+    "thermalState": {
+      "title": "Thermal state",
+      "description": "Deviation from the setpoint: NORMAL <= 5 C, WARNING <= 15 C, CRITICAL > 15 C (1 C hysteresis).",
+      "type": "string",
+      "enum": [
+        "NORMAL",
+        "WARNING",
+        "CRITICAL",
+        "UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "readOnly": true
+    },
+    "targetTemperature": {
+      "title": "Target temperature",
+      "description": "Setpoint of the temperature controller.",
+      "type": "number",
+      "@type": "om2:CelsiusTemperature",
+      "unit": "°C",
+      "minimum": 0,
+      "maximum": 300,
+      "default": 210.0,
+      "readOnly": false
+    },
+    "quality": {
+      "title": "Data quality",
+      "description": "Quality flag of the value from the pipeline: GOOD - as measured, FILTERED - an outlier was replaced by the last accepted value, STALE - no fresh data (connectivity lost), UNKNOWN - no data yet.",
+      "type": "string",
+      "enum": [
+        "GOOD",
+        "FILTERED",
+        "STALE",
+        "UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "readOnly": true
+    },
+    "measuredAt": {
+      "title": "Measured at",
+      "description": "Event time (device clock) of the measurement the value comes from.",
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    }
+  },
+  "actions": {
+    "emergencyCooldown": {
+      "title": "Emergency cooldown",
+      "description": "Cut the heater power until the nozzle temperature is back in the safe band, then resume regulation.",
+      "input": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      },
+      "synchronous": false
+    }
+  }
+}

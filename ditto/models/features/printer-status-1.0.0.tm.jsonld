@@ -1,0 +1,109 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Printer status",
+  "description": "Aggregated state of the printer twin computed by the stream processing pipeline (lab 3).",
+  "version": {
+    "model": "1.0.0"
+  },
+  "tm:optional": [
+    "/properties/healthIndex",
+    "/properties/dataQualityPct",
+    "/properties/anomalies60s",
+    "/properties/anomaliesTotal",
+    "/properties/printTimeS",
+    "/properties/stateVersion",
+    "/properties/syncReason",
+    "/properties/syncedAt"
+  ],
+  "properties": {
+    "operatingMode": {
+      "title": "Operating mode",
+      "description": "IDLE (< 2 mm/s) / PRINTING / HIGH_SPEED (> 90 mm/s) by the 0.5 s mean feed rate.",
+      "type": "string",
+      "enum": [
+        "IDLE",
+        "PRINTING",
+        "HIGH_SPEED",
+        "UNKNOWN"
+      ],
+      "default": "UNKNOWN",
+      "readOnly": true
+    },
+    "healthIndex": {
+      "title": "Health index",
+      "description": "100 minus thermal, motor, anomaly, data-quality and connectivity penalties.",
+      "type": "number",
+      "unit": "%",
+      "minimum": 0,
+      "maximum": 100,
+      "readOnly": true
+    },
+    "dataQualityPct": {
+      "title": "Data quality",
+      "description": "Share of good samples during the last 60 s.",
+      "type": "number",
+      "unit": "%",
+      "minimum": 0,
+      "maximum": 100,
+      "readOnly": true
+    },
+    "anomalies60s": {
+      "title": "Anomalies, 60 s",
+      "description": "Outliers detected by the Hampel filter during the last 60 s.",
+      "type": "integer",
+      "minimum": 0,
+      "readOnly": true
+    },
+    "anomaliesTotal": {
+      "title": "Anomalies total",
+      "description": "Outliers detected since the start of the pipeline.",
+      "type": "integer",
+      "minimum": 0,
+      "readOnly": true
+    },
+    "printTimeS": {
+      "title": "Print time",
+      "description": "Time spent in PRINTING / HIGH_SPEED modes.",
+      "type": "number",
+      "unit": "s",
+      "minimum": 0,
+      "readOnly": true
+    },
+    "stateVersion": {
+      "title": "Pipeline state version",
+      "description": "Version of the committed twin state in the pipeline.",
+      "type": "integer",
+      "minimum": 0,
+      "readOnly": true
+    },
+    "syncReason": {
+      "title": "Sync reason",
+      "description": "Synchronisation rule of the pipeline that produced the state.",
+      "type": "string",
+      "enum": [
+        "PERIODIC",
+        "EVENT",
+        "THRESHOLD"
+      ],
+      "default": "PERIODIC",
+      "readOnly": true
+    },
+    "syncedAt": {
+      "title": "Synced at",
+      "description": "Commit time of the state in the pipeline.",
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    }
+  }
+}

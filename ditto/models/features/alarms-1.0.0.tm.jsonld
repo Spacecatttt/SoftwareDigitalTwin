@@ -1,0 +1,66 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel"
+  ],
+  "title": "Alarms",
+  "description": "Alarm state of the printer maintained by the event monitor (reaction to twin events).",
+  "version": {
+    "model": "1.0.0"
+  },
+  "tm:optional": [
+    "/properties/message",
+    "/properties/source",
+    "/properties/raisedAt"
+  ],
+  "properties": {
+    "active": {
+      "title": "Active",
+      "description": "An alarm is active.",
+      "type": "boolean",
+      "default": false
+    },
+    "level": {
+      "title": "Level",
+      "description": "Highest active alarm level.",
+      "type": "string",
+      "enum": [
+        "NONE",
+        "WARNING",
+        "CRITICAL"
+      ],
+      "default": "NONE"
+    },
+    "message": {
+      "title": "Message",
+      "description": "Description of the latest alarm.",
+      "type": "string"
+    },
+    "source": {
+      "title": "Source",
+      "description": "thingId of the twin that caused the alarm.",
+      "type": "string",
+      "pattern": "^kpi\\.dt:.+$"
+    },
+    "raisedAt": {
+      "title": "Raised at",
+      "description": "Time the latest alarm was raised.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "count": {
+      "title": "Count",
+      "description": "Alarms raised since the twin was created.",
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    }
+  }
+}

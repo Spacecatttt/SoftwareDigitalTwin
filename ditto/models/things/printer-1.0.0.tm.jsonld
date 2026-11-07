@@ -1,0 +1,91 @@
+{
+  "@context": [
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+      "saref": "https://w3id.org/saref#",
+      "dt": "http://wot-models/models/vocab#"
+    }
+  ],
+  "@type": [
+    "tm:ThingModel",
+    "saref:Device"
+  ],
+  "title": "FDM 3D printer",
+  "description": "3D printer as a whole; its subsystems are separate twins linked by relations.",
+  "version": {
+    "model": "1.0.0"
+  },
+  "links": [
+    {
+      "rel": "tm:extends",
+      "href": "http://wot-models/models/twin-node-1.0.0.tm.jsonld",
+      "type": "application/tm+json"
+    },
+    {
+      "rel": "tm:submodel",
+      "href": "http://wot-models/models/features/printer-status-1.0.0.tm.jsonld",
+      "type": "application/tm+json",
+      "instanceName": "status"
+    },
+    {
+      "rel": "tm:submodel",
+      "href": "http://wot-models/models/features/alarms-1.0.0.tm.jsonld",
+      "type": "application/tm+json",
+      "instanceName": "alarms"
+    }
+  ],
+  "properties": {
+    "model": {
+      "title": "Model",
+      "description": "Printer model.",
+      "type": "string"
+    },
+    "serialNumber": {
+      "title": "Serial number",
+      "description": "Serial number.",
+      "type": "string"
+    },
+    "nozzleSetpointC": {
+      "title": "Nozzle setpoint",
+      "type": "number",
+      "unit": "°C",
+      "minimum": 0,
+      "maximum": 300
+    },
+    "filament": {
+      "title": "Filament",
+      "type": "object",
+      "properties": {
+        "material": {
+          "type": "string"
+        },
+        "diameterMm": {
+          "type": "number",
+          "unit": "mm"
+        },
+        "densityGcm3": {
+          "type": "number",
+          "unit": "g/cm3"
+        }
+      }
+    },
+    "relations": {
+      "title": "Relations",
+      "description": "Outgoing edges of the twin graph (thingId of the target twin).",
+      "type": "object",
+      "properties": {
+        "isPartOf": {
+          "title": "isPartOf",
+          "description": "Composition: the twin is a part of the target twin.",
+          "type": "string",
+          "pattern": "^kpi\\.dt:.+$",
+          "dt:target": "http://wot-models/models/things/print-farm-1.0.0.tm.jsonld"
+        }
+      },
+      "required": [
+        "isPartOf"
+      ]
+    }
+  }
+}
