@@ -1,6 +1,6 @@
 """Builds tables and figures for the report from results/<run>/ and from the time-series storage.
 
-  python experiments/analyze.py      ->  results/tables.md, results/analysis.json, report/figures/*.png
+  python experiments/analyze.py      ->  results/tables.md, results/analysis.json, report/lab3/figures/*.png
 """
 import csv
 import json
@@ -21,7 +21,7 @@ from twin.config import METRICS, SYNC  # noqa: E402
 from twin.history import History  # noqa: E402
 
 RESULTS = ROOT / "results"
-FIG = ROOT / "report" / "figures"
+FIG = ROOT / "report" / "lab3" / "figures"
 
 # reference palette (light mode): categorical slots 1-3, ordinal blue ramp, ink and chrome
 C1, C2, C3 = "#2a78d6", "#eb6834", "#1baf7a"

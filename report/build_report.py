@@ -1,5 +1,6 @@
-"""Builds the DOCX report from the Markdown source:  python report/build_report.py"""
+"""Builds a DOCX report from its Markdown source:  python report/build_report.py report/lab4/Звіт_ЛР4.md"""
 import subprocess
+import sys
 from pathlib import Path
 
 import pypandoc
@@ -9,8 +10,8 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Pt, RGBColor
 
 HERE = Path(__file__).resolve().parent
-SRC = HERE / "Звіт_ЛР3.md"
-OUT = HERE / "Звіт_ЛР3.docx"
+SRC = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else HERE / "lab4" / "Звіт_ЛР4.md"
+OUT = SRC.with_suffix(".docx")
 REF = HERE / "reference.docx"
 
 
@@ -104,6 +105,6 @@ def postprocess():
 if __name__ == "__main__":
     build_reference()
     pypandoc.convert_file(str(SRC), "docx", outputfile=str(OUT),
-                          extra_args=[f"--reference-doc={REF}", f"--resource-path={HERE}"])
+                          extra_args=[f"--reference-doc={REF}", f"--resource-path={SRC.parent}"])
     postprocess()
     print("->", OUT)

@@ -4,3 +4,8 @@ __pycache__/
 logs/
 lab2/telemetry.log
 ~$*.docx
+
+# reports: generated documents and their Markdown sources are not versioned
+report/**/*.docx
+report/**/*.md
+report/**/*.pdf

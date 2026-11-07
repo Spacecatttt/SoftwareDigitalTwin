@@ -113,6 +113,16 @@ class HampelTest(unittest.TestCase):
         flags = [f.update(80.0)[1] for _ in range(4)]
         self.assertEqual(flags, [True, True, False, False])
 
+    def test_spike_during_level_shift_does_not_pass(self):
+        """Regression (found in lab 4, thermal runaway): ramp +2 C/s, the third confirming sample is a +35 C
+        spike; the accepted level must be the ramp, not the spike."""
+        f = HampelFilter(HampelSpec(window=7, k=3.5, min_sigma=0.7))
+        for v in [210.0, 210.3, 209.8, 210.1, 210.2, 209.9, 210.0]:
+            f.update(v)
+        out = [f.update(v) for v in [214.0, 216.0, 218.0 + 35.0]]
+        self.assertEqual([o[1] for o in out], [True, True, False])
+        self.assertAlmostEqual(out[2][0], 216.0)
+
 
 class IndicatorTest(unittest.TestCase):
     def test_thermal_state_hysteresis(self):

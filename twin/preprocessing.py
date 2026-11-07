@@ -13,7 +13,7 @@ class HampelFilter:
     last `window` accepted samples. An outlier is replaced by the last accepted value (not by the window
     median: on a trend the median lags behind and produced false alarms). If `persistence` consecutive
     outliers deviate to the same side, the signal changed its level (not a spike): the window is reset
-    to the recent raw samples and the current value is accepted.
+    to the recent raw samples and their median is accepted as the new level.
     """
 
     def __init__(self, spec: HampelSpec):
@@ -45,11 +45,14 @@ class HampelFilter:
         self._side = side
         self._pending.append(x)
         if len(self._pending) >= self.spec.persistence:
+            # level shift, not an outlier; the new level is the median of the confirming samples, so a spike
+            # that coincides with a real shift (e.g. +35 C during a thermal runaway) does not slip through
+            level = _median(sorted(self._pending))
             w.clear()
             w.extend(self._pending)
             self._pending.clear()
-            self.last = x
-            return x, False, med       # level shift, not an outlier
+            self.last = level
+            return level, False, med
         return self.last, True, med
 
 
