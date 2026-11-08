@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>3D Data Flow</title>
+<style>
+  body { margin: 0; background: #fcfcfb; font-family: "Segoe UI", system-ui, sans-serif; }
+  svg { display: block; }
+  .t { font-size: 15px; font-weight: 650; fill: #0b0b0b; }
+  .s { font-size: 13px; fill: #52514e; }
+  .lbl { font-size: 13px; fill: #52514e; }
+  .h { font-size: 13px; font-weight: 700; fill: #898781; letter-spacing: .04em; }
+</style>
+</head>
+<body>
+<!-- data flow from the telemetry source to the 3D scene (lab 5), sized for an A4 page -->
+<svg width="1000" height="800" viewBox="0 0 1000 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2a78d6"/></marker>
+  </defs>
+  <rect width="1000" height="800" fill="#fcfcfb"/>
+
+  <!-- server side -->
+  <text class="h" x="20" y="28">СЕРВЕРНА ЧАСТИНА (роботи 2–4)</text>
+  <rect x="20" y="40" width="200" height="86" rx="8" fill="#f0efec" stroke="#c3c2b7"/>
+  <text class="t" x="34" y="66">Емулятор принтера</text>
+  <text class="s" x="34" y="88">10 / 1 Гц, JSON у MQTT</text>
+  <text class="s" x="34" y="106">factory/{id}/telemetry/…</text>
+
+  <rect x="270" y="40" width="210" height="86" rx="8" fill="#eaf2fc" stroke="#2a78d6"/>
+  <text class="t" x="284" y="66">Конвеєр pipeline.py</text>
+  <text class="s" x="284" y="88">обробка, модель стану,</text>
+  <text class="s" x="284" y="106">правила синхронізації</text>
+
+  <rect x="530" y="40" width="200" height="86" rx="8" fill="#e6f6f0" stroke="#1baf7a"/>
+  <text class="t" x="544" y="66">Адаптер</text>
+  <text class="s" x="544" y="88">ditto_adapter.py: лише зміни,</text>
+  <text class="s" x="544" y="106">≤ 4 записи/с на двійник</text>
+
+  <rect x="780" y="40" width="200" height="86" rx="8" fill="#fdefe8" stroke="#eb6834"/>
+  <text class="t" x="794" y="66">Eclipse Ditto</text>
+  <text class="s" x="794" y="88">граф двійників,</text>
+  <text class="s" x="794" y="106">події змін (робота 4)</text>
+
+  <rect x="270" y="170" width="210" height="62" rx="8" fill="#f0efec" stroke="#c3c2b7"/>
+  <text class="t" x="284" y="196">InfluxDB</text>
+  <text class="s" x="284" y="216">історія (робота 3)</text>
+
+  <line x1="220" y1="83" x2="266" y2="83" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+  <text class="lbl" x="223" y="75">MQTT</text>
+  <line x1="480" y1="83" x2="526" y2="83" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+  <text class="lbl" x="483" y="75">MQTT</text>
+  <line x1="730" y1="83" x2="776" y2="83" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+  <text class="lbl" x="733" y="75">PATCH</text>
+  <line x1="375" y1="126" x2="375" y2="166" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+
+  <!-- backend for frontend -->
+  <rect x="270" y="300" width="710" height="120" rx="8" fill="#eaf2fc" stroke="#2a78d6"/>
+  <text class="t" x="286" y="326">viz_server.py — бекенд 3D-застосунку (backend-for-frontend, порт 8060)</text>
+  <text class="s" x="286" y="350">• одна підписка WebSocket до Ditto від імені viewer (лише READ), розсилка всім браузерам</text>
+  <text class="s" x="286" y="370">• /api/stream (SSE): «snapshot» усіх двійників, далі «twin» — кожна зміна (JSON merge patch)</text>
+  <text class="s" x="286" y="390">• /api/history/series, /api/history/events — Flux-запити до InfluxDB; /3d/ — статика застосунку</text>
+  <text class="s" x="286" y="410">• облікові дані Ditto лишаються на сервері, браузер до Ditto напряму не звертається</text>
+  <line x1="880" y1="126" x2="880" y2="296" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+  <text class="lbl" x="870" y="216" text-anchor="end">WebSocket (viewer)</text>
+  <text class="lbl" x="870" y="234" text-anchor="end">START-SEND-EVENTS</text>
+  <line x1="375" y1="232" x2="375" y2="296" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+  <text class="lbl" x="383" y="270">Flux</text>
+
+  <!-- browser -->
+  <text class="h" x="20" y="470">БРАУЗЕР (web/3d, Three.js r170, WebGL)</text>
+  <rect x="20" y="482" width="960" height="300" rx="10" fill="none" stroke="#898781" stroke-dasharray="3 4"/>
+  <line x1="620" y1="420" x2="620" y2="496" stroke="#2a78d6" stroke-width="1.7" marker-end="url(#b)"/>
+  <text class="lbl" x="628" y="460" fill="#2a78d6">EventSource (SSE)</text>
+  <line x1="340" y1="420" x2="340" y2="676" stroke="#2a78d6" stroke-width="1.7" marker-end="url(#b)"/>
+  <text class="lbl" x="348" y="460" fill="#2a78d6">fetch (історія)</text>
+
+  <rect x="520" y="500" width="200" height="80" rx="8" fill="#fcfcfb" stroke="#c3c2b7"/>
+  <text class="t" x="534" y="524">TwinStore (twins.js)</text>
+  <text class="s" x="534" y="546">копія двійників, злиття</text>
+  <text class="s" x="534" y="564">змін, слухачі</text>
+  <rect x="760" y="500" width="200" height="80" rx="8" fill="#fcfcfb" stroke="#c3c2b7"/>
+  <text class="t" x="774" y="524">Правила (status.js)</text>
+  <text class="s" x="774" y="546">дані двійника → рівень:</text>
+  <text class="s" x="774" y="564">норма / попер. / аварія / ?</text>
+  <line x1="720" y1="540" x2="756" y2="540" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+
+  <rect x="40" y="680" width="300" height="86" rx="8" fill="#fcfcfb" stroke="#c3c2b7"/>
+  <text class="t" x="54" y="704">Панель (dashboard.js)</text>
+  <text class="s" x="54" y="726">показники, графіки uPlot з InfluxDB</text>
+  <text class="s" x="54" y="744">+ живі точки, журнал подій</text>
+  <rect x="370" y="680" width="300" height="86" rx="8" fill="#fcfcfb" stroke="#c3c2b7"/>
+  <text class="t" x="384" y="704">3D-сцена (scene.js)</text>
+  <text class="s" x="384" y="726">glTF принтера × N, LOD, кольори,</text>
+  <text class="s" x="384" y="744">анімації, вибір, фокус, WebXR</text>
+  <rect x="700" y="680" width="260" height="86" rx="8" fill="#fcfcfb" stroke="#c3c2b7"/>
+  <text class="t" x="714" y="704">Сповіщення (audio.js)</text>
+  <text class="s" x="714" y="726">звук Web Audio, голос,</text>
+  <text class="s" x="714" y="744">вібрація, рамка тривоги</text>
+
+  <line x1="860" y1="580" x2="860" y2="610" stroke="#52514e" stroke-width="1.7"/>
+  <line x1="190" y1="610" x2="860" y2="610" stroke="#52514e" stroke-width="1.7"/>
+  <line x1="190" y1="610" x2="190" y2="676" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+  <line x1="520" y1="610" x2="520" y2="676" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+  <line x1="830" y1="610" x2="830" y2="676" stroke="#52514e" stroke-width="1.7" marker-end="url(#a)"/>
+  <text class="lbl" x="530" y="634">main.js: рівні елементів, переходи рівнів</text>
+</svg>
+</body>
+</html>

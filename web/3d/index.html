@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D-двійник принтерів</title>
+<link rel="stylesheet" href="vendor/uplot/uPlot.min.css">
+<link rel="stylesheet" href="css/app.css">
+<script type="importmap">
+{ "imports": {
+    "three": "./vendor/three/three.module.js",
+    "three/addons/": "./vendor/three/addons/",
+    "uplot": "./vendor/uplot/uPlot.esm.js"
+} }
+</script>
+</head>
+<body>
+<header>
+  <h1>Цифровий двійник ферми 3D-принтерів</h1>
+  <nav id="printers" aria-label="Принтери"></nav>
+  <div class="tools">
+    <button id="btn-mode" title="Кольори за станом / реалістичні матеріали">Режим: стан</button>
+    <button id="btn-sound" title="Звукові та голосові сповіщення">🔇 Звук вимкнено</button>
+    <button id="btn-ack" hidden>Підтвердити тривогу</button>
+    <button id="btn-reset" title="Повернути камеру">Огляд</button>
+    <span id="link" class="link">з'єднання…</span>
+  </div>
+</header>
+<main>
+  <section id="scene-wrap">
+    <canvas id="scene"></canvas>
+    <div id="labels"></div>
+    <div id="popup" hidden></div>
+    <div id="hud"></div>
+    <div id="hint">ЛКМ — обертання, колесо — масштаб, ПКМ — зсув · клік — показники елемента · подвійний клік — фокус</div>
+    <div id="vr-slot"></div>
+  </section>
+  <aside id="panel">
+    <section>
+      <h2 id="panel-title">Принтер</h2>
+      <div id="tiles" class="tiles"></div>
+    </section>
+    <section>
+      <div class="row">
+        <h2>Часові ряди (InfluxDB)</h2>
+        <div id="periods" class="seg"></div>
+      </div>
+      <div id="charts"></div>
+    </section>
+    <section>
+      <h2>Події</h2>
+      <ol id="events" class="events"></ol>
+    </section>
+  </aside>
+</main>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

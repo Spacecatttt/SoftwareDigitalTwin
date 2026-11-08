@@ -354,3 +354,45 @@ curl -N -u monitor:monitor -H 'Accept: text/event-stream' 'http://localhost:8180
 | message to inbox (WoT action) | Command |
 | events (WS / SSE / connections) | event routes (Event Grid / Event Hubs / Service Bus) |
 | Policy | Azure RBAC |
+
+# Lab 5 — 3D-візуалізація (Three.js)
+
+## Запуск (кожна команда в окремому терміналі)
+
+```bash
+python pipeline.py
+```
+```bash
+python ditto_adapter.py
+```
+```bash
+python ditto_monitor.py
+```
+```bash
+python viz_server.py
+```
+```bash
+python emulator.py printer_01
+```
+
+3D-застосунок: http://localhost:8060/3d/ (одразу натисніть «Звук», щоб увімкнути сповіщення)
+
+## Демонстрація на захисті
+
+| # | Дія | Що показати |
+|---|---|---|
+| 1 | відкрити сцену, обертати / масштабувати | 3 принтери, мітки стану, анімації: каретка рухається під час друку, вентилятор крутиться, LED блимає на кожне оновлення |
+| 2 | клік по хотенду | спливна панель: стан, усі властивості й зв'язки двійника kpi.dt:printer_0N.hotend |
+| 3 | подвійний клік по хотенду | фокус, камера супроводжує каретку |
+| 4 | «Режим: матеріали» | реалістичні матеріали; сопло світиться залежно від температури |
+| 5 | `python emulator.py printer_02 --runaway 15:60` | хотенд і рама: норма → попередження (бурштиновий) → аварія (червоний, пульсація), звук + голос; монітор надсилає охолодження → норма |
+| 6 | Ctrl+C на емуляторі printer_03 (або закрити термінал) | printer_03 сірий: «дані застарілі», контролер — аварія |
+| 7 | панель праворуч | показники, графіки з InfluxDB (5 хв … 6 год) з живими точками, журнал подій |
+| 8 | HUD угорі праворуч | кадрів/с, час кадру, виклики малювання, оновлень/с, затримка доставки |
+| 9 | http://localhost:8060/3d/?bench=1 | тест продуктивності: 3 → 48 принтерів, 0 → 5000 оновлень/с, LOD |
+
+## Перебудова 3D-моделі в Blender
+
+```bash
+"/mnt/c/Program Files/Blender Foundation/Blender 4.5/blender.exe" --background --factory-startup --python "$(wslpath -w web/3d/model/build_printer.py)" -- "$(wslpath -w web/3d/models)\\printer.glb"
+```

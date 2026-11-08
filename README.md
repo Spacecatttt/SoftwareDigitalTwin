@@ -34,7 +34,8 @@ emulator.py ──MQTT──▶ Mosquitto ──▶ pipeline.py ──▶ ста
 | `ditto/models/` | **робота 4**: моделі двійників — WoT Thing Models (`things/` — типи двійників, `features/` — їхні складові) |
 | `twin/ditto_graph.py`, `twin/ditto_mapping.py`, `twin/ditto_client.py` | граф двійників і політика доступу; відповідність стану конвеєра властивостям двійників; клієнт HTTP / WebSocket API Ditto |
 | `ditto_setup.py`, `ditto_adapter.py`, `ditto_monitor.py`, `ditto_query.py` | створення графа; адаптер конвеєр ↔ Ditto; реакція на події; запити до графа |
-| `tests/` | модульні тести етапів конвеєра та інтеграції з Ditto |
+| `web/3d/`, `viz_server.py` | **робота 5**: 3D-візуалізація (Three.js): модель `models/printer.glb` (скрипт Blender `model/build_printer.py`), модулі `js/`, бібліотеки `vendor/`; бекенд застосунку |
+| `tests/` | модульні тести етапів конвеєра, інтеграції з Ditto та бекенду 3D |
 | `report/` | звіти (`Звіт_ЛР3.docx`, `lab4/Звіт_ЛР4.md` → `build_report.py` → `.docx`), рисунки |
 | `results/` | сирі результати вимірювань: метрики щосекунди, підсумки, вибірки затримок, профіль |
 
@@ -192,6 +193,54 @@ Ditto запускається тим самим `docker compose up -d` (пер�
 Інші: `state`, `count`, `parts`, `relations`, `td` (WoT Thing Description), `history` (стан на момент часу), див. `ditto_query.py -h`.
 
 Ditto не дозволяє створити двійник нікому, крім `ditto`, поза простором імен `kpi.dt` та без моделі з `http://wot-models/models/things/` (`entity-creation` у `docker-compose.yml`). Адаптер оновлює лише наявні двійники (`If-Match: *`).
+
+## Робота 5. 3D-візуалізація стану (Three.js / WebGL)
+
+```
+Ditto ──WebSocket (viewer, READ)──▶ viz_server.py ──SSE──▶ браузер: TwinStore → правила стану → 3D-сцена, панель, звук
+InfluxDB ──Flux──────────────────▶ viz_server.py ──HTTP──▶ графіки часових рядів
+```
+
+Окрім конвеєра, адаптера й емуляторів (робота 4), потрібен бекенд 3D-застосунку:
+
+```bash
+.venv/bin/python viz_server.py
+```
+
+Відкрити http://localhost:8060/3d/. Монітор подій (`ditto_monitor.py`) вмикає реакцію на аварію: тривога на рамі принтера та команда охолодження.
+
+| Дія | Як |
+|---|---|
+| обертання / масштаб / зсув | ліва кнопка / колесо / права кнопка миші |
+| показники елемента | клік по елементу (спливна панель), Esc — закрити |
+| фокус на елементі | подвійний клік або F; камера супроводжує рухому каретку |
+| режим кольорів | «Режим: стан» (кольори за рівнем) / «Режим: матеріали» (реалістичні, світіння сопла) |
+| звук і голос | «Звук» (браузер дозволяє звук лише після дії користувача); «Підтвердити тривогу» зупиняє повтор сирени |
+| VR | кнопка WebXR унизу (активна лише з гарнітурою) |
+
+Параметри URL: `?printer=printer_02` — обраний принтер, `?lod=0` / `?shadows=0` — без LOD / тіней, `?bench=1` — тест продуктивності на синтетичних оновленнях.
+
+Аварійна ситуація для демонстрації:
+
+```bash
+.venv/bin/python emulator.py printer_02 --runaway 15:60
+```
+
+Перебудувати 3D-модель (Blender 4.x):
+
+```bash
+blender --background --factory-startup --python web/3d/model/build_printer.py -- web/3d/models/printer.glb
+```
+
+Тест продуктивності (Chrome через DevTools) і графік:
+
+```bash
+.venv/bin/python experiments/viz_bench.py run
+```
+
+```bash
+.venv/bin/python experiments/viz_bench.py plot
+```
 
 ## Примітка про годинник WSL2
 

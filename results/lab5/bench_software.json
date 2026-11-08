@@ -1,0 +1,111 @@
+{
+ "sw_lod": {
+  "done": true,
+  "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "lod": true,
+  "results": [
+   {
+    "printers": 3,
+    "rate": 0,
+    "fps": 5.591514453262839,
+    "frameP95": 264,
+    "cpuMean": 1.5735294117647058,
+    "cpuP95": 3,
+    "updatesPerSec": 0,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 3,
+    "rate": 1000,
+    "fps": 3.8105795544456638,
+    "frameP95": 402.09999990463257,
+    "cpuMean": 3.4260869751805845,
+    "cpuP95": 6.900000095367432,
+    "updatesPerSec": 384.20419617188287,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 12,
+    "rate": 100,
+    "fps": 3.1242406359048234,
+    "frameP95": 630.7999999523163,
+    "cpuMean": 4.342105238061202,
+    "cpuP95": 10.200000047683716,
+    "updatesPerSec": 31.389393689079796,
+    "calls": 221,
+    "triangles": 17378
+   },
+   {
+    "printers": 48,
+    "rate": 100,
+    "fps": 2.25393137643992,
+    "frameP95": 577.7000000476837,
+    "cpuMean": 6.785714268684387,
+    "cpuP95": 10.5,
+    "updatesPerSec": 22.41793434747798,
+    "calls": 364,
+    "triangles": 27566
+   }
+  ]
+ },
+ "sw_nolod": {
+  "done": true,
+  "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "lod": false,
+  "results": [
+   {
+    "printers": 12,
+    "rate": 100,
+    "fps": 2.4101778367723767,
+    "frameP95": 658.6000001430511,
+    "cpuMean": 6.233333349227905,
+    "cpuP95": 14.200000047683716,
+    "updatesPerSec": 24.569622119595607,
+    "calls": 228,
+    "triangles": 18030
+   },
+   {
+    "printers": 48,
+    "rate": 100,
+    "fps": 1.4401958666502257,
+    "frameP95": 1073.5999999046326,
+    "cpuMean": 13.788888851801554,
+    "cpuP95": 30.199999809265137,
+    "updatesPerSec": 14.58198314970836,
+    "calls": 681,
+    "triangles": 54198
+   }
+  ]
+ },
+ "sw_noshadow": {
+  "done": true,
+  "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "lod": true,
+  "results": [
+   {
+    "printers": 3,
+    "rate": 0,
+    "fps": 6.50774078662167,
+    "frameP95": 259.90000009536743,
+    "cpuMean": 1.3410256520295754,
+    "cpuP95": 2.799999952316284,
+    "updatesPerSec": 0,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 3,
+    "rate": 1000,
+    "fps": 6.30162650089415,
+    "frameP95": 282.59999990463257,
+    "cpuMean": 1.628947377204895,
+    "cpuP95": 3.700000047683716,
+    "updatesPerSec": 634.3588801946895,
+    "calls": 59,
+    "triangles": 4538
+   }
+  ]
+ }
+}

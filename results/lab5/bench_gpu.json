@@ -1,0 +1,159 @@
+{
+ "lod": {
+  "done": true,
+  "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4060 Laptop GPU (0x000028A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "lod": true,
+  "results": [
+   {
+    "printers": 3,
+    "rate": 0,
+    "fps": 179.7985189167301,
+    "frameP95": 6.400000095367432,
+    "cpuMean": 0.8935125066352398,
+    "cpuP95": 1.7000000476837158,
+    "updatesPerSec": 0,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 3,
+    "rate": 10,
+    "fps": 179.5098513495472,
+    "frameP95": 6.799999952316284,
+    "cpuMean": 1.1452181992313877,
+    "cpuP95": 2.1000001430511475,
+    "updatesPerSec": 10.000166669285539,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 3,
+    "rate": 100,
+    "fps": 179.65270480336613,
+    "frameP95": 6.900000095367432,
+    "cpuMean": 1.4820037120348448,
+    "cpuP95": 2.6000001430511475,
+    "updatesPerSec": 100.01500224795265,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 3,
+    "rate": 1000,
+    "fps": 179.7985189167301,
+    "frameP95": 6.400000095367432,
+    "cpuMean": 1.0462465237643124,
+    "cpuP95": 1.8000001907348633,
+    "updatesPerSec": 1000.0166641908803,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 3,
+    "rate": 5000,
+    "fps": 178.30906904876664,
+    "frameP95": 7,
+    "cpuMean": 1.4066417170418435,
+    "cpuP95": 2.6000001430511475,
+    "updatesPerSec": 5000.166822287993,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 12,
+    "rate": 100,
+    "fps": 173.1442869057548,
+    "frameP95": 8.299999952316284,
+    "cpuMean": 4.153897977999705,
+    "cpuP95": 6.8999998569488525,
+    "updatesPerSec": 99.99166736105325,
+    "calls": 224,
+    "triangles": 17758
+   },
+   {
+    "printers": 48,
+    "rate": 100,
+    "fps": 163.14138919878616,
+    "frameP95": 10,
+    "cpuMean": 4.838917267821783,
+    "cpuP95": 9.099999904632568,
+    "updatesPerSec": 99.98666844102938,
+    "calls": 364,
+    "triangles": 27566
+   },
+   {
+    "printers": 48,
+    "rate": 1000,
+    "fps": 153.7435384358846,
+    "frameP95": 11.400000095367432,
+    "cpuMean": 5.130769233662284,
+    "cpuP95": 9.600000143051147,
+    "updatesPerSec": 999.8167613558578,
+    "calls": 364,
+    "triangles": 27566
+   }
+  ]
+ },
+ "nolod": {
+  "done": true,
+  "gpu": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4060 Laptop GPU (0x000028A0) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "lod": false,
+  "results": [
+   {
+    "printers": 3,
+    "rate": 100,
+    "fps": 178.80971443679505,
+    "frameP95": 7.099999904632568,
+    "cpuMean": 1.3206896581943082,
+    "cpuP95": 2.700000047683716,
+    "updatesPerSec": 99.99833336270005,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 3,
+    "rate": 5000,
+    "fps": 179.16777985002446,
+    "frameP95": 6.5,
+    "cpuMean": 0.8760707615918065,
+    "cpuP95": 1.7000000476837158,
+    "updatesPerSec": 4999.91659020769,
+    "calls": 59,
+    "triangles": 4538
+   },
+   {
+    "printers": 12,
+    "rate": 100,
+    "fps": 170.20992557758444,
+    "frameP95": 9.099999904632568,
+    "cpuMean": 3.7872673855705896,
+    "cpuP95": 7.300000190734863,
+    "updatesPerSec": 100.03167669921137,
+    "calls": 229,
+    "triangles": 18134
+   },
+   {
+    "printers": 48,
+    "rate": 100,
+    "fps": 119.78045810281628,
+    "frameP95": 15.799999952316284,
+    "cpuMean": 7.899304588912094,
+    "cpuP95": 15.099999904632568,
+    "updatesPerSec": 99.97000899809505,
+    "calls": 681,
+    "triangles": 54198
+   },
+   {
+    "printers": 48,
+    "rate": 1000,
+    "fps": 88.40848054038744,
+    "frameP95": 19,
+    "cpuMean": 10.215065915705795,
+    "cpuP95": 17.199999809265137,
+    "updatesPerSec": 1000.0166641511491,
+    "calls": 681,
+    "triangles": 54198
+   }
+  ]
+ }
+}
