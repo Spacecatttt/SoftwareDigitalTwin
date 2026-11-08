@@ -29,6 +29,9 @@ class HampelSpec:
     k: float             # threshold in robust sigmas
     min_sigma: float     # floor for sigma (signal is quantised, MAD may be 0)
     persistence: int = 3 # N consecutive one-sided outliers => level shift, accept
+    # ceiling for sigma: during a fast real change the window holds a trend, MAD grows and a spike would pass;
+    # the noise of the sensor cannot be that large (real level shifts are accepted by the persistence rule)
+    max_sigma: float | None = None
 
 
 @dataclass(frozen=True)
@@ -50,18 +53,18 @@ class MetricSpec:
 METRICS: dict[str, MetricSpec] = {m.name: m for m in [
     # window of 7 samples: the median of a longer window lags behind slow trends (false outliers)
     MetricSpec("nozzle_temperature", "Celsius", "nozzle_temp_01", 1.0, 0.0, 350.0, 0.75,
-               HampelSpec(window=7, k=3.5, min_sigma=0.7)),
+               HampelSpec(window=7, k=3.5, min_sigma=0.7, max_sigma=2.0)),
     MetricSpec("bed_temperature", "Celsius", "bed_temp_01", 1.0, 0.0, 150.0, 1.5,
-               HampelSpec(window=7, k=3.5, min_sigma=0.7)),
+               HampelSpec(window=7, k=3.5, min_sigma=0.7, max_sigma=2.0)),
     MetricSpec("chamber_temperature", "Celsius", "chamber_temp_01", 1.0, -20.0, 100.0, 1.5,
-               HampelSpec(window=7, k=3.5, min_sigma=0.7)),
+               HampelSpec(window=7, k=3.5, min_sigma=0.7, max_sigma=2.0)),
     MetricSpec("fan_speed_percent", "%", "fan_speed_01", 1.0, 0.0, 100.0, 1.5,
-               HampelSpec(window=7, k=3.5, min_sigma=0.7)),
+               HampelSpec(window=7, k=3.5, min_sigma=0.7, max_sigma=2.0)),
     # Feed rate is a commanded signal with legitimate step changes: range validation only
     MetricSpec("extruder_feed_rate", "mm/s", "feed_rate_01", 10.0, 0.0, 300.0, 3.0, None,
                max_locf_s=1.0, max_interp_s=2.0),
     MetricSpec("stepper_current_x", "A", "current_x_01", 10.0, 0.0, 3.0, 0.05,
-               HampelSpec(window=15, k=4.0, min_sigma=0.02), max_locf_s=1.0, max_interp_s=2.0),
+               HampelSpec(window=15, k=4.0, min_sigma=0.02, max_sigma=0.08), max_locf_s=1.0, max_interp_s=2.0),
 ]}
 
 

@@ -164,8 +164,12 @@ class DittoWebSocket(threading.Thread):
                 self._ws = ws
                 for sub in self.subscriptions:
                     ws.send(sub)
-                    ack = ws.recv()
-                    log.info("[WS] %s -> %s", sub.split("?")[0], ack)
+                    while True:      # events of an earlier subscription may arrive before this ACK
+                        raw = ws.recv()
+                        if raw.endswith(":ACK"):
+                            break
+                        self.on_message(json.loads(raw))
+                    log.info("[WS] %s -> %s", sub.split("?")[0], raw)
                 self.connected.set()
                 backoff = 1.0
                 ws.settimeout(None)

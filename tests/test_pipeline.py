@@ -124,6 +124,26 @@ class HampelTest(unittest.TestCase):
         self.assertAlmostEqual(out[2][0], 216.0)
 
 
+    def test_spike_during_fast_cooling_does_not_pass(self):
+        """Regression (found in lab 5): thermal runaway, emergency cooldown (exponential, tau 3 s), +35 C spikes
+        every 5 s. While the temperature falls fast the window holds a trend, MAD and the threshold grow, and a spike
+        was accepted (NORMAL -> CRITICAL at 246 C for 1 s). max_sigma bounds the threshold."""
+        from twin.config import METRICS
+        import random
+        for seed in range(40):
+            rng, f, cool_t = random.Random(seed), HampelFilter(METRICS["nozzle_temperature"].hampel), None
+            ramp = lambda t: 0 if t < 10 else 2 * (t - 10)
+            for step in range(10, 900, 10):                      # 1 Hz samples of the 10 Hz emulator loop
+                t = step / 10
+                off = ramp(t) if cool_t is None or t < cool_t else ramp(cool_t) * math.exp(-(t - cool_t) / 3)
+                x = 210 + 2 * math.sin(step / 50) + rng.gauss(0, 0.25) + off + (35 if step % 50 == 0 else 0)
+                v, _, _ = f.update(x)
+                if cool_t is None and v - 210 > 15:
+                    cool_t = t + 1.0                             # reaction of the monitor + command delivery
+                self.assertLess(v, 240, f"seed {seed}, t {t}: spike accepted")
+            self.assertIsNotNone(cool_t, "the runaway must still reach CRITICAL")
+
+
 class IndicatorTest(unittest.TestCase):
     def test_thermal_state_hysteresis(self):
         from twin.model import DeviceModel

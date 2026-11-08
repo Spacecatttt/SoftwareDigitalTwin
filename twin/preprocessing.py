@@ -33,6 +33,8 @@ class HampelFilter:
         s = sorted(w)
         med = _median(s)
         sigma = max(1.4826 * _median(sorted(abs(v - med) for v in s)), self.spec.min_sigma)
+        if self.spec.max_sigma is not None:
+            sigma = min(sigma, self.spec.max_sigma)
         dev = x - med
         if abs(dev) <= self.spec.k * sigma:
             self._pending.clear()

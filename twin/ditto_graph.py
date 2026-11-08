@@ -99,7 +99,7 @@ def printer_graph(printer_id: str, index: int = 1) -> list[tuple[str, dict]]:
 def policy() -> dict:
     """One policy for all twins. Least privilege: the adapter may write only the features (not the attributes /
     relations, not the alarms maintained by the monitor); the monitor may write only alarms and the farm summary and
-    invoke the emergencyCooldown action."""
+    invoke the emergencyCooldown action; the 3D viewer may only read."""
     def res(grant=(), revoke=()):
         return {"grant": list(grant), "revoke": list(revoke)}
     return {"entries": {
@@ -121,6 +121,10 @@ def policy() -> dict:
                           "thing:/features/alarms": res(["WRITE"]),
                           "thing:/features/summary": res(["WRITE"]),
                           "message:/features/heater/inbox/messages/emergencyCooldown": res(["WRITE"])},
+        },
+        "viewer": {
+            "subjects": {"nginx:viewer": {"type": "3D viewer backend (viz_server.py), read-only"}},
+            "resources": {"thing:/": res(["READ"])},
         },
     }}
 
